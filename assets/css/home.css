@@ -1,0 +1,379 @@
+.fs-15 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* Show only 3 lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .category-list {
+        margin: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .category-title {
+        padding: 10px 15px;
+        cursor: pointer;
+        background-color: #ff8776;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .category-title:hover {
+        background-color: black;
+    }
+
+    /* Gallery container for proper alignment */
+    .gallery {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        padding: 0 15px;
+        margin: 20px 0;
+    }
+
+    /* Image Styling */
+    .image-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+        height: 200px;
+        /* Set a consistent height for the image items */
+    }
+
+    .image-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure images are properly scaled */
+        transition: transform 0.3s;
+    }
+
+    .image-item:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        position: relative;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: 480px !important;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff0000;
+        color: #fff;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    /* Animations */
+    @keyframes zoomIn {
+        from {
+            transform: scale(0.7);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+        .image-item {
+            height: 180px;
+            /* Adjust height for smaller screens */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .image-item {
+            height: 150px;
+            /* Further adjust height for smaller screens */
+        }
+    }
+    .iconic-image {
+        height: 0;
+        padding-bottom: 75% !important;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* search  css */
+    /* Adjusting padding and margins for mobile */
+    @media (max-width: 767px) {
+        .search-wrapper {
+            flex-direction: column;
+            padding: 1rem;
+        }
+        .search-input {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    /* Adjusting for tablet screens */
+    @media (min-width: 768px) and (max-width: 991px) {
+        .search-wrapper {
+            flex-direction: row;
+        }
+
+        .vertical-divider {
+            height: auto;
+            width: 1px;
+            background-color: #ccc;
+        }
+    }
+    .lightbox-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .lightbox-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .lightbox-img {
+        max-width: 90%;
+        max-height: 80%;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        margin: 0 10px;
+    }
+
+    .close-lightbox {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .gallery-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .filter-buttons {
+        margin-bottom: 20px;
+    }
+
+    .filter-btn {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        background-color: #ff6f61;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .filter-btn.active {
+        background-color: #ff944d;
+    }
+
+    .gallery-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .gallery-item {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        border-radius: 25px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .gallery-item {
+            width: calc(50% - 15px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .gallery-item {
+            width: 100%;
+        }
+    }
+
+    .image-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .image-popup.active {
+        display: flex;
+    }
+
+    .popup-img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .nav-arrow.prev {
+        left: 20px;
+    }
+
+    .nav-arrow.next {
+        right: 20px;
+    }
+
+    .close-popup {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .p1 {
+        background-color: #ff8776;
+        color: white;
+        border-radius: 20px;
+        padding: 7px;
+        margin-bottom: 15px;
+        margin-top: 40%;
+    }
+
+    @media (max-width: 768px) {
+        .p1 {
+            background-color: #ff8776;
+            color: white;
+            border-radius: 20px;
+            padding: 7px;
+            margin-bottom: 15px;
+            margin-top: 170%;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: calc(0.300rem + 1.5vw) !important;
+        }
+    }
+.card {
+    display: flex;
+    flex-direction: column;
+}
+.card-img-wrap {
+    flex: 0 0 auto;
+}
+.card-content {
+    flex: 0.4 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* Ensure the images are consistently sized */
+.image-container {
+    width: 100%; /* Ensure the container matches the card width */
+    aspect-ratio: 1 / 1; /* Maintain a 1:1 ratio for width and height */
+    overflow: hidden; /* Prevent overflow of images outside the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f5f5; /* Optional: Background color to fill empty space */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crop the image to fit the container */
+    display: block;
+}

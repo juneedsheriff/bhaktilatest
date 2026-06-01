@@ -1,0 +1,292 @@
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(../includes/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(): Failed opening '../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(../lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:40:04 UTC] PHP Warning:  include_once(): Failed opening '../lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:40:04 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:8
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 8
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(./includes/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(): Failed opening './includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(./lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:42:08 UTC] PHP Warning:  include_once(): Failed opening './lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:42:08 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:8
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 8
+[15-Nov-2025 21:43:59 UTC] PHP Warning:  include_once(./app/class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:43:59 UTC] PHP Warning:  include_once(): Failed opening './app/class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 4
+[15-Nov-2025 21:43:59 UTC] PHP Warning:  include_once(./app/lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:43:59 UTC] PHP Warning:  include_once(): Failed opening './app/lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 6
+[15-Nov-2025 21:43:59 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:8
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 8
+[15-Nov-2025 21:44:53 UTC] PHP Warning:  include_once(./app/class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 8
+[15-Nov-2025 21:44:53 UTC] PHP Warning:  include_once(): Failed opening './app/class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 8
+[15-Nov-2025 21:44:53 UTC] PHP Warning:  include_once(./app/lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 10
+[15-Nov-2025 21:44:53 UTC] PHP Warning:  include_once(): Failed opening './app/lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 10
+[15-Nov-2025 21:44:53 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:12
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 12
+[16-Nov-2025 03:15:31 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 03:15:31 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 15
+[16-Nov-2025 03:15:31 Asia/Kolkata] PHP Warning:  Undefined array key "login_input" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 84
+[16-Nov-2025 03:15:31 Asia/Kolkata] PHP Deprecated:  trim(): Passing null to parameter #1 ($string) of type string is deprecated in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 84
+[16-Nov-2025 03:16:12 Asia/Kolkata] PHP Warning:  Undefined array key "login_input" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 80
+[16-Nov-2025 03:18:01 Asia/Kolkata] PHP Warning:  Undefined array key "username" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 26
+[16-Nov-2025 06:33:56 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:33:56 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:33:56 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:34:16 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:34:16 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:34:16 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:43:09 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:09 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:09 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:43:11 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:11 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:11 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:43:18 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:18 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:18 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:43:57 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:57 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:43:57 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 06:44:12 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:44:12 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 06:44:12 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 08:31:14 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 08:31:14 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 08:31:14 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 08:31:19 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 08:31:19 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 4
+[16-Nov-2025 08:31:19 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:5
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5
+[16-Nov-2025 08:32:19 UTC] PHP Warning:  include_once(../class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 7
+[16-Nov-2025 08:32:19 UTC] PHP Warning:  include_once(): Failed opening '../class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 7
+[16-Nov-2025 08:32:19 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:8
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 8
+[16-Nov-2025 14:03:54 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:03:54 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:04:27 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:04:28 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:04:28 Asia/Kolkata] PHP Warning:  Undefined variable $db in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 118
+[16-Nov-2025 14:04:28 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:118
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php(118): mysqli_query(NULL, 'SELECT * FROM u...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 118
+[16-Nov-2025 14:04:41 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:04:41 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:04:41 Asia/Kolkata] PHP Warning:  Undefined variable $db in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 53
+[16-Nov-2025 14:04:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:53
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 53
+[16-Nov-2025 14:05:23 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:05:23 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:05:23 Asia/Kolkata] PHP Warning:  Undefined variable $db in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 53
+[16-Nov-2025 14:05:23 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:53
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 53
+[16-Nov-2025 14:06:24 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:06:24 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:06:24 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Column 'action_date' specified twice in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:53
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php(53): mysqli->prepare('INSERT INTO use...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 53
+[16-Nov-2025 14:09:14 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:09:14 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 14:09:14 Asia/Kolkata] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php:54
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php(54): mysqli_stmt->bind_param('iss', 1, '2025-11-20', 'ssssss', '2025-11-16 14:0...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 54
+[16-Nov-2025 14:10:51 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 14:10:51 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/journal_action.php on line 15
+[16-Nov-2025 17:25:53 Asia/Kolkata] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/goal_action.php on line 16
+[16-Nov-2025 18:30:21 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:47:47 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:47:47 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:50:17 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:50:17 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'id' in 'order clause' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php:222
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php(222): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 222
+[16-Nov-2025 18:50:17 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:51:10 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 18:51:10 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 19:00:25 Asia/Kolkata] PHP Warning:  Undefined array key "topic_title" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 33
+[16-Nov-2025 19:00:25 Asia/Kolkata] PHP Warning:  Undefined array key "topic_content" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 34
+[16-Nov-2025 19:10:03 Asia/Kolkata] PHP Warning:  Undefined array key "topic_title" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 33
+[16-Nov-2025 19:10:03 Asia/Kolkata] PHP Warning:  Undefined array key "topic_content" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/forum-api.php on line 34
+[02-Dec-2025 20:17:27 UTC] PHP Parse error:  Unclosed '{' on line 25 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 215
+[03-Dec-2025 02:04:01 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'title ASC' at line 4 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php:168
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php(168): mysqli_query(Object(mysqli), '\n    SELECT * F...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 168
+[02-Dec-2025 20:34:21 UTC] PHP Parse error:  syntax error, unexpected identifier "ERRORS" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 5
+[02-Dec-2025 20:48:12 UTC] PHP Parse error:  syntax error, unexpected identifier "ERRORS" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 5
+[03-Dec-2025 02:18:34 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[03-Dec-2025 02:18:36 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/mantras_api.php on line 2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:39:09 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'sarvesh' for key 'username' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:57
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(57): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 57
+[04-Dec-2025 00:39:19 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'sarvesh' for key 'username' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:57
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(57): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 57
+[04-Dec-2025 00:41:11 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'sarvesh' for key 'username' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:57
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(57): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 57
+[04-Dec-2025 00:42:57 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:42:57 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:42:57 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'sarvesh' for key 'username' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:60
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(60): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 60
+[04-Dec-2025 00:45:01 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:45:02 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:45:02 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:53
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(53): mysqli->prepare('\n        INSERT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 53
+[04-Dec-2025 00:45:37 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:45:37 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:45:37 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:53
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(53): mysqli->prepare('\n        INSERT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 53
+[04-Dec-2025 00:45:50 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:45:50 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:45:50 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Column count doesn't match value count at row 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:53
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(53): mysqli->prepare('\n        INSERT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 53
+[04-Dec-2025 00:46:11 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:46:11 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:46:11 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Column count doesn't match value count at row 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:53
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(53): mysqli->prepare('\n        INSERT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 53
+[04-Dec-2025 00:46:40 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:46:40 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:46:40 Asia/Kolkata] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:58
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(58): mysqli_stmt->bind_param('sssss', 'test@mail.com', '$2y$10$yMrNEHM7...', 'sarvesh', 'verma')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 58
+[04-Dec-2025 00:47:33 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:47:33 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:48:53 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:88
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(88): mysqli->prepare('\n        SELECT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 88
+[04-Dec-2025 00:48:57 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:88
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(88): mysqli->prepare('\n        SELECT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 88
+[04-Dec-2025 00:49:06 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:88
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(88): mysqli->prepare('\n        SELECT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 88
+[04-Dec-2025 00:49:20 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:49:20 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:49:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'username' in 'field list' in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:88
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(88): mysqli->prepare('\n        SELECT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 88
+[04-Dec-2025 00:50:47 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:50:47 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:50:47 Asia/Kolkata] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:94
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(94): mysqli_stmt->bind_param('ss', 'sample@email.co...', 'sample@email.co...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 94
+[04-Dec-2025 00:51:51 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:51:51 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[04-Dec-2025 00:51:51 Asia/Kolkata] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php:94
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php(94): mysqli_stmt->bind_param('s', 'sample@email.co...', 'sample@email.co...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 94
+[04-Dec-2025 00:52:32 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 5) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Dec-2025 00:52:32 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php:2) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/module/register.php on line 14
+[16-Feb-2026 15:33:31 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:33:32 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:33:34 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:33:36 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:33:57 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:34:13 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:12 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:13 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:14 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:14 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:15 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:15 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:16 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:16 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:16 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:42 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:45 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:48 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:50:52 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 15:52:10 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/mantras_api.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 19:20:08 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/journal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 19:20:08 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/goal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:37 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/goal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:37 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/journal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:51 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/journal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:51 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/module/goal_action.php on line 5) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2

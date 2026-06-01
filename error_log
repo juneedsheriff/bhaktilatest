@@ -1,0 +1,467 @@
+[09-Sep-2025 01:33:25 Asia/Kolkata] PHP Warning:  Undefined array key "comment" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/ajax.php on line 9
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(class/XssClean.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 2
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(): Failed opening 'class/XssClean.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 2
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 3
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(): Failed opening 'class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 3
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 4
+[09-Sep-2025 20:03:29 UTC] PHP Warning:  include_once(): Failed opening 'lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 4
+[09-Sep-2025 20:03:29 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php:6
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 6
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(class/XssClean.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 2
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(): Failed opening 'class/XssClean.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 2
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 3
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(): Failed opening 'class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 3
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 4
+[09-Sep-2025 20:06:53 UTC] PHP Warning:  include_once(): Failed opening 'lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 4
+[09-Sep-2025 20:06:53 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php:6
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 6
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(class/XssClean.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 5
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(): Failed opening 'class/XssClean.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 5
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 6
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(): Failed opening 'class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 6
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 7
+[09-Sep-2025 20:12:24 UTC] PHP Warning:  include_once(): Failed opening 'lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 7
+[09-Sep-2025 20:12:24 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php:9
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/donation_ajax.php on line 9
+[11-Sep-2025 15:43:46 Asia/Kolkata] PHP Warning:  Undefined array key "comment" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/ajax.php on line 9
+[24-Sep-2025 02:31:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php:133
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php(133): mysqli_query(Object(mysqli), 'SELECT COUNT(*)...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php on line 133
+[14-Oct-2025 02:29:49 Asia/Kolkata] PHP Warning:  Undefined array key "comment" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/ajax.php on line 9
+[15-Nov-2025 13:42:33 Asia/Kolkata] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/correction_submit.php on line 17
+[16-Nov-2025 06:39:39 UTC] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php on line 231
+[16-Nov-2025 06:42:20 UTC] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php on line 231
+[16-Nov-2025 06:43:07 UTC] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php on line 231
+[16-Nov-2025 06:43:10 UTC] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php on line 231
+[16-Nov-2025 06:43:57 UTC] PHP Warning:  Undefined array key "csrf_token" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php on line 231
+[16-Nov-2025 12:14:22 UTC] PHP Warning:  include_once(./includes/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 4
+[16-Nov-2025 12:14:22 UTC] PHP Warning:  include_once(): Failed opening './includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 4
+[16-Nov-2025 12:14:22 UTC] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6
+[16-Nov-2025 12:14:22 UTC] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6
+[16-Nov-2025 12:14:22 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php:7
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 7
+[16-Nov-2025 12:15:12 UTC] PHP Warning:  include_once(./includes/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 7
+[16-Nov-2025 12:15:12 UTC] PHP Warning:  include_once(): Failed opening './includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 7
+[16-Nov-2025 12:15:12 UTC] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 12:15:12 UTC] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 12:15:12 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php:10
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 10
+[16-Nov-2025 17:46:00 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 17:46:00 Asia/Kolkata] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:46:00 Asia/Kolkata] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:46:43 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 17:46:43 Asia/Kolkata] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:46:43 Asia/Kolkata] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:48:17 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[16-Nov-2025 17:48:17 Asia/Kolkata] PHP Warning:  include_once(./class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:48:17 Asia/Kolkata] PHP Warning:  include_once(): Failed opening './class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 9
+[16-Nov-2025 17:49:10 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/forum.php on line 6) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[21-Nov-2025 01:07:08 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 01:07:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 08:57:41 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 08:57:56 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 10:35:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 16:22:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:152
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(152): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 152
+[21-Nov-2025 16:23:23 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[21-Nov-2025 16:23:27 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[21-Nov-2025 16:23:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[21-Nov-2025 16:24:51 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[21-Nov-2025 11:30:47 UTC] PHP Parse error:  syntax error, unexpected token "=" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/temple-details.php on line 2645
+[21-Nov-2025 11:30:51 UTC] PHP Parse error:  syntax error, unexpected token "=" in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/temple-details.php on line 2645
+[22-Nov-2025 15:32:58 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'title ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:508
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(508): mysqli_query(Object(mysqli), 'SELECT * FROM i...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 508
+[27-Nov-2025 00:50:32 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php:133
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php(133): mysqli_query(Object(mysqli), 'SELECT COUNT(*)...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php on line 133
+[27-Nov-2025 00:51:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php:133
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php(133): mysqli_query(Object(mysqli), 'SELECT COUNT(*)...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php on line 133
+[27-Nov-2025 00:51:56 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php:133
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php(133): mysqli_query(Object(mysqli), 'SELECT COUNT(*)...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic.php on line 133
+[03-Dec-2025 01:57:37 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantras-new.php:310
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantras-new.php on line 310
+[03-Dec-2025 03:01:17 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 03:01:17 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 03:03:30 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 03:03:30 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 03:03:36 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 03:03:36 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 04:51:25 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 04:51:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 09:46:25 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 09:46:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 20:53:12 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 20:53:12 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:01:51 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:01:51 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:26:38 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:26:38 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:27:37 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:27:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:30:38 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:30:38 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:31:17 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:31:17 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:31:51 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:31:51 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:32:04 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:32:04 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:32:14 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 00:32:14 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[03-Dec-2025 19:29:22 UTC] PHP Warning:  Undefined variable $DatabaseCo in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/footer.php on line 3
+[03-Dec-2025 19:29:22 UTC] PHP Warning:  Attempt to read property "dbLink" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/footer.php on line 3
+[03-Dec-2025 19:29:22 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/footer.php:3
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/footer.php(3): mysqli_query(NULL, 'SELECT * FROM `...')
+#1 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/japa-mala.php(358): include('/home3/webte7nz...')
+#2 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/footer.php on line 3
+[04-Dec-2025 07:55:30 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[04-Dec-2025 07:55:30 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[05-Dec-2025 14:56:06 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[05-Dec-2025 14:56:06 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[13-Dec-2025 02:50:56 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[13-Dec-2025 02:50:56 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[16-Dec-2025 02:10:03 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[16-Dec-2025 02:10:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[16-Dec-2025 02:10:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[16-Dec-2025 02:10:49 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[16-Dec-2025 02:12:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php:306
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php(306): mysqli_query(Object(mysqli), 'SELECT DISTINCT...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/iconic-category.php on line 306
+[17-Dec-2025 10:42:11 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[17-Dec-2025 10:42:11 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:10:31 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:10:31 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:02 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:02 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:06 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:06 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:12 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:11:12 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:15:25 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:15:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:17:10 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:17:10 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:17:49 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:17:49 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:18:59 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:18:59 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:23:41 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:23:41 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:23:45 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:23:45 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:24:41 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 11:24:41 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 07:17:09 UTC] PHP Warning:  include_once(./include/db.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 3
+[18-Dec-2025 07:17:09 UTC] PHP Warning:  include_once(): Failed opening './include/db.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 3
+[18-Dec-2025 07:17:09 UTC] PHP Warning:  Undefined variable $DatabaseCo in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 07:17:09 UTC] PHP Warning:  Attempt to read property "dbLink" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 07:17:09 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php:86
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php(86): mysqli_query(NULL, 'SELECT * FROM l...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 07:17:16 UTC] PHP Warning:  include_once(./include/db.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 3
+[18-Dec-2025 07:17:16 UTC] PHP Warning:  include_once(): Failed opening './include/db.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 3
+[18-Dec-2025 07:17:16 UTC] PHP Warning:  Undefined variable $DatabaseCo in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 07:17:16 UTC] PHP Warning:  Attempt to read property "dbLink" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 07:17:16 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php:86
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php(86): mysqli_query(NULL, 'SELECT * FROM l...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/live-darshan.php on line 86
+[18-Dec-2025 12:54:43 Asia/Kolkata] PHP Fatal error:  Cannot redeclare addLang() (previously declared in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php:583) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 583
+[18-Dec-2025 12:54:49 Asia/Kolkata] PHP Fatal error:  Cannot redeclare addLang() (previously declared in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php:583) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 583
+[18-Dec-2025 12:54:59 Asia/Kolkata] PHP Fatal error:  Cannot redeclare addLang() (previously declared in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php:583) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 583
+[18-Dec-2025 13:23:06 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 13:23:06 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 13:30:34 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[18-Dec-2025 13:30:34 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[21-Dec-2025 11:29:47 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[21-Dec-2025 11:29:47 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[25-Dec-2025 13:04:30 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[25-Dec-2025 13:04:30 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[29-Dec-2025 19:06:23 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[29-Dec-2025 19:06:23 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[29-Dec-2025 20:04:37 Asia/Kolkata] PHP Warning:  Undefined variable $g in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[29-Dec-2025 20:04:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/mantra-book-creation-v2.php on line 191
+[11-Feb-2026 13:03:36 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:03:42 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhaktibackup/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:04:30 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:04:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:04:36 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:06:01 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:08:44 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:08:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:08:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:08:47 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:10:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:10:52 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:10:54 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:11:22 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:14:32 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:15:26 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:16:04 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 13:16:06 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'bhakti'@'localhost' (using password: YES) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php:24
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php(24): mysqli_connect()
+#1 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/include/header.php(7): DatabaseConn->__construct()
+#2 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/index.php(1): include_once('/home/p2i2h897n...')
+#3 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 24
+[11-Feb-2026 14:09:54 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[11-Feb-2026 14:57:00 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/correction_submit.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[11-Feb-2026 14:59:11 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/correction_submit.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[11-Feb-2026 14:59:52 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/correction_submit.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[14-Feb-2026 13:38:24 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php:306
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php(306): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php on line 306
+[14-Feb-2026 13:38:32 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php:306
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php(306): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php on line 306
+[14-Feb-2026 13:38:34 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php:306
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php(306): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php on line 306
+[14-Feb-2026 13:38:39 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') ORDER BY god_name ASC' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php:306
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php(306): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic-category.php on line 306
+[14-Feb-2026 23:07:58 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php:271
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php(271): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php on line 271
+[15-Feb-2026 00:00:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php:271
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php(271): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php on line 271
+[15-Feb-2026 11:34:26 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php:271
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php(271): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php on line 271
+[15-Feb-2026 11:34:26 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php:271
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php(271): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php on line 271
+[16-Feb-2026 14:43:00 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php:271
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php(271): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/iconic.php on line 271
+[16-Feb-2026 19:20:06 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:36 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:30:50 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:34:37 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:34:44 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:34:54 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:00 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:02 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:03 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:03 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:27 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:40 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:35:44 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:36:57 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:40:08 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:40:17 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2
+[16-Feb-2026 22:41:49 Asia/Kolkata] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/bhakti-sankalp.php on line 2) in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/class/databaseConn.php on line 2

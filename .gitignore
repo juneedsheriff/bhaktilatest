@@ -1,0 +1,8 @@
+# Uploads folder
+app/uploads/
+
+# Common exclusions
+node_modules/
+vendor/
+.env
+*.log

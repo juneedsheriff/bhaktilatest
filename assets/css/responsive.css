@@ -1,0 +1,57 @@
+@media (max-width: 768px){
+    .display-1 {
+    font-size: calc(0.625rem + 4.5vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+.text-span {
+    background-image: url("data:image/svg+xml,%3Csvg width='262' height='17' viewBox='0 0 262 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.99931 12.9463C70.3926 7.14883 214.09 -1.29457 257.733 11.3115' stroke='%23F84525' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: auto;
+    padding-bottom: 5px;
+}
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+}
+.display-6 {
+    font-size: calc(0.375rem + 1.5vw);
+    font-weight: 300;
+    line-height: 1.2;
+}
+.fs-50 {
+    font-size: 25px !important;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: calc(0.300rem + 1.5vw) !important;
+}
+.mx-3 {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+}
+.about-video {
+    height: 19vh; /* Adjust height for smaller screens */
+}
+.video-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+}
+.fw-bold {
+    font-weight: 300 !important;
+}
+.h5, h5 {
+    font-size: 11px;   
+}
+.thumbnail-wrapper .thumbnail.image-1 {
+    left: 14px !important;
+    position: relative;
+}
+.all{
+    margin-left: 35%;
+}
+
+}

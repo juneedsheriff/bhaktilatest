@@ -1,0 +1,1253 @@
+<?php ob_start();
+
+error_reporting(0);
+
+// Redirect id=86 (Shiridi Sai Temples) to Saikalpa - must run before any output
+$id_raw = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+if ($id_raw === '86' || $id_raw === 86) {
+    header('Location: https://www.saikalpa.com/');
+    exit;
+}
+
+include('./include/header.php');
+
+
+
+// Include required classes
+
+include_once './app/class/XssClean.php';
+
+include_once './app/class/databaseConn.php';
+
+include_once './app/lib/requestHandler.php';
+
+
+
+$DatabaseCo = new DatabaseConn();
+
+$xssClean = new xssClean();
+
+$id = $xssClean->clean_input($_REQUEST['id']);
+
+?>
+
+<style>
+
+    .map-img {
+
+        width: 150px;
+
+        height: 125px;
+
+        margin-bottom: 10px;
+
+        margin-left: 90px;
+
+        border-radius: 10px;
+
+    }
+
+
+
+    .icons {
+
+        position: fixed;
+
+        right: 10px;
+
+        top: 65%;
+
+        transform: translateY(-50%);
+
+        z-index: 2;
+
+    }
+
+
+
+    .btn1 {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        padding: 10px 15px;
+
+        border: none;
+
+        border-radius: 5px;
+
+        color: white;
+
+        cursor: pointer;
+
+        transition: transform 0.2s ease, background-color 0.2s ease;
+
+    }
+
+    .banner-over-title{
+        display: none;
+    }
+
+    .toggle-btn1 {
+
+        background-color: #ff8776;
+
+    }
+
+
+
+    .toggle-btn1:hover {
+
+        background-color: #ff6655;
+
+    }
+
+
+
+    .btn1 i {
+
+        margin-right: 5px;
+
+    }
+
+
+
+    .btn1:active {
+
+        transform: scale(0.95);
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+        .btn1 {
+
+            font-size: 10px;
+
+            padding: 6px;
+
+        }
+
+    }
+
+.scroll {
+
+    position: relative;
+
+    overflow: visible;
+
+    z-index: 0;
+
+}
+
+.comment-item-hidden { display: none !important; }
+</style>
+
+<?php
+
+    // Fetch temple details for the provided id
+
+    $select = "SELECT * FROM `iconic` WHERE index_id='$id'";
+
+    $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
+
+
+
+    // Check if the query returns a result
+
+    if (mysqli_num_rows($SQL_STATEMENT) > 0) {
+
+        $Row = mysqli_fetch_object($SQL_STATEMENT);
+
+   ?>
+
+<div class="container-fluid m-0 p-0 text-center bg-gradient text-center">
+
+    <div class="overflow-hidden position-relative  banner-over-container">
+
+                    <img class="w-100 iconic-banner-mob" src="app/uploads/iconic/banner/<?php echo $Row->banner; ?>" class="img-fluid" alt="Temple Image" style=" height: 88vh; object-fit:contain;">
+
+        <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-primary"><?php echo $Row->title; ?></h1>
+
+    </div>
+
+</div>
+
+<?php } else {
+
+        header("location:iconic-category.php");
+
+    }
+
+        $select = "SELECT * FROM `iconic_temples` WHERE categories_id='$id' ORDER BY index_id DESC  LIMIT 10";
+
+        $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
+
+        $sql3 = mysqli_query($DatabaseCo->dbLink, "SELECT categories_id FROM iconic_temples WHERE categories_id = '$id' LIMIT 1");
+
+        $res3 = mysqli_fetch_object($sql3);
+
+    ?>
+
+    <div class="row print-disable">
+
+        <div class="col-6">
+
+            
+
+<table>
+
+    <tbody><tr>
+
+        <td>
+
+            <a href="">
+
+                <img src="assets/images/logo/bakthi-logo.png" height="30px" style="margin-left: 30px; margin-top: 20px;
+
+                    margin-bottom: 20px">
+
+            </a>
+
+        </td>
+
+        <td style="font-size: 17px; padding: 2px; color: #878787">
+
+            &gt;
+
+        </td>
+
+        <td style="font-size: 17px; padding: 2px; color: #878787">
+
+            Iconic Temples
+
+        </td>
+
+        <td style="font-size: 17px; padding: 2px; color: #878787">
+
+            &gt;
+
+        </td>
+
+        <td style="font-size: 17px; padding: 2px; color: #878787">
+
+            <?php echo $Row->title; ?>
+
+        </td>
+
+    </tr>
+
+</tbody></table>
+
+        </div>
+
+        
+
+        <?php if (mysqli_num_rows($SQL_STATEMENT) > 0) {?>
+
+        <div class="col-6 pull-right">
+
+            <?php
+
+        if ($res3 && isset($res3->categories_id)) {
+
+        ?>
+
+            <!-- View All link (disabled)
+            <a href="iconic.php?id=<?php echo htmlspecialchars($res3->categories_id, ENT_QUOTES, 'UTF-8'); ?>"  class="btn btn-primary mt-3 all" align="center">
+
+                View All
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right mb-1" viewBox="0 0 16 16">
+
+                    <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"></path>
+
+                </svg>
+
+            </a>
+            -->
+
+        <?php
+
+        }
+
+        ?>
+
+        </div> <?php
+
+        }
+
+        ?>
+
+    </div>
+
+    <?php if (mysqli_num_rows($SQL_STATEMENT) > 0) {?>
+
+<div class="position-relative print-disable">
+
+    <div class="container" >
+<div  class="row">
+    <div class="col-md-9" >
+      
+    <div class="row">
+
+<?php
+
+while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
+
+    $photos = $Row['photos'];
+    if ($count == 3) {
+        break;   // stop after 3 cards
+    }  $count++;
+    $title = $Row['title'];
+
+            $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . $Row['city'] . "'");
+
+            $cff = mysqli_fetch_array($ccc);
+
+            $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_id='" . $Row['state'] . "' AND country_code='" . $Row['country'] . "'");
+
+            $fff = mysqli_fetch_array($sss);
+
+
+
+?>
+
+    <!-- start listing card -->
+
+  <div class="col-md-4 col-sm-6">
+  <div class="card rounded-3 flex-fill overflow-hidden ">
+
+<!-- start card link -->
+
+<a href="iconic.php?id=<?php echo $Row['categories_id']; ?>"  class="stretched-link z-2"></a>
+
+<!-- end /. card link -->
+
+<div class="image-container"
+     style="background-image: url('app/uploads/iconic_temple/<?php echo $photos; ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 320px;">
+</div>
+  </div>
+
+    <div class="d-flex flex-column position-relative p-2 card-content">
+
+    <h5 class="fs-6 fw-semibold mb-0 text-center" style="min-height:60px;">
+
+        <a href="iconic.php?id=<?php echo $Row['categories_id']; ?>"  >
+
+            <?php echo $title; echo $cff['city_name'] != '' ? '<br> ' : '';
+
+                                                        echo $cff['city_name'];
+
+                                                        echo  $fff['state_name'] != '' ? ', ' : '';
+
+                                                        echo $fff['state_name'];?>
+
+        </a>
+
+    </h5>
+
+</div>
+
+    </div>
+
+    <!-- end /. listing card -->
+
+
+
+
+
+<?php
+
+}
+
+?>
+
+</div>
+    </div>
+</div>
+
+
+
+            </div>
+
+    </div>
+
+        <?php } ?>
+
+        
+
+<div class="position-relative overflow-hidden bg-gradient  print-disable" id="scroll">
+
+    <div class="icons">
+
+       
+
+    </div>
+
+</div>
+
+           
+
+<!-- Main content area to print, copy, or share -->
+
+<div id="printable-content">
+
+    <div class="py-5">
+
+    <div class="container scroll">
+
+    <div class="row">
+
+        <?php
+
+        // Fetch temple details for the provided id
+
+        $select = "SELECT * FROM `iconic` WHERE index_id='$id'";
+
+        $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
+
+
+
+        // Check if the query returns a result
+
+        if (mysqli_num_rows($SQL_STATEMENT) > 0) {
+
+            $Row = mysqli_fetch_object($SQL_STATEMENT);
+
+        } else {
+
+            echo "<p>Temple not found.</p>";
+
+            exit;
+
+        }
+
+        ?>
+
+        <!-- Main Content Section -->
+
+        <div class="col-12 col-lg-9 order-first sidebar content" id="bannerTitle">
+
+            <!-- Content Cards -->
+            <div class="social-media hidePrint mb-2 gap-3 text-end">
+
+<!-- Print Icon -->
+
+<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="printContent()">
+
+    <i class="fas fa-print"></i>
+
+</a>
+
+<!-- WhatsApp Icon -->
+
+<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="shareToWhatsApp()">
+
+    <i class="fab fa-whatsapp"></i>
+
+</a>
+<button id="toggleIcon" class="btn btn-primary d-inline-block">
+
+<i class="fa  fa-play"></i> Play
+
+</button>
+<!-- PDF Download Icon
+
+<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="downloadPDF()">
+
+    <i class="fas fa-file-pdf"></i>
+
+</a>
+
+<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="copyContent()">
+
+    <i class="fas fa-copy"></i>
+
+</a> -->
+
+</div>
+
+            <div class="iconic-head">
+
+                <h1 class="fs-1"><?php echo $Row->speciality; ?></h1>
+
+            </div>
+
+            <div class="iconic-subhead">
+
+                <?php echo $Row->small_description; ?>
+
+            </div>
+
+            <div class="text-dark icon-desc"><?php echo $Row->description; ?></div>
+
+            <!-- Comments Section -->
+            <div class="row print-disable mt-4">
+                <div class="comment-box mt-3 ">
+                    <h4>Leave a Comment</h4>
+                    <div class="alert alert-success mt-3 d-none" id="success-message">Comment successfully submitted and is pending approval!</div>
+                    <form action="" method="post" id="submit-comment">
+                        <div class="form-group mb-3">
+                            <p>Name</p>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <p>Comment</p>
+                            <textarea class="form-control " id="comment" rows="4" placeholder="Your Comment" required></textarea>
+                        </div>
+                        <input type="hidden" name="type" id="type" value="icon-cate" />
+                        <button class="btn btn-primary mt-4" type="submit">Post Comment</button>
+                    </form>
+                </div>
+                <?php $query = "SELECT * FROM `comments` WHERE type='icon-cate' AND is_approved=1 ORDER BY index_id DESC";
+                $result = mysqli_query($DatabaseCo->dbLink,$query);
+                $allComments = [];
+                while ($row = mysqli_fetch_object($result)) { $allComments[] = $row; }
+                $totalComments = count($allComments);
+                if($totalComments > 0){?>
+                <h3 class="mt-5">Comments</h3>
+                <div id="comments-section" class="comment-section">
+                <?php foreach ($allComments as $ci => $Rowc) { $isHidden = $ci >= 3 ? ' comment-item-hidden' : ''; ?>
+                    <div class="comment-item<?php echo $isHidden; ?>" data-index="<?php echo $ci; ?>">
+                    <p><strong><?php echo htmlspecialchars($Rowc->name);?></strong> says,<br><?php echo nl2br(htmlspecialchars($Rowc->comment));?></p>
+                    <hr>
+                    </div>
+                <?php }?>
+                </div>
+                <?php if ($totalComments > 3): ?>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="viewMoreComments" data-show-each="3">View more</button>
+                <?php endif; ?>
+                <?php }?>
+            </div>
+
+    </div>
+
+    <div class="col-12 col-lg-3 print-disable filters-col content ps-lg-4 ps-xl-5 ">
+
+            <!-- Social Media Icons -->
+
+           
+
+ <?php if($Row->map_image != ''){?><div class="print-disable"><img class="img-responsive" src="app/uploads/iconic/map/<?php echo $Row->map_image; ?>" alt=""></div><?php }?>
+
+        <div class="gmap-class">
+
+            <?php
+
+    // Fetch all rows that match the given categories_id
+
+    $select = "SELECT * FROM `iconic_temples` WHERE categories_id = '$id'";
+
+    $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
+
+
+
+    // Prepare a locations array for JavaScript
+
+    $locations = [];
+
+    if (mysqli_num_rows($SQL_STATEMENT) > 0) {
+
+        while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
+
+            $locations[] = [
+
+                'id' => $Row['index_id'],
+
+                'name' => $Row['title'],
+
+                'address' => $Row['address'],
+
+                'latitude' => $Row['latitude'] ?? null,
+
+                'longitude' => $Row['longitude'] ?? null,
+
+                'photos' => $Row['photos']
+
+            ];
+
+        }
+
+    }
+
+    ?>
+
+    <?php if($address !=''){?>
+
+            <div class="border p-2 rounded-4 shadow-sm mt-5 sticky-top" style="z-index: 1000;">
+
+    
+
+    <!-- HTML Map Section -->
+
+    <h4 class="mb-0">Temple <span class="text-primary">Location</span></h4>
+
+    <div id="map" style="width: 100%; height: 500px;"></div>
+
+</div>
+
+
+
+    <?php }?>
+
+
+
+        </div>
+
+        </div>
+
+            </div> 
+
+</div>
+
+<div class="container icon-footer">
+
+                                                    <div style="padding: 10px; text-align: left">
+
+                                                        <h4>
+
+                                                            More Temples to Know More
+
+                                                        </h4>
+
+                                                        
+
+                                                    </div>
+
+                                                    <div class="row p-2">
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/nagafoot.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Nagadevata Temples to releive from Nagadoshas
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/tree1.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Nakshatra Trees &amp; Temples to know associated tree...
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/swambhu1.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Swayambhu Temples where the Deity appears to...
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/mystry1.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Mystery Temples to know the unsolved mysteries
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/nagadosa.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Pariharam Temples to relieve from Graha doshas
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                        <div class="col-sm-4 px-4 py-3">
+
+                                                            <table style="height: 100%; width: 100%">
+
+                                                                <tbody><tr>
+
+                                                                    <td>
+
+                                                                        <div class="pi-pic">
+
+                                                                            <div>
+
+                                                                                <a href="#0" >
+
+                                                                                    <div class=" ">
+
+                                                                                        <img src="assets/images/mukti.jpg" style="width: 100%">
+
+                                                                                    </div>
+
+                                                                                    <div style="text-align: center">
+
+                                                                                        Mukthi Skshetras to attain Moksha
+
+                                                                                    </div>
+
+                                                                                </a>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+<script>
+
+    // Function to sync scroll between columns
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var mainContent = document.querySelector('.col-lg-8.scroll');
+
+        var mapContent = document.querySelector('.col-lg-4');
+
+
+
+        mainContent.addEventListener('scroll', function () {
+
+            mapContent.scrollTop = mainContent.scrollTop;
+
+        });
+
+    });
+
+</script>
+
+
+
+    </div>
+
+</div>
+
+
+
+<!-- <div class="col-12">
+
+    <?php
+
+    $select = "SELECT * FROM `iconic_temples` WHERE categories_id = '$id'";
+
+    $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
+
+
+
+    $locations = [];
+
+    if (mysqli_num_rows($SQL_STATEMENT) > 0) {
+
+        while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
+
+            $locations[] = [
+
+                'id' => $Row['index_id'],
+
+                'name' => $Row['title'],
+
+                'address' => $Row['address'],
+
+                'latitude' => $Row['latitude'] ?? null,
+
+                'longitude' => $Row['longitude'] ?? null,
+
+                'photos' => $Row['photos']
+
+            ];
+
+        }
+
+    }
+
+    ?>
+
+    <div id="map" style="width: 100%; height: 500px;"></div>
+
+</div> -->
+
+<script>
+
+    // Pass the PHP data to JavaScript
+
+    const locations = <?php echo json_encode($locations); ?>;
+
+
+
+    // Google Maps initialization function
+
+    function initAutocomplete() {
+
+        // Initialize the map
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+
+            center: {
+
+                lat: 20.5937,
+
+                lng: 78.9629
+
+            }, // Default center to India
+
+            zoom: 5, // Adjust zoom level
+
+            mapTypeId: "roadmap"
+
+        });
+
+
+
+        const geocoder = new google.maps.Geocoder();
+
+
+
+        // Iterate through each location and add a marker
+
+        locations.forEach((location) => {
+
+            const fullAddress = location.address;
+
+
+
+            // If latitude and longitude are available, use them directly
+
+            if (location.latitude && location.longitude) {
+
+                addMarker(
+
+                    map, {
+
+                        lat: parseFloat(location.latitude),
+
+                        lng: parseFloat(location.longitude)
+
+                    },
+
+                    location.name,
+
+                    location.photos,
+
+                    location.id
+
+                );
+
+            } else {
+
+                // Otherwise, geocode the address to get coordinates
+
+                geocoder.geocode({
+
+                    address: fullAddress
+
+                }, (results, status) => {
+
+                    if (status === "OK") {
+
+                        const position = results[0].geometry.location;
+
+                        addMarker(map, position, location.name, location.photos, location.id);
+
+                    } else {
+
+                        console.error(`Geocoding failed for address: ${fullAddress}, Status: ${status}`);
+
+                    }
+
+                });
+
+            }
+
+        });
+
+    }
+
+
+
+    // Function to add a marker to the map
+
+    function addMarker(map, position, name, photos, id) {
+
+        const marker = new google.maps.Marker({
+
+            map: map,
+
+            position: position,
+
+        });
+
+
+
+        // Create info window content
+
+        const infowindowContent = `
+
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+
+        <h4 class="fs-5 fw-semibold restaurant-text-truncate overflow-hidden mb-0" style="margin: 10px 0;">
+
+            <span>${name}</span>
+
+        </h4>
+
+        <img src="app/uploads/iconic_temple/${photos}" alt="Temple Image" class="map-img" style="width: 100px; height: auto; margin: 10px 0;">
+
+        <a href="iconic-details.php?id=${id}" class="fs-5 fw-semibold restaurant-text-truncate overflow-hidden mb-0"  style="margin-top: 10px;">View Details</a>
+
+    </div>
+
+`;
+
+        const infowindow = new google.maps.InfoWindow({
+
+            content: infowindowContent,
+
+        });
+
+
+
+        // Add click event to open the info window
+
+        marker.addListener("click", () => {
+
+            infowindow.open(map, marker);
+
+        });
+
+    }
+
+</script>
+
+<!-- Google Maps API Script -->
+
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG-RZCzEuy7JMyMu4ykftt5ooRcCeqhKY&libraries=places&callback=initAutocomplete"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+   $(".listings-carousel").owlCarousel("destroy").owlCarousel({
+
+    loop: false,
+
+    margin: 30,
+
+    autoplay: true,
+
+    autoplayTimeout: 3000,
+
+    smartSpeed: 800,
+
+    slideBy: 3,
+
+    responsive: {
+
+        0: {  // For mobile screens
+
+            items: 1,
+
+            slideBy: 1
+
+        },
+
+        768: { // For tablets and larger screens
+
+            items: 2,
+
+            slideBy: 2
+
+        },
+
+        1024: { // For desktops
+
+            items: 3,
+
+            slideBy: 3
+
+        }
+
+    }
+
+});
+
+    // Comments "View more" - show 3 more on each click
+    $('#viewMoreComments').on('click', function() {
+        var hidden = $('#comments-section .comment-item-hidden');
+        var showCount = parseInt($(this).data('show-each') || 3, 10);
+        hidden.slice(0, showCount).removeClass('comment-item-hidden');
+        if ($('#comments-section .comment-item-hidden').length === 0) {
+            $(this).hide();
+        }
+    });
+
+});
+
+
+
+
+
+</script>
+
+
+
+<script>
+
+    const toggleButton = document.getElementById('toggleIcon');
+
+    const bannerTitle = document.getElementById('bannerTitle').textContent;
+
+
+
+    // Initialize the SpeechSynthesis API
+
+    const synth = window.speechSynthesis;
+
+    let utterance = new SpeechSynthesisUtterance(bannerTitle);
+
+
+
+    // Variable to track play/pause state
+
+    let isPlaying = false;
+
+
+
+    // Toggle play/pause functionality
+
+    toggleButton.addEventListener('click', function() {
+
+        if (isPlaying) {
+
+            // Pause the content
+
+            synth.cancel();
+
+            toggleButton.innerHTML = '<i class="fa  fa-play"></i> Play';
+
+        } else {
+
+            // Play the content
+
+            if (!synth.speaking) {
+
+                synth.speak(utterance);
+
+            }
+
+            toggleButton.innerHTML = '<i class="fa fa-stop"></i> Stop';
+
+        }
+
+        isPlaying = !isPlaying;
+
+    });
+
+
+
+    // Stop speech synthesis if the page is unloaded
+
+    window.addEventListener('beforeunload', function() {
+
+        if (synth.speaking) {
+
+            synth.cancel();
+
+        }
+
+    });
+
+
+
+    // Reset button state when speech ends
+
+    utterance.onend = function() {
+
+        isPlaying = false;
+
+        toggleButton.innerHTML = '<i class="fas fa-volume-up"></i> Play';
+
+    };
+
+</script>
+
+<?php include('./include/footer.php'); ?>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Web Stories</title>
+
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 60px 0;
+    }
+
+    .web-stories-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .web-stories-section h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 40px;
+      font-weight: 600;
+      color: #2b2b2b;
+      letter-spacing: 0.5px;
+    }
+
+    .owl-carousel .story-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      height: 520px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .owl-carousel .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .story-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      color: #fff;
+      background: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      line-height: 90px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .story-card:hover .play-icon {
+      background: rgba(0,0,0,0.7);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .story-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
+      color: #fff;
+      padding: 15px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: none;
+    }
+
+    /* Owl Nav Buttons */
+    .owl-nav button {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4) !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      width: 45px;
+      height: 45px;
+      font-size: 22px !important;
+      transition: all 0.3s ease;
+    }
+
+    .owl-nav button:hover {
+      background: rgba(0,0,0,0.8) !important;
+    }
+
+    .owl-nav .owl-prev { left: -55px; }
+    .owl-nav .owl-next { right: -55px; }
+
+    @media (max-width: 768px) {
+      .owl-carousel .story-card {
+        height: 400px;
+      }
+      .owl-nav .owl-prev { left: -35px; }
+      .owl-nav .owl-next { right: -35px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="web-stories-section">
+    <h2>Temple Web Stories</h2>
+
+    <div class="owl-carousel owl-theme">
+      <div class="story-card" data-video="https://www.youtube.com/embed/Bey4XXJAqS8?autoplay=1">
+        <img src="https://img.youtube.com/vi/Bey4XXJAqS8/hqdefault.jpg" class="story-thumbnail" alt="Lord Shiva Temple">
+        <div class="play-icon">▶</div>
+        <div class="story-title">Lord Shiva Temple</div>
+      </div>
+
+      <div class="story-card" data-video="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1">
+        <img src="https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg" class="story-thumbnail" alt="Lord Vishnu Temple">
+        <div class="play-icon">▶</div>
+        <div class="story-title">Lord Vishnu Temple</div>
+      </div>
+
+      <div class="story-card" data-video="https://www.youtube.com/embed/jNQXAC9IVRw?autoplay=1">
+        <img src="https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg" class="story-thumbnail" alt="Ancient Architecture">
+        <div class="play-icon">▶</div>
+        <div class="story-title">Ancient Temple Architecture</div>
+      </div>
+
+      <div class="story-card" data-video="https://www.youtube.com/embed/Z1BCujX3pw8?autoplay=1">
+        <img src="https://img.youtube.com/vi/Z1BCujX3pw8/hqdefault.jpg" class="story-thumbnail" alt="Spiritual Journey">
+        <div class="play-icon">▶</div>
+        <div class="story-title">Spiritual Journey</div>
+      </div>
+
+      <div class="story-card" data-video="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1">
+        <img src="https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg" class="story-thumbnail" alt="Temple Rituals">
+        <div class="play-icon">▶</div>
+        <div class="story-title">Temple Rituals</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS Libraries -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      var owl = $(".owl-carousel").owlCarousel({
+        loop:true,
+        margin:25,
+        nav:true,
+        dots:false,
+        autoplay:false,
+        smartSpeed:600,
+        responsive:{
+          0:{ items:2 },
+          768:{ items:3 },
+          1200:{ items:3 }
+        }
+      });
+
+      // Click-to-play video
+      $(".story-card").on("click", function(){
+        var $this = $(this);
+        if ($this.find("iframe").length === 0) {
+          var videoUrl = $this.data("video");
+          var iframe = $("<iframe>", {
+            src: videoUrl,
+            allowfullscreen: true,
+            allow: "autoplay"
+          }).hide();
+          $this.append(iframe);
+          $this.find("img, .play-icon").fadeOut(300);
+          iframe.fadeIn(500);
+        }
+      });
+
+      // Stop video when slide changes
+      owl.on('changed.owl.carousel', function() {
+        $(".story-card iframe").remove();
+        $(".story-thumbnail, .play-icon").show();
+      });
+    });
+  </script>
+
+</body>
+</html>

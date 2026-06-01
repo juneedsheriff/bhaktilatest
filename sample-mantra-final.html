@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lakshmi Narasimha Karunarasa Stotram</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #f5f9ff, #edf3ff);
+    color: #1f2c47;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border-top: 5px solid #2c4da5;
+  }
+
+  .logo {
+    width: 80px;
+    margin: 0 auto 25px;
+  }
+  .logo img { width: 100%; }
+
+  .mantra-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a3c91;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .divider {
+    width: 80px;
+    height: 3px;
+    background: #e6b63b;
+    border-radius: 3px;
+    margin: 0 auto 30px;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  select, button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #c4d2f3;
+    background: #f8faff;
+    color: #1a2f68;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  button:hover { background: #eaf0ff; }
+
+  .tts-controls {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .tts-controls button { margin: 0 5px; }
+
+  .mantra-audio {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+  .sloka-block {
+    background: #f8faff;
+    border: 1px solid #dce7ff;
+    border-left: 4px solid #e6b63b;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: 0.3s;
+  }
+
+  .sloka-block:hover {
+    box-shadow: 0 4px 15px rgba(35, 95, 200, 0.15);
+  }
+
+  .sloka-block p {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px;
+    color: #2a2a2a;
+    margin-bottom: 10px;
+  }
+
+  .card {
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .meaning {
+    background: #fff9e8;
+    border-left: 4px solid #e6b63b;
+    display: none;
+  }
+
+  .significance {
+    background: #f3f7ff;
+    border-left: 4px solid #2c4da5;
+  }
+
+  .bottom-buttons {
+    text-align: center;
+    margin-top: 25px;
+  }
+  .bottom-buttons button { margin: 5px; }
+
+  footer {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px; }
+    .mantra-title { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">
+    <img class="logo-dark" src="assets/images/logo/bakthi-logo.png" alt="Bakthi Logo">
+  </div>
+
+  <div class="mantra-title">Sri Lakshmi Narasimha Karunarasa Stotram</div>
+  <div class="divider"></div>
+
+  <div class="controls">
+    <select id="slokaSelect">
+      <option value="1">Sloka 1</option>
+      <option value="2">Sloka 2</option>
+      <option value="3">Sloka 3</option>
+    </select>
+
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="sa">Sanskrit</option>
+      <option value="hi">Hindi</option>
+      <option value="te">Telugu</option>
+    </select>
+
+    <button id="toggleMeaning">Show Meaning</button>
+  </div>
+
+  <div class="tts-controls">
+    <button id="playTTS">🔊 Play</button>
+    <button id="stopTTS">⏹️ Stop</button>
+  </div>
+
+  <div class="sloka-block" data-id="1">
+    <p>Shrimatpayonidhiniketanachakrapan Bhogindrabhogamanirajitapunyamurte</p>
+    <div class="card meaning"><strong>Meaning:</strong> O Lord Narasimha, residing in the ocean of milk, holding the discus, and radiating divine compassion.</div>
+    <div class="card significance"><strong>Significance:</strong> Invokes serenity, strength, and protection from negativity.</div>
+  </div>
+
+  <div class="sloka-block" data-id="2" style="display:none;">
+    <p>Yogisha Shashvata Sharanya Bhavabdhipota Lakshminrusimha Mama Dehi Karavalambam</p>
+    <div class="card meaning"><strong>Meaning:</strong> O protector of yogis, grant me your divine hand and guide me across worldly existence.</div>
+    <div class="card significance"><strong>Significance:</strong> Teaches surrender and divine faith; offers spiritual guidance.</div>
+  </div>
+
+  <div class="sloka-block" data-id="3" style="display:none;">
+    <p>Samsaradavadahanakarabhikaroru Jvalavalibhiratidagdhatanuruhasya</p>
+    <div class="card meaning"><strong>Meaning:</strong> O blazing one, whose radiance destroys all worldly suffering, I seek Your lotus feet for peace.</div>
+    <div class="card significance"><strong>Significance:</strong> Purifies the heart and invokes deep spiritual healing.</div>
+  </div>
+
+  <div class="bottom-buttons">
+    <button onclick="downloadSloka()">Download</button>
+    <button onclick="window.print()">Print</button>
+    <button onclick="shareSloka()">Send</button>
+  </div>
+</div>
+
+<footer>© 2025 Bhaktikalpa - All Rights Reserved.</footer>
+
+<script>
+  const slokaSelect = document.getElementById('slokaSelect');
+  const toggleMeaningBtn = document.getElementById('toggleMeaning');
+  let showMeaning = false;
+  let currentUtterance;
+
+  // Speak function
+  function speakText(text) {
+    stopSpeech();
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.rate = 0.9;
+    currentUtterance.pitch = 1;
+    currentUtterance.lang = 'en-IN';
+    speechSynthesis.speak(currentUtterance);
+  }
+
+  // Stop speech
+  function stopSpeech() {
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
+  }
+
+  document.getElementById('playTTS').addEventListener('click', () => {
+    const selectedId = slokaSelect.value;
+    const text = document.querySelector(`.sloka-block[data-id="${selectedId}"] p`).innerText;
+    speakText(text);
+  });
+
+  document.getElementById('stopTTS').addEventListener('click', stopSpeech);
+
+  // Sloka change
+  slokaSelect.addEventListener('change', () => {
+    stopSpeech();
+    const selectedId = slokaSelect.value;
+    document.querySelectorAll('.sloka-block').forEach(sloka => {
+      sloka.style.display = sloka.dataset.id === selectedId ? 'block' : 'none';
+    });
+  });
+
+  // Toggle meaning visibility
+  toggleMeaningBtn.addEventListener('click', () => {
+    showMeaning = !showMeaning;
+    document.querySelectorAll('.meaning').forEach(m => {
+      m.style.display = showMeaning ? 'block' : 'none';
+    });
+    toggleMeaningBtn.textContent = showMeaning ? 'Hide Meaning' : 'Show Meaning';
+  });
+
+  // Download sloka text
+  function downloadSloka() {
+    const selectedId = slokaSelect.value;
+    const text = document.querySelector(`.sloka-block[data-id="${selectedId}"]`).innerText;
+    const blob = new Blob([text], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `sloka-${selectedId}.txt`;
+    link.click();
+  }
+
+  // Share sloka text
+  function shareSloka() {
+    const selectedId = slokaSelect.value;
+    const text = document.querySelector(`.sloka-block[data-id="${selectedId}"]`).innerText.trim();
+    const websiteDetails = "\n\n🌐 Visit: https://www.bhaktikalpa.in\n🙏 Explore more divine chants and stotras at Bhaktikalpa.";
+    const fullText = `${text}${websiteDetails}`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Sri Lakshmi Narasimha Stotram - Bhaktikalpa',
+        text: fullText,
+        url: 'https://www.bhaktikalpa.in'
+      });
+    } else {
+      alert('Sharing not supported on this device.');
+    }
+  }
+</script>
+
+</body>
+</html>
