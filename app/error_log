@@ -1,0 +1,426 @@
+[26-Jun-2025 19:07:18 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhaktiuat.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[26-Jun-2025 19:18:00 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[26-Jun-2025 19:18:07 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[29-Jun-2025 01:53:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:29 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[04-Jul-2025 16:00:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:45 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:43:56 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[10-Jul-2025 21:44:02 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:50:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[10-Jul-2025 21:53:03 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[09-Sep-2025 01:25:21 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[09-Sep-2025 01:25:30 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:35 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:30:56 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:31:06 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:33:33 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:33:33 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:33:47 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:34:57 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[14-Oct-2025 02:40:24 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[15-Nov-2025 13:58:26 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 13:58:26 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 13:58:32 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 13:58:42 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 13:58:50 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 13:59:27 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 13:59:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 13:59:36 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:00:44 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 14:00:44 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 08:30:47 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:373
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php(373): mysqli_query(NULL, 'SELECT * FROM t...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 373
+[15-Nov-2025 14:01:27 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:02:29 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:02:29 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:29 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:49 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:02:49 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 16
+[15-Nov-2025 14:02:49 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:49 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:54 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:02:54 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 16
+[15-Nov-2025 14:02:54 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:54 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:58 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:02:58 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 16
+[15-Nov-2025 14:02:58 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:02:58 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:03:04 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:03:04 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 16
+[15-Nov-2025 14:03:04 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:03:04 Asia/Kolkata] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 17
+[15-Nov-2025 14:03:29 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:03:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "xssClean" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php:15
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php(3): include_once()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 15
+[15-Nov-2025 14:03:31 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:03:31 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "xssClean" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php:15
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php(3): include_once()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 15
+[15-Nov-2025 14:03:43 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:03:43 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "xssClean" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php:15
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php(3): include_once()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 15
+[15-Nov-2025 14:03:45 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:03:45 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "xssClean" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php:15
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php(3): include_once()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 15
+[15-Nov-2025 08:33:54 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 4
+[15-Nov-2025 08:33:54 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 5
+[15-Nov-2025 08:38:50 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 2
+[15-Nov-2025 08:38:50 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:38:50 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 14:08:50 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 08:39:13 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 2
+[15-Nov-2025 08:39:13 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:13 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:48 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 2
+[15-Nov-2025 08:39:48 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:48 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:58 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 2
+[15-Nov-2025 08:39:58 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:58 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:58 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 5
+[15-Nov-2025 08:39:58 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 5
+[15-Nov-2025 08:39:59 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 2
+[15-Nov-2025 08:39:59 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:59 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 3
+[15-Nov-2025 08:39:59 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 5
+[15-Nov-2025 08:39:59 UTC] PHP Warning:  Trying to access array offset on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 5
+[15-Nov-2025 14:11:34 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:11:47 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:15:23 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:15:23 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 10
+[15-Nov-2025 14:15:59 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:15:59 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 10
+[15-Nov-2025 14:16:15 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:16:15 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 10
+[15-Nov-2025 08:46:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:46:51 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:1) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 5
+[15-Nov-2025 08:46:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:46:53 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:1) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 5
+[15-Nov-2025 08:46:55 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:46:55 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:1) in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 5
+[15-Nov-2025 08:47:34 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:47:34 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 4
+[15-Nov-2025 08:48:38 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:48:38 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 4
+[15-Nov-2025 08:48:40 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:48:40 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 4
+[15-Nov-2025 08:50:11 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:50:11 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 4
+[15-Nov-2025 08:52:00 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:52:14 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:52:14 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 5
+[15-Nov-2025 08:52:54 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:52:54 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 5
+[15-Nov-2025 08:52:59 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:53:02 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:53:03 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 08:56:26 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 14:26:46 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:26:46 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/includes/header.php on line 10
+[15-Nov-2025 14:27:21 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 14:30:48 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 09:01:24 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:01:27 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:01:40 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:01:40 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 3
+[15-Nov-2025 09:03:13 UTC] PHP Warning:  include(./include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:03:13 UTC] PHP Warning:  include(): Failed opening './include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:03:13 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:21 UTC] PHP Warning:  include_once(./app/class/databaseConn.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 3
+[15-Nov-2025 09:04:21 UTC] PHP Warning:  include_once(): Failed opening './app/class/databaseConn.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 3
+[15-Nov-2025 09:04:21 UTC] PHP Warning:  include_once(./app/lib/requestHandler.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 5
+[15-Nov-2025 09:04:21 UTC] PHP Warning:  include_once(): Failed opening './app/lib/requestHandler.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 5
+[15-Nov-2025 09:04:21 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php:7
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(2): include()
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/include/header.php on line 7
+[15-Nov-2025 09:04:41 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:41 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:41 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:43 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:44 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:04:45 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:45 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:04:45 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:114
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(114): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 114
+[15-Nov-2025 09:06:02 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:06:02 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:06:02 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:113
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(113): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 113
+[15-Nov-2025 09:06:05 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:06:05 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 2
+[15-Nov-2025 09:06:05 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:113
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(113): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 113
+[15-Nov-2025 09:06:46 UTC] PHP Warning:  include(include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:06:46 UTC] PHP Warning:  include(): Failed opening 'include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:06:46 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:116
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(116): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 116
+[15-Nov-2025 09:08:10 UTC] PHP Warning:  include(./include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:08:10 UTC] PHP Warning:  include(): Failed opening './include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:08:10 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:116
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(116): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 116
+[15-Nov-2025 09:09:30 UTC] PHP Warning:  include(./include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:09:30 UTC] PHP Warning:  include(): Failed opening './include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:09:30 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:116
+Stack trace:
+#0 /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php(116): mysqli_query(NULL, 'SELECT * FROM c...')
+#1 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 116
+[15-Nov-2025 09:10:19 UTC] PHP Warning:  include(./include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:10:19 UTC] PHP Warning:  include(): Failed opening './include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:10:19 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:11
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 11
+[15-Nov-2025 09:10:26 UTC] PHP Warning:  include(./include/header.php): Failed to open stream: No such file or directory in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:10:26 UTC] PHP Warning:  include(): Failed opening './include/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 5
+[15-Nov-2025 09:10:26 UTC] PHP Fatal error:  Uncaught Error: Class "DatabaseConn" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php:11
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/list-new-temple.php on line 11
+[15-Nov-2025 15:00:14 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:01:02 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:01:16 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:01:16 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:07:14 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:07:14 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:08:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "ImageUploader" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:138
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 138
+[15-Nov-2025 15:10:06 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "ImageUploader" not found in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php:138
+Stack trace:
+#0 {main}
+  thrown in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 138
+[15-Nov-2025 15:16:42 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:16:55 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:17:55 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:18:05 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:18:45 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:18:58 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:19:49 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 09:51:11 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-new-temple.php on line 2
+[15-Nov-2025 09:51:11 UTC] PHP Warning:  Undefined global variable $_SESSION in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-new-temple.php on line 3
+[15-Nov-2025 15:22:13 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:22:29 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 09:53:33 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 15:23:33 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 09:53:52 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/add-temple.php on line 2
+[15-Nov-2025 15:23:52 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:24:24 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[15-Nov-2025 15:25:43 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:26:16 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:27:14 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/class/databaseConn.php on line 2
+[15-Nov-2025 15:32:03 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[15-Nov-2025 15:32:52 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[15-Nov-2025 15:35:21 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-abroad-listing.php on line 106
+[15-Nov-2025 15:37:17 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:37:17 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:37:49 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:37:49 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:38:24 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:38:24 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:41:27 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:41:27 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:43:05 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:43:05 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:46:21 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:46:21 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:51:04 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:51:04 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[15-Nov-2025 15:51:33 Asia/Kolkata] PHP Warning:  Attempt to read property "god_name" on null in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 86
+[15-Nov-2025 15:51:33 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$content in /home3/webte7nz/bhakti-v1.webtechsoftwaresolutions.com/app/temple-listing.php on line 104
+[14-Feb-2026 13:52:56 Asia/Kolkata] PHP Fatal error:  Uncaught Error: mysqli object is already closed in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php:57
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php(57): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php on line 57
+[14-Feb-2026 13:54:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: mysqli object is already closed in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php:57
+Stack trace:
+#0 /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php(57): mysqli_query()
+#1 {main}
+  thrown in /home/p2i2h897n94y/public_html/bhakti.meetjuneedsheriff.com/app/city.php on line 57
