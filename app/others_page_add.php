@@ -1,6 +1,7 @@
 <?php ob_start();
 include_once './includes/header.php';
 include_once './class/fileUploader.php';
+include_once dirname(__DIR__) . '/include/saints_media.php';
 error_reporting(1);
 $page_id = $_REQUEST['page_id'];
 if (isset($_REQUEST['submit'])) {
@@ -34,14 +35,18 @@ if (isset($_REQUEST['submit'])) {
     $upload_image_photos = '';
     $upload_image_banner = '';
 
-    // Check if the photos file is uploaded
-    if (is_uploaded_file($_FILES['photos']["tmp_name"])) {
-        $upload_image_photos = $uploadimage->upload($_FILES['photos'], "others");
+    $categoryUpload = saints_category_upload_config($page_id);
+    $photoUploadDir = $categoryUpload ? $categoryUpload['dir'] : 'others';
+    $bannerUploadDir = $categoryUpload ? $categoryUpload['dir'] : 'others/banner';
+
+    // Check if the photos file is uploaded (retain existing if no new file)
+    if (!empty($_FILES['photos']['tmp_name']) && is_uploaded_file($_FILES['photos']['tmp_name'])) {
+        $upload_image_photos = $uploadimage->upload($_FILES['photos'], $photoUploadDir);
     }
 
-    // Check if the banner file is uploaded
-    if (is_uploaded_file($_FILES['banner']["tmp_name"])) {
-        $upload_image_banner = $uploadimage->upload($_FILES['banner'], "others/banner");
+    // Check if the banner file is uploaded (retain existing if no new file)
+    if (!empty($_FILES['banner']['tmp_name']) && is_uploaded_file($_FILES['banner']['tmp_name'])) {
+        $upload_image_banner = $uploadimage->upload($_FILES['banner'], $bannerUploadDir);
     }
 
     // Only update the database if there is a new image for photos
@@ -71,12 +76,33 @@ if (isset($_REQUEST['submit'])) {
 
 
 if ($_REQUEST['id'] > 0) {
-    // $titl = "Update ";
-    $select = "SELECT * FROM other_page WHERE index_id='" . $_REQUEST['id'] . "'"; //echo $select;
+    $titl = "Update ";
+    $select = "SELECT * FROM other_page WHERE index_id='" . (int) $_REQUEST['id'] . "'";
     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
     $Row = mysqli_fetch_object($SQL_STATEMENT);
 } else {
-    $titl = "";
+    $titl = "Add New ";
+    $Row = (object) [
+        'title' => '',
+        'content' => '',
+        'order_by' => '',
+        'status' => '',
+        'photos' => '',
+        'banner' => '',
+        'page_id' => $page_id,
+    ];
+}
+
+function others_page_admin_image_src($src)
+{
+    if (strpos($src, 'app/uploads/') === 0) {
+        return '.' . substr($src, 3);
+    }
+    if (strpos($src, 'assets/') === 0) {
+        return '../' . $src;
+    }
+
+    return $src;
 }
 ?>
 <div class="body-content">
@@ -120,14 +146,30 @@ if ($_REQUEST['id'] > 0) {
 
                                         <div class="col-sm-4 mb-3">
                                             <label>Featured Images</label>
-
+                                            <?php
+                                            if (!empty($_REQUEST['id']) && isset($Row) && !empty($Row->photos)) {
+                                                $featuredSrc = saints_photo_src($Row->photos, $Row->page_id ?? $page_id, $DatabaseCo->dbLink);
+                                                $featuredAdminSrc = others_page_admin_image_src($featuredSrc);
+                                                if ($featuredAdminSrc !== '../' . SAINTS_DEFAULT_IMAGE) {
+                                                    $featuredEsc = htmlspecialchars($featuredAdminSrc, ENT_QUOTES, 'UTF-8');
+                                            ?>
+                                            <div class="mb-2">
+                                                <span class="d-block small text-muted mb-1">Current image:</span>
+                                                <a href="<?php echo $featuredEsc; ?>" class="d-inline-block" target="_blank">
+                                                    <img src="<?php echo $featuredEsc; ?>" alt="Featured" class="img-thumbnail" style="max-width:120px;max-height:120px;object-fit:contain;" onerror="this.onerror=null;this.src='../assets/images/default-image.png';">
+                                                </a>
+                                                <p class="small text-muted mb-0 mt-1">Choose a new file below to replace.</p>
+                                            </div>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
                                             <div class="col-sm-6 mb-3">
                                                 <div class="field">
-                                                    <!-- <label class="pull-left">image </label> -->
                                                     <div class="custom-file">
-                                                        <input class="fileUp fileup-sm uploadlink" type="file" name="photos" id="photos" accept=".jpg, .png, image/jpeg, image/png" multiple="" value="" <?php if ($titl == "Add New ") {
-                                                                                                                                                                                                                echo 'required=""';
-                                                                                                                                                                                                            } ?>>
+                                                        <input class="fileUp fileup-sm uploadlink" type="file" name="photos" id="photos" accept=".jpg, .png, image/jpeg, image/png" value="" <?php if ($titl === 'Add New ') {
+                                                                                                                                                                                                echo 'required=""';
+                                                                                                                                                                                            } ?>>
                                                          <label class="custom-file-label" for="photos" style="font-size: 13px;">Recommended to 250 x 250 px (png, jpg, jpeg).</label>
                                                     </div>
                                                 </div>
@@ -135,15 +177,31 @@ if ($_REQUEST['id'] > 0) {
                                         </div>
                                         <div class="col-sm-4 mb-3">
                                             <label>Banner Image </label>
-
+                                            <?php
+                                            if (!empty($_REQUEST['id']) && isset($Row) && !empty($Row->banner)) {
+                                                $bannerSrc = saints_banner_src($Row->banner, $Row->page_id ?? $page_id, $DatabaseCo->dbLink);
+                                                $bannerAdminSrc = others_page_admin_image_src($bannerSrc);
+                                                if ($bannerAdminSrc !== '../' . SAINTS_DEFAULT_IMAGE) {
+                                                    $bannerEsc = htmlspecialchars($bannerAdminSrc, ENT_QUOTES, 'UTF-8');
+                                            ?>
+                                            <div class="mb-2">
+                                                <span class="d-block small text-muted mb-1">Current image:</span>
+                                                <a href="<?php echo $bannerEsc; ?>" class="d-inline-block" target="_blank">
+                                                    <img src="<?php echo $bannerEsc; ?>" alt="Banner" class="img-thumbnail" style="max-width:120px;max-height:120px;object-fit:contain;" onerror="this.onerror=null;this.src='../assets/images/default-image.png';">
+                                                </a>
+                                                <p class="small text-muted mb-0 mt-1">Choose a new file below to replace.</p>
+                                            </div>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
                                             <div class="col-sm-6 mb-3">
                                                 <div class="field">
-                                                    <!-- <label class="pull-left">image </label> -->
                                                     <div class="custom-file">
-                                                        <input class="fileUp fileup-sm uploadlink" type="file" name="banner" id="photos" accept=".jpg, .png, image/jpeg, image/png" multiple="" value="" <?php if ($titl == "Add New ") {
-                                                                                                                                                                                                                echo 'required=""';
-                                                                                                                                                                                                            } ?>>
-                                                        <label class="custom-file-label" for="photos"></label>
+                                                        <input class="fileUp fileup-sm uploadlink" type="file" name="banner" id="banner" accept=".jpg, .png, image/jpeg, image/png" value="" <?php if ($titl === 'Add New ') {
+                                                                                                                                                                                                echo 'required=""';
+                                                                                                                                                                                            } ?>>
+                                                        <label class="custom-file-label" for="banner"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,8 +274,11 @@ if ($_REQUEST['id'] > 0) {
                                         <div class="col-sm-12">
                                             <div class="field" align="center">
                                                 <div class="has-text-centered mt-30">
-                                                    <input type="hidden" name="page_id" value="<?php echo $page_id  ?>">
-                                                    <input name="submit" type="submit" class="btn btn-primary" value="<?php echo $titl; ?> Submit" />
+                                                    <input type="hidden" name="page_id" value="<?php echo (int) $page_id; ?>">
+                                                    <?php if (!empty($_REQUEST['id'])) { ?>
+                                                    <input type="hidden" name="id" value="<?php echo (int) $_REQUEST['id']; ?>">
+                                                    <?php } ?>
+                                                    <input name="submit" type="submit" class="btn btn-primary" value="<?php echo htmlspecialchars(trim($titl) !== '' ? $titl : 'Add New '); ?> Submit" />
                                                 </div>
                                             </div>
                                         </div>

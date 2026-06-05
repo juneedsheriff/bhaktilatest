@@ -113,6 +113,14 @@
         object-fit: cover;
     }
 
+    .grid-view .listing .listing-img-bg {
+        width: 100%;
+        height: 290px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
     .grid-view .listing-details {
         padding: 15px;
     }

@@ -1,14 +1,33 @@
 <?php ob_start();
+$page_id = isset($_REQUEST['page_id']) ? (int) $_REQUEST['page_id'] : 0;
+$valid_other_tabs = ['approved', 'pending', 'rejected'];
+$list_other_status = (!empty($_REQUEST['other_status']) && in_array((string) $_REQUEST['other_status'], $valid_other_tabs, true))
+    ? (string) $_REQUEST['other_status']
+    : '';
+$other_rejected_sql = "( LOWER(TRIM(COALESCE(`status`, ''))) IN ('rejected', 'reject', 'denied', 'disapproved') OR TRIM(COALESCE(`status`, '')) = '' )";
+$status_sql_fragment = '';
+if ($list_other_status === 'approved') {
+    $status_sql_fragment = " AND LOWER(TRIM(COALESCE(`status`,''))) = 'approved' ";
+} elseif ($list_other_status === 'pending') {
+    $status_sql_fragment = " AND LOWER(TRIM(COALESCE(`status`,''))) = 'unapproved' ";
+} elseif ($list_other_status === 'rejected') {
+    $status_sql_fragment = ' AND ' . $other_rejected_sql . ' ';
+}
+
+include_once dirname(__DIR__) . '/include/saints_media.php';
 include_once './includes/header.php';
-$page_id = $_REQUEST['page_id'];
+
 if (!empty($_REQUEST['del_t'])) {
-    $del_id = $_REQUEST['del_t'];
-    echo $del_id; // For debugging, you can remove this later.
+    $del_id = (int) $_REQUEST['del_t'];
 
     $query = "DELETE FROM `other_page` WHERE `other_page`.`index_id` = '$del_id'";
 
     if ($DatabaseCo->dbLink->query($query)) {
-        header("Location:other_page.php?page_id=$page_id");
+        $qs = ['page_id' => $page_id];
+        if ($list_other_status !== '') {
+            $qs['other_status'] = $list_other_status;
+        }
+        header('Location: other_page.php?' . http_build_query($qs));
         exit;
     } else {
         die("Error: " . mysqli_error($DatabaseCo->dbLink));
@@ -26,19 +45,33 @@ if (!empty($_REQUEST['del_t'])) {
 </style>
 <!-- Page-Title -->
 <div class="card-header position-relative">
-    <?php $select = "SELECT * FROM `category` WHERE index_id = $page_id ORDER BY index_id DESC";
+    <?php
+    $category_name = '';
+    $select = "SELECT * FROM `category` WHERE index_id = " . (int) $page_id . " ORDER BY index_id DESC LIMIT 1";
     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
-    $num_rows = mysqli_num_rows($SQL_STATEMENT);
-    if ($num_rows != 0) {
-        $i = 1;
-        while ($Row = mysqli_fetch_object($SQL_STATEMENT)) {
-
+    if ($SQL_STATEMENT && ($catRow = mysqli_fetch_object($SQL_STATEMENT))) {
+        $category_name = $catRow->name;
+        $list_heading = $category_name;
+        if ($list_other_status === 'approved') {
+            $list_heading = 'Approved — ' . $category_name;
+        } elseif ($list_other_status === 'pending') {
+            $list_heading = 'Approval Pending — ' . $category_name;
+        } elseif ($list_other_status === 'rejected') {
+            $list_heading = 'Rejected — ' . $category_name;
+        }
     ?>
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div>
 
-                    <h6 class="fs-17 fw-semi-bold my-1"><?php echo $Row->name; ?></h6>
-                    <!-- <p class="mb-0">Temple Listing.</p> -->
+                    <h6 class="fs-17 fw-semi-bold my-1"><?php echo htmlspecialchars($list_heading); ?></h6>
+                    <?php if ($category_name !== ''): ?>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <a href="other_page.php?page_id=<?php echo (int) $page_id; ?>" class="badge <?php echo $list_other_status === '' ? 'bg-primary' : 'bg-light text-dark border'; ?> text-decoration-none">All</a>
+                        <a href="other_page.php?page_id=<?php echo (int) $page_id; ?>&other_status=approved" class="badge <?php echo $list_other_status === 'approved' ? 'bg-success' : 'bg-light text-dark border'; ?> text-decoration-none">Approved</a>
+                        <a href="other_page.php?page_id=<?php echo (int) $page_id; ?>&other_status=pending" class="badge <?php echo $list_other_status === 'pending' ? 'bg-warning text-dark' : 'bg-light text-dark border'; ?> text-decoration-none">Approval Pending</a>
+                        <a href="other_page.php?page_id=<?php echo (int) $page_id; ?>&other_status=rejected" class="badge <?php echo $list_other_status === 'rejected' ? 'bg-danger' : 'bg-light text-dark border'; ?> text-decoration-none">Rejected</a>
+                    </div>
+                    <?php endif; ?>
 
                 </div>
                 <div class="text-end">
@@ -46,11 +79,10 @@ if (!empty($_REQUEST['del_t'])) {
 
 
                     ?>
-                    <a href="others_page_add.php?page_id=<?php echo $page_id; ?>" class="btn btn-primary fw-medium"><i class="fa-solid fa-plus me-1"></i>Add New <?php echo $Row->name; ?> </a>
+                    <a href="others_page_add.php?page_id=<?php echo (int) $page_id; ?>" class="btn btn-primary fw-medium"><i class="fa-solid fa-plus me-1"></i>Add New <?php echo htmlspecialchars($category_name); ?></a>
                 </div>
             </div>
-        <?php }
-    } else { ?>
+    <?php } else { ?>
         <tr>
             <td colspan="9">
                 <div align="center"><strong>No Records!</strong></div>
@@ -82,12 +114,15 @@ if (!empty($_REQUEST['del_t'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $select = "SELECT * FROM `other_page` WHERE index_id!='0'AND page_id= $page_id ORDER BY index_id DESC";
+                        <?php
+                        $select = "SELECT * FROM `other_page` WHERE index_id!='0' AND page_id=" . (int) $page_id . $status_sql_fragment . " ORDER BY index_id DESC";
                         $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
-                        $num_rows = mysqli_num_rows($SQL_STATEMENT);
+                        $num_rows = $SQL_STATEMENT ? mysqli_num_rows($SQL_STATEMENT) : 0;
                         if ($num_rows != 0) {
                             $i = 1;
                             while ($Row = mysqli_fetch_object($SQL_STATEMENT)) {
+                                $rowStatus = strtolower(trim((string) ($Row->status ?? '')));
+                                $is_rejected_row = ($rowStatus === 'rejected' || $rowStatus === 'reject' || $rowStatus === 'denied' || $rowStatus === 'disapproved' || $rowStatus === '');
                                 $sql3 = mysqli_query($DatabaseCo->dbLink, "SELECT name FROM  category WHERE index_id='" . $Row->page_id . "'");
                                 $res3 = mysqli_fetch_object($sql3);
                         ?>
@@ -95,8 +130,17 @@ if (!empty($_REQUEST['del_t'])) {
                                     <td><?php echo $i;
                                         $i++; ?></td>
                                     <td>
-                                        <?php if ($Row->photos != '') { ?>
-                                            <a href="./uploads/others/<?php echo $Row->photos; ?>" target="_blank"><img src="./uploads/others/<?php echo $Row->photos; ?>" class=" header-profile-user" width="60" alt="" data-demo-src="./uploads/others/<?php echo $Row->photos; ?>"></a>
+                                        <?php
+                                        $adminPhotoSrc = saints_photo_src($Row->photos, $Row->page_id, $DatabaseCo->dbLink, $Row->title);
+                                        if (strpos($adminPhotoSrc, 'app/uploads/') === 0) {
+                                            $adminPhotoSrc = '.' . substr($adminPhotoSrc, 3);
+                                        } elseif (strpos($adminPhotoSrc, 'assets/') === 0) {
+                                            $adminPhotoSrc = '../' . $adminPhotoSrc;
+                                        }
+                                        if ($adminPhotoSrc !== '../' . SAINTS_DEFAULT_IMAGE) {
+                                            $adminPhotoEsc = htmlspecialchars($adminPhotoSrc, ENT_QUOTES, 'UTF-8');
+                                        ?>
+                                            <a href="<?php echo $adminPhotoEsc; ?>" target="_blank"><img src="<?php echo $adminPhotoEsc; ?>" class="header-profile-user" width="60" alt="" onerror="this.onerror=null;this.src='../assets/images/default-image.png';"></a>
                                         <?php } ?>
                                     </td>
 
@@ -108,13 +152,17 @@ if (!empty($_REQUEST['del_t'])) {
                                     <td><?php echo date("d-m-Y", strtotime($Row->created_at)); ?></td>
 
                                     <td>
-                                        <?php if ($Row->status === 'approved') { ?>
+                                        <?php if ($rowStatus === 'approved') { ?>
                                             <div class="icon-container">
-                                                <i class="fa fa-thumbs-up text-success" style="font-size: 20px;"></i>
+                                                <i class="fa fa-thumbs-up text-success" style="font-size: 20px;" title="Approved"></i>
+                                            </div>
+                                        <?php } elseif ($is_rejected_row) { ?>
+                                            <div class="icon-container">
+                                                <i class="fa fa-ban text-danger" style="font-size: 20px;" title="Rejected"></i>
                                             </div>
                                         <?php } else { ?>
                                             <div class="icon-container">
-                                                <i class="fa fa-thumbs-down text-danger" style="font-size: 20px;"></i>
+                                                <i class="fa fa-clock text-warning" style="font-size: 20px;" title="Approval pending"></i>
                                             </div>
                                         <?php } ?>
 
@@ -141,14 +189,14 @@ if (!empty($_REQUEST['del_t'])) {
                                             </a>
                                             <?php
                                         elseif ($user_role === 'Staff'):
-                                            if ($Row->status === 'unapproved'): ?>
+                                            if ($rowStatus === 'unapproved'): ?>
                                                 <!-- Staff can edit if status is unapproved -->
                                                 <a class="btn btn-sm p-2 btn-primary text-white edit-board alert-box-trigger waves-effect waves-light kill-drop"
-                                                    href="others_page_add.php?id=<?php echo $Row->index_id; ?>">
+                                                    href="others_page_add.php?page_id=<?php echo (int) $page_id; ?>&id=<?php echo $Row->index_id; ?>">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                             <?php
-                                            elseif ($Row->status === 'approved'): ?>
+                                            elseif ($rowStatus === 'approved'): ?>
                                                 <!-- Staff has no options for approved status -->
                                                 <!-- No buttons displayed -->
                                         <?php
@@ -177,35 +225,23 @@ if (!empty($_REQUEST['del_t'])) {
     <form action="" method="post" name="delete_form" id="delete_form">
         <div class="modal-dialog">
             <div class="modal-content">
-                <?php $select = "SELECT * FROM `category` WHERE index_id = $page_id ORDER BY index_id DESC";
-                $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
-                $num_rows = mysqli_num_rows($SQL_STATEMENT);
-                if ($num_rows != 0) {
-                    $i = 1;
-                    while ($Row = mysqli_fetch_object($SQL_STATEMENT)) {
-
-                ?>
-                        <div class="modal-header">
-                            <h5 class="header-title">Delete <?php echo $res3->name; ?>Temple</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" align="center">
-                            <h5 class="text-center">Delete <?php echo $res3->name; ?>Temple Details?</h5>
-                            <p>Are you sure you want to delete this <?php echo $res3->name; ?> Temple? All data will be lost.</p>
-                        </div>
-                    <?php }
-                } else { ?>
-                    <tr>
-                        <td colspan="9">
-                            <div align="center"><strong>No Records!</strong></div>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <div class="modal-header">
+                    <h5 class="header-title">Delete <?php echo htmlspecialchars($category_name !== '' ? $category_name : 'Record'); ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5 class="text-center">Delete this entry?</h5>
+                    <p>Are you sure you want to delete this <?php echo htmlspecialchars($category_name !== '' ? $category_name : 'record'); ?>? All data will be lost.</p>
+                </div>
                 <div class="modal-footer">
                     <input type="hidden" name="form_action" value="Delete" />
                     <input type="hidden" name="del_t" id="delid" value="" />
+                    <input type="hidden" name="page_id" value="<?php echo (int) $page_id; ?>" />
+                    <?php if ($list_other_status !== ''): ?>
+                    <input type="hidden" name="other_status" value="<?php echo htmlspecialchars($list_other_status, ENT_QUOTES, 'UTF-8'); ?>" />
+                    <?php endif; ?>
                     <button class="btn raised bg-primary text-white ml-2 mt-2" data-dismiss="modal">Cancel</button>
                     <button name="delete_now" type="submit" class="btn mt-2 btn-dash btn-danger raised has-icon" id="modalDelete" value="Delete">Delete</button>
                 </div>

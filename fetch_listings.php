@@ -4,6 +4,7 @@ include_once './app/class/databaseConn.php';
 include_once './app/lib/requestHandler.php';
 include_once './include/mystery_helpers.php';
 include_once './include/abroad_listing_helpers.php';
+include_once './include/saints_media.php';
 
 $DatabaseCo = new DatabaseConn();
 $xssClean = new xssClean();
@@ -389,89 +390,54 @@ $total_stmt->close();
 }else{
 
 }
-if(isset($_POST['selectedFilters_saints'])){
-    $records_per_page = 8;
-// Get selected filters and page number
-$selectedFilters = isset($_POST['selectedFilters_saints']) ? explode(',', $_POST['selectedFilters_saints']) : [];
-$page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
-$page = max($page, 1);
+if (isset($_POST['saints_listing']) || isset($_POST['selectedFilters_saints'])) {
+    $selectedFilters = isset($_POST['selectedFilters_saints']) ? array_filter(explode(',', $_POST['selectedFilters_saints'])) : [];
+    $saintsPageId = isset($_POST['page_id']) && $_POST['page_id'] !== ''
+        ? trim($xssClean->clean_input($_POST['page_id']))
+        : saints_poets_page_id($DatabaseCo->dbLink);
 
-// Calculate the OFFSET for SQL query
-$offset = ($page - 1) * $records_per_page;
+    $query = 'SELECT * FROM other_page WHERE page_id = ?';
+    $params = [$saintsPageId];
+    $bind_types = 's';
 
-// Build the query based on selected filters
-$query = "SELECT * FROM other_page";
-$params = [];
-$bind_types = '';
+    if (!empty($selectedFilters)) {
+        $placeholders = implode(',', array_fill(0, count($selectedFilters), '?'));
+        $query .= " AND index_id IN ($placeholders)";
+        $bind_types .= str_repeat('s', count($selectedFilters));
+        $params = array_merge($params, $selectedFilters);
+    }
 
-if (!empty($selectedFilters)) {
-    $placeholders = implode(',', array_fill(0, count($selectedFilters), '?'));
-    $query .= " WHERE index_id IN ($placeholders)";
-    $bind_types .= str_repeat('s', count($selectedFilters));
-    $params = $selectedFilters;
-}
+    $query .= saints_public_listing_status_sql() . ' ORDER BY order_by ASC';
 
-// Add pagination limit
-$query .= " LIMIT ?, ?";
-$bind_types .= 'ii';
-$params[] = $offset;
-$params[] = $records_per_page;
+    $stmt = $DatabaseCo->dbLink->prepare($query);
+    $stmt->bind_param($bind_types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$stmt = $DatabaseCo->dbLink->prepare($query);
-$stmt->bind_param($bind_types, ...$params);
-$stmt->execute();
-$result = $stmt->get_result();
+    $listingsHtml = '';
+    while ($Row = $result->fetch_assoc()) {
+        $photos = $Row['photos'];
+        $title = htmlspecialchars($Row['title']);
+        $index_id = (int) $Row['index_id'];
+        $page_id = htmlspecialchars((string) $Row['page_id']);
+        $photoSrc = htmlspecialchars(saints_photo_src($photos, $Row['page_id'], $DatabaseCo->dbLink, $Row['title']));
 
-// Generate HTML for listings
-$listingsHtml = '';
-while ($Row = $result->fetch_assoc()) {
-    $photos = htmlspecialchars($Row['photos']);
-    $title = htmlspecialchars($Row['title']);
-    $index_id = (int)$Row['index_id'];
-
-    $listingsHtml .= "<div class='listing'>
-                        <a href='saints-details.php?id={$index_id}' target='_blank'>
-                            <img src='app/uploads/others/{$photos}' alt=''>
+        $listingsHtml .= "<div class='listing'>
+                        <a href='saints-details.php?id={$index_id}&page_id={$page_id}' class='d-block' aria-label='{$title}'>
+                            <div class='listing-img-bg' style=\"background-image: url('{$photoSrc}');\"></div>
                         </a>
                         <div class='listing-details'>
-                            <a href='saints-details.php?id={$index_id}' target='_blank'>
+                            <a href='saints-details.php?id={$index_id}&page_id={$page_id}'>
                                 <div class='listing-title'>{$title}</div>
                             </a>
-                            <div class='listing-rating text-dark'><a href='saints-details.php?id={$index_id}' target='_blank'>Read more</a></div>
+                            <div class='listing-rating text-dark'><a href='saints-details.php?id={$index_id}&page_id={$page_id}'>Read more</a></div>
                         </div>
                       </div>";
-}
+    }
 
-// Fetch total number of records for pagination
-$total_query = "SELECT COUNT(*) AS total FROM other_page";
-if (!empty($selectedFilters)) {
-    $total_query .= " WHERE index_id IN ($placeholders)";
-}
-
-$total_stmt = $DatabaseCo->dbLink->prepare($total_query);
-$total_stmt->bind_param(str_repeat('s', count($selectedFilters)), ...$selectedFilters);
-$total_stmt->execute();
-$total_result = $total_stmt->get_result();
-$total_row = $total_result->fetch_assoc();
-$total_records = $total_row['total'];
-$total_pages = ceil($total_records / $records_per_page);
-
-
-// Generate pagination controls
-$paginationHtml = '';
-for ($i = 1; $i <= $total_pages; $i++) {
-    $activeClass = $i == $page ? 'active' : '';
-    $paginationHtml .= "<button class='pagination-button {$activeClass}' onclick='fetchFilteredListings({$i})'>{$i}</button>";
-}
-
-// Return JSON response
-echo json_encode(['listings' => $listingsHtml, 'pagination' => $paginationHtml]);
-
-$stmt->close();
-$total_stmt->close();
-
-}else{
-
+    echo json_encode(['listings' => $listingsHtml]);
+    $stmt->close();
+    exit;
 }
 
 

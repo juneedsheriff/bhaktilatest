@@ -107,6 +107,10 @@ $india_temple_list_tab = '';
 if ($current_page === 'temple-listing.php' && !empty($_GET['temple_status']) && in_array((string) $_GET['temple_status'], ['approved', 'pending', 'rejected'], true)) {
     $india_temple_list_tab = (string) $_GET['temple_status'];
 }
+$other_page_list_tab = '';
+if ($current_page === 'other_page.php' && !empty($_GET['other_status']) && in_array((string) $_GET['other_status'], ['approved', 'pending', 'rejected'], true)) {
+    $other_page_list_tab = (string) $_GET['other_status'];
+}
 
 // Staff menu permissions: load allowed menu keys for staff (comma-separated stored in staff.allowed_menus)
 $staff_allowed_menus = [];
@@ -1299,6 +1303,18 @@ if ($user_role === 'Staff' && !empty($current_page)) {
 
                                 <?php
                                 $is_other_active = ($current_page === 'others_page_add.php' || $current_page === 'other_page.php') && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id;
+                                $other_menu_counts = ['approved' => 0, 'pending' => 0, 'rejected' => 0];
+                                if (staff_can_see_page('other_page.php')) {
+                                    $otherPid = (int) $Row->index_id;
+                                    $otherCntSql = "SELECT COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) = 'approved' THEN 1 ELSE 0 END), 0) AS c_app, COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) = 'unapproved' THEN 1 ELSE 0 END), 0) AS c_pend, COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) IN ('rejected', 'reject', 'denied', 'disapproved') OR TRIM(COALESCE(`status`,'')) = '' THEN 1 ELSE 0 END), 0) AS c_rej FROM `other_page` WHERE index_id != '0' AND page_id = '$otherPid'";
+                                    if ($ocr = @mysqli_query($DatabaseCo->dbLink, $otherCntSql)) {
+                                        if ($orow = mysqli_fetch_assoc($ocr)) {
+                                            $other_menu_counts['approved'] = (int) $orow['c_app'];
+                                            $other_menu_counts['pending'] = (int) $orow['c_pend'];
+                                            $other_menu_counts['rejected'] = (int) $orow['c_rej'];
+                                        }
+                                    }
+                                }
                                 ?>
                                 <li class="<?php echo $is_other_active ? 'mm-active' : ''; ?>">
 
@@ -1336,7 +1352,12 @@ if ($user_role === 'Staff' && !empty($current_page)) {
 
 
 
-                                        <?php if (staff_can_see_page('other_page.php')): ?><li class="<?php echo ($current_page === 'other_page.php' && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id) ? 'mm-active' : ''; ?>"><a href="other_page.php?page_id=<?php echo htmlspecialchars($Row->index_id); ?>"><?php echo htmlspecialchars($Row->name); ?> List</a></li><?php endif; ?>
+                                        <?php if (staff_can_see_page('other_page.php')): ?>
+                                        <li class="<?php echo ($current_page === 'other_page.php' && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id && $other_page_list_tab === '') ? 'mm-active' : ''; ?>"><a href="other_page.php?page_id=<?php echo htmlspecialchars($Row->index_id); ?>"><?php echo htmlspecialchars($Row->name); ?> — All</a></li>
+                                        <li class="<?php echo ($current_page === 'other_page.php' && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id && $other_page_list_tab === 'approved') ? 'mm-active' : ''; ?>"><a href="other_page.php?page_id=<?php echo htmlspecialchars($Row->index_id); ?>&other_status=approved">Approved (<?php echo (int) $other_menu_counts['approved']; ?>)</a></li>
+                                        <li class="<?php echo ($current_page === 'other_page.php' && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id && $other_page_list_tab === 'pending') ? 'mm-active' : ''; ?>"><a href="other_page.php?page_id=<?php echo htmlspecialchars($Row->index_id); ?>&other_status=pending">Approval Pending (<?php echo (int) $other_menu_counts['pending']; ?>)</a></li>
+                                        <li class="<?php echo ($current_page === 'other_page.php' && isset($_GET['page_id']) && (string)$_GET['page_id'] === (string)$Row->index_id && $other_page_list_tab === 'rejected') ? 'mm-active' : ''; ?>"><a href="other_page.php?page_id=<?php echo htmlspecialchars($Row->index_id); ?>&other_status=rejected">Rejected (<?php echo (int) $other_menu_counts['rejected']; ?>)</a></li>
+                                        <?php endif; ?>
 
 
 
