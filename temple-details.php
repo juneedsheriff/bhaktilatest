@@ -29,6 +29,7 @@ include_once './app/class/databaseConn.php';
 include_once './app/lib/requestHandler.php';
 
 include_once './include/temple_detail_helpers.php';
+include_once './include/breadcrumb_helpers.php';
 
 
 
@@ -129,15 +130,7 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
 $fullAddress = urlencode("$address, $city, $state, $country");
 
 
-$liveStreams = [
-  [
-    "temple_name" => "Sri Venkateswara Temple, Tirupati",
-    "youtube_url" => "https://www.youtube.com/embed/6x5xtNhOts0?rel=0&modestbranding=1&showinfo=0&autohide=1&fs=1",
-    "start_time" => "01:30",
-    "end_time" => "02:30",
-    "timezone" => "Asia/Kolkata"
-  ]
-];
+$liveStreams = temple_detail_live_streams($DatabaseCo->dbLink, $id);
 
 
 
@@ -326,45 +319,31 @@ $liveStreams = [
 
 
     .tab-container {
-
-
-
         position: sticky;
-
-
-
         top: 0;
-
-
-
-   
-
-
-
         z-index: 56;
-
-
-
-        /* Ensures the tab container stays above other content */
-
-
-
         padding: 10px 0;
-
-
-
         text-align: center;
+    }
 
+    .temple-section-nav {
+        overflow: hidden;
+    }
 
+    .temple-section-nav .btn-cus {
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.25;
+        white-space: normal;
+        word-break: break-word;
+    }
 
-     
-
-
-
-        /* Optional: smooth transition effect */
-
-
-
+    .sth-text img,
+    #pageReadContent img {
+        max-width: 100%;
+        height: auto;
     }
 
 .theiaStickySidebar .btn-cus {
@@ -661,9 +640,20 @@ $liveStreams = [
 
     $year = $Row->temple_age; // No year found
 
-?>
+    $templeBreadcrumbParent = (isset($Row->country) && strtoupper((string) $Row->country) !== 'IN')
+        ? ['label' => 'Temples Abroad', 'url' => 'abroad.php']
+        : ['label' => 'Temples in India', 'url' => 'temples-in-india.php'];
 
-<div class="container-fluid m-0 p-0 text-center bg-gradient text-center">
+    render_breadcrumbs([
+        ['label' => 'Home', 'url' => 'index.php'],
+        $templeBreadcrumbParent,
+        ['label' => $Row->title ?? 'Temple Details'],
+    ]);
+
+?>
+<link href="assets/css/temple-pages-responsive.css" rel="stylesheet">
+
+<div class="container-fluid m-0 p-0 text-center bg-gradient text-center temple-detail-page">
 
 
 
@@ -693,7 +683,7 @@ $liveStreams = [
 
 <!-- Video player container -->
 <div class="modal fade" id="videoModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -793,7 +783,7 @@ $liveStreams = [
 
 </style>
 
-<div id="printable-content" class="bg-gradient">
+<div id="printable-content" class="bg-gradient temple-detail-page">
 
 
 
@@ -809,11 +799,11 @@ $liveStreams = [
 
 
 
-        <div class="py-5">
+        <div class="py-3 py-lg-5">
 
 
 
-            <div class="container">
+            <div class="container px-2 px-md-3">
 
 
 
@@ -827,8 +817,7 @@ $liveStreams = [
                                 <h2 class="text-dark text-center"><?php echo htmlspecialchars($specialityTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
                             <?php endif; ?>
                             <?php if ($godName !== '') : ?>
-                                <p class="text-dark sth-text text-center mb-2"><strong><?php echo htmlspecialchars($godName, ENT_QUOTES, 'UTF-8'); ?></strong><?php echo $placeLabel !== '' ? ' &mdash; ' . htmlspecialchars($placeLabel, ENT_QUOTES, 'UTF-8') : ''; ?></p>
-                            <?php endif; ?>
+                             <?php endif; ?>
                             <?php if ($specialityText !== '') : ?>
                                 <div class="text-dark sth-text"><?php echo $specialityText; ?></div>
                             <?php endif; ?>
@@ -857,24 +846,26 @@ $liveStreams = [
 
 
 
-                    <div id="pageReadContent" class="col-lg-8 ps-xxl-5 content">
+                    <div id="pageReadContent" class="col-12 col-lg-8 ps-lg-3 ps-xxl-5 content">
 
 
 
                         <?php if (!empty($navSections)) : ?>
                       <div class="tab-container text-center mb-4 hidePrint custom-sticky">
-                          <div class="card rounded-4 border-0 bg-gradient">
-    <div class="row m-3 justify-content-center">
-        <?php foreach ($navSections as $section) : ?>
-            <div class="col-6 col-sm-4 col-md-auto">
-                <button type="button" onclick="scrollToCard('<?php echo temple_detail_section_id($section); ?>')" class="btn btn-primary btn-cus">
-                    <?php echo htmlspecialchars($section['title'], ENT_QUOTES, 'UTF-8'); ?>
-                </button>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
-</div>
+                          <div class="card rounded-4 border-0 bg-gradient temple-section-nav">
+                              <div class="card-body p-2 p-sm-3">
+                                  <div class="row g-2 g-sm-3 justify-content-center temple-section-nav__grid">
+                                      <?php foreach ($navSections as $section) : ?>
+                                          <div class="col-6 col-sm-4 col-lg">
+                                              <button type="button" onclick="scrollToCard('<?php echo temple_detail_section_id($section); ?>')" class="btn btn-primary btn-cus w-100">
+                                                  <?php echo htmlspecialchars($section['title'], ENT_QUOTES, 'UTF-8'); ?>
+                                              </button>
+                                          </div>
+                                      <?php endforeach; ?>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                         <?php endif; ?>
 
 <div id="bannerTitle">
@@ -899,26 +890,6 @@ $liveStreams = [
             </div>
         <?php endif; ?>
     <?php endforeach; ?>
-
-    <?php if ($hasGallery) : ?>
-        <div id="Photo" class="card shadow mb-5 bg-body rounded p-4 mb-4 sth-text text-dark">
-            <h2 class="text-dark font-caveat">Photos</h2>
-            <div class="row mt-3 g-2 review-image zoom-gallery">
-                <?php foreach ($galleryImages as $image) :
-                    $imagePath = temple_detail_image_url($image);
-                    if ($imagePath === '') {
-                        continue;
-                    }
-                ?>
-                    <div class="col-6">
-                        <a href="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" class="gallery-overlay-hover dark-overlay position-relative d-block overflow-hidden rounded-3 gallery-image-link">
-                            <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Gallery Image" class="rounded-3 gallery-thumb" onerror="this.closest('.col-6').style.display='none';">
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    <?php endif; ?>
 </div>
 
 
@@ -980,7 +951,7 @@ $liveStreams = [
 
 
 
-                    <div class="col-lg-4 sidebar">
+                    <div class="col-12 col-lg-4 sidebar mt-4 mt-lg-0">
 
 
 
@@ -1080,51 +1051,43 @@ $liveStreams = [
 
 
 
+                        <?php if (!empty($liveStreams)) : ?>
+                            <div class="border p-4 rounded-4 shadow-sm" style="margin-top: 30px;">
+                                <h4 class="mb-3">Live Darshan / <span class="text-primary">Aarti Schedule</span></h4>
+                                <?php foreach ($liveStreams as $stream) : ?>
+                                    <?php
+                                    date_default_timezone_set($stream['timezone']);
+                                    $now = date('H:i');
+                                    $isLive = ($stream['status'] === 'Live')
+                                        && $stream['start_time'] !== ''
+                                        && $stream['end_time'] !== ''
+                                        && ($now >= $stream['start_time'] && $now <= $stream['end_time']);
+                                    $streamTitle = $stream['god_name'] !== '' ? $stream['god_name'] : $stream['temple_name'];
+                                    ?>
+                                    <div class="stream <?= $isLive ? 'live' : '' ?>">
+                                        <h2><?= htmlspecialchars($streamTitle, ENT_QUOTES, 'UTF-8') ?>
+                                            <?php if ($isLive) : ?>
+                                                <span class="live-badge">🔴 Live Now</span>
+                                            <?php endif; ?>
+                                        </h2>
+                                        <?php if ($isLive) : ?>
+                                            <iframe src="<?= htmlspecialchars($stream['youtube_url'], ENT_QUOTES, 'UTF-8') ?>" allowfullscreen></iframe>
+                                        <?php else : ?>
+                                            <div class="schedule">
+                                                Next Live Darshan: <strong><?= htmlspecialchars($stream['start_time'], ENT_QUOTES, 'UTF-8') ?> - <?= htmlspecialchars($stream['end_time'], ENT_QUOTES, 'UTF-8') ?> (IST)</strong>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if ($timingsContent !== ''): ?>
 
 
 
                             <div class="border p-4 rounded-4 shadow-sm" style="margin-top: 30px;">
 
-                            <?php if($liveStreams){ ?>
-                            <div class="align-items-center justify-content-between mb-3">
-
-
-
-                                    <h4 class="mb-0">Live Darshan / <span class="text-primary">Aarti Schedule</span></h4>
-
-
-
-                                    <?php foreach ($liveStreams as $stream): ?>
-                                        <?php
-                                        date_default_timezone_set($stream['timezone']);
-                                        $now = date("H:i");
-                                        $isLive = ($now >= $stream['start_time'] && $now <= $stream['end_time']);
-                                        ?>
-
-                                        <div class="stream <?= $isLive ? 'live' : '' ?>">
-                                        <h2><?= htmlspecialchars($stream['temple_name']) ?>
-                                            <?php if ($isLive): ?>
-                                            <span class="live-badge">🔴 Live Now</span>
-                                            <?php endif; ?>
-                                        </h2>
-
-                                        <?php if ($isLive): ?>
-                                            <iframe src="<?= htmlspecialchars($stream['youtube_url']) ?>" allowfullscreen></iframe>
-                                        <?php else: ?>
-                                            <div class="schedule">
-                                            Next Live Darshan: <strong><?= $stream['start_time'] ?> - <?= $stream['end_time'] ?> (IST)</strong>
-                                            </div>
-                                        <?php endif; ?>
-                                        </div>
-
-                                    <?php endforeach; ?>
-
-
-
-                                </div>
-
-                            <?php } ?>
                                 <div class="d-flex align-items-center justify-content-between mb-3">
 
 
@@ -1168,6 +1131,26 @@ $liveStreams = [
 
 
 
+                        <?php endif; ?>
+
+                        <?php if ($hasGallery) : ?>
+                            <div id="Photo" class="border p-4 rounded-4 shadow-sm mt-5 temple-sidebar-photos hidePrint">
+                                <h4 class="mb-3 text-primary">Photos</h4>
+                                <div class="row g-2 review-image zoom-gallery">
+                                    <?php foreach ($galleryImages as $image) :
+                                        $imagePath = temple_detail_image_url($image);
+                                        if ($imagePath === '') {
+                                            continue;
+                                        }
+                                    ?>
+                                        <div class="col-4">
+                                            <a href="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" class="gallery-overlay-hover dark-overlay position-relative d-block overflow-hidden rounded-3 gallery-image-link">
+                                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Gallery Image" class="rounded-3 gallery-thumb w-100" onerror="this.closest('.col-4').style.display='none';">
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                         <?php endif; ?>
 
 

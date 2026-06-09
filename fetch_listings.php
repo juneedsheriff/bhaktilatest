@@ -13,132 +13,40 @@ $xssClean = new xssClean();
 // Set the number of records per page
 
 if(isset($_POST['selectedFilters']) || isset($_POST['selectedTempleFilters'])){
+    include_once './include/temple_listing_helpers.php';
+
     $records_per_page = 8;
-$selectedFilters = isset($_POST['selectedFilters']) ? array_filter(explode(',', $_POST['selectedFilters'])) : [];
-$selectedTempleFilters = isset($_POST['selectedTempleFilters']) ? array_map('intval', array_filter(explode(',', $_POST['selectedTempleFilters']))) : [];
-$page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
-$page = max($page, 1);
-$country = isset($_POST['country']) ? trim($xssClean->clean_input($_POST['country'])) : '';
+    $selectedFilters = isset($_POST['selectedFilters']) ? array_filter(explode(',', $_POST['selectedFilters'])) : [];
+    $selectedTempleFilters = isset($_POST['selectedTempleFilters']) ? array_map('intval', array_filter(explode(',', $_POST['selectedTempleFilters']))) : [];
+    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
+    $page = max($page, 1);
+    $country = isset($_POST['country']) ? trim($xssClean->clean_input($_POST['country'])) : '';
+    $offset = ($page - 1) * $records_per_page;
 
-$offset = ($page - 1) * $records_per_page;
+    $result = temples_india_fetch_god_temple_listings(
+        $DatabaseCo->dbLink,
+        $selectedFilters,
+        $selectedTempleFilters,
+        $country !== '' ? $country : 'IN',
+        $records_per_page,
+        $offset
+    );
 
-$query = "SELECT * FROM temples";
-$params = [];
-$bind_types = '';
-$where_parts = [];
-$base_parts = ["status = 'approved'"];
+    $total_records = $result['total'];
+    $total_pages = $records_per_page > 0 ? (int) ceil($total_records / $records_per_page) : 0;
 
-if ($country !== '') {
-    $base_parts[] = 'country = ?';
-    $params[] = $country;
-    $bind_types .= 's';
-}
-
-if (!empty($selectedFilters)) {
-    $placeholders = implode(',', array_fill(0, count($selectedFilters), '?'));
-    $where_parts[] = "god_id IN ($placeholders)";
-    $params = array_merge($params, $selectedFilters);
-    $bind_types .= str_repeat('s', count($selectedFilters));
-}
-if (!empty($selectedTempleFilters)) {
-    $t_placeholders = implode(',', array_fill(0, count($selectedTempleFilters), '?'));
-    $where_parts[] = "index_id IN ($t_placeholders)";
-    $params = array_merge($params, $selectedTempleFilters);
-    $bind_types .= str_repeat('i', count($selectedTempleFilters));
-}
-
-$where_sql = implode(' AND ', $base_parts);
-if (!empty($where_parts)) {
-    $where_sql .= ' AND (' . implode(' OR ', $where_parts) . ')';
-}
-$query .= ' WHERE ' . $where_sql;
-$query .= " ORDER BY order_by ASC LIMIT ?, ?";
-$bind_types .= 'ii';
-$params[] = $offset;
-$params[] = $records_per_page;
-
-$stmt = $DatabaseCo->dbLink->prepare($query);
-if (!empty($params)) {
-    $stmt->bind_param($bind_types, ...$params);
-}
-$stmt->execute();
-$result = $stmt->get_result();
-
-$listingsHtml = '';
-$link = $DatabaseCo->dbLink;
-while ($Row = $result->fetch_assoc()) {
-    $photos = htmlspecialchars($Row['photos']);
-    $index_id = (int)$Row['index_id'];
-    $city_name = '';
-    $state_name = '';
-    if (!empty($Row['city'])) {
-        $cr = mysqli_query($link, "SELECT city_name FROM city WHERE city_id = '" . mysqli_real_escape_string($link, $Row['city']) . "' LIMIT 1");
-        if ($cr && ($crow = mysqli_fetch_assoc($cr))) {
-            $city_name = $crow['city_name'];
-        }
-    }
-    if (!empty($Row['state']) && !empty($Row['country'])) {
-        $sr = mysqli_query($link, "SELECT state_name FROM state WHERE (state_code = '" . mysqli_real_escape_string($link, $Row['state']) . "' OR state_id = '" . mysqli_real_escape_string($link, $Row['state']) . "') AND country_code = '" . mysqli_real_escape_string($link, $Row['country']) . "' LIMIT 1");
-        if ($sr && ($srow = mysqli_fetch_assoc($sr))) {
-            $state_name = $srow['state_name'];
-        }
-    }
-    $title = htmlspecialchars($Row['title']);
-    if ($city_name !== '') {
-        $title .= ', ' . htmlspecialchars($city_name);
-    }
-    if ($state_name !== '') {
-        $title .= ', ' . htmlspecialchars($state_name);
+    $paginationHtml = '';
+    for ($i = 1; $i <= $total_pages; $i++) {
+        $activeClass = $i == $page ? 'active' : '';
+        $paginationHtml .= "<button class='pagination-button {$activeClass}' onclick='fetchFilteredListings({$i})'>{$i}</button>";
     }
 
-    $listingsHtml .= "<div class='listing'>
-                        <a href='temple-details.php?id={$index_id}'>
-                            <img src='app/uploads/temple/{$photos}' alt=''>
-                        </a>
-                        <div class='listing-details'>
-                            <a href='temple-details.php?id={$index_id}'>
-                                <div class='listing-title'>{$title}</div>
-                            </a>
-                            <div class='listing-rating text-dark'><a href='temple-details.php?id={$index_id}'>Read more</a></div>
-                        </div>
-                      </div>";
-}
-
-$total_query = 'SELECT COUNT(*) AS total FROM temples WHERE ' . $where_sql;
-$total_params = [];
-$total_bind = '';
-if ($country !== '') {
-    $total_params[] = $country;
-    $total_bind .= 's';
-}
-if (!empty($selectedFilters)) {
-    $total_params = array_merge($total_params, $selectedFilters);
-    $total_bind .= str_repeat('s', count($selectedFilters));
-}
-if (!empty($selectedTempleFilters)) {
-    $total_params = array_merge($total_params, $selectedTempleFilters);
-    $total_bind .= str_repeat('i', count($selectedTempleFilters));
-}
-$total_stmt = $DatabaseCo->dbLink->prepare($total_query);
-if (!empty($total_params)) {
-    $total_stmt->bind_param($total_bind, ...$total_params);
-}
-$total_stmt->execute();
-$total_result = $total_stmt->get_result();
-$total_row = $total_result->fetch_assoc();
-$total_records = $total_row['total'];
-$total_pages = ceil($total_records / $records_per_page);
-
-$paginationHtml = '';
-for ($i = 1; $i <= $total_pages; $i++) {
-    $activeClass = $i == $page ? 'active' : '';
-    $paginationHtml .= "<button class='pagination-button {$activeClass}' onclick='fetchFilteredListings({$i})'>{$i}</button>";
-}
-
-echo json_encode(['listings' => $listingsHtml, 'pagination' => $paginationHtml, 'total' => (int) $total_records]);
-
-$stmt->close();
-$total_stmt->close();
+    echo json_encode([
+        'listings' => $result['html'],
+        'pagination' => $paginationHtml,
+        'total' => $total_records,
+    ]);
+    exit;
 }else{
 
 }

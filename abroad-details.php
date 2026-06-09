@@ -4,6 +4,7 @@ include('./include/header.php');
 include_once './app/class/XssClean.php';
 include_once './app/class/databaseConn.php';
 include_once './include/abroad_listing_helpers.php';
+include_once './include/breadcrumb_helpers.php';
 
 $DatabaseCo = new DatabaseConn();
 $xssClean = new xssClean();
@@ -98,46 +99,6 @@ $mainRenderOrder = ['About', 'History', 'Deity', 'Mystical', 'Seva', 'Contact'];
         text-align: left !important;
     }
 
-    .abroad-gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
-    }
-
-    .abroad-gallery-card {
-        background: #fff;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .abroad-gallery-card-image {
-        display: block;
-        position: relative;
-        width: 100%;
-        padding-top: 70%;
-    }
-
-    .abroad-gallery-card-image img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    @media only screen and (max-width: 768px) {
-        .abroad-gallery-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media only screen and (max-width: 480px) {
-        .abroad-gallery-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
     .sidebar .timing-list {
         color: #000;
         font-size: 15px;
@@ -163,14 +124,22 @@ $mainRenderOrder = ['About', 'History', 'Deity', 'Mystical', 'Seva', 'Contact'];
     }
 </style>
 
-<div class="container-fluid m-0 p-0 text-center bg-gradient">
+<?php
+render_breadcrumbs([
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Temples Abroad', 'url' => 'abroad.php'],
+    ['label' => $Row->title ?? 'Temple Details'],
+]);
+?>
+
+<div class="container-fluid m-0 p-0 text-center bg-gradient temple-detail-page">
     <div class="overflow-hidden position-relative banner-over-container">
         <img <?php echo abroad_detail_banner_attrs($Row); ?>>
         <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3 text-primary"><?php echo htmlspecialchars($Row->title, ENT_QUOTES, 'UTF-8'); ?></h1>
     </div>
 </div>
 
-<div id="printable-content" class="bg-gradient">
+<div id="printable-content" class="bg-gradient temple-detail-page">
     <div id="printable-area">
         <div class="py-5">
             <div class="container">
@@ -217,26 +186,6 @@ $mainRenderOrder = ['About', 'History', 'Deity', 'Mystical', 'Seva', 'Contact'];
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-
-                        <?php if ($hasGallery) : ?>
-                            <div id="Photo" class="card shadow mb-5 bg-body rounded p-4 mb-4 sth-text text-dark">
-                                <h2 class="text-dark font-caveat">Photos</h2>
-                                <div class="abroad-gallery-grid zoom-gallery mt-3">
-                                    <?php foreach ($galleryImages as $image) :
-                                        $imagePath = abroad_detail_image_url($image);
-                                        if ($imagePath === '') {
-                                            continue;
-                                        }
-                                    ?>
-                                        <div class="abroad-gallery-card">
-                                            <a href="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" class="abroad-gallery-card-image gallery-image-link">
-                                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Gallery Image" onerror="this.closest('.abroad-gallery-card').style.display='none';">
-                                            </a>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
 
                         <div class="row print-disable">
                             <div class="comment-box mt-3">
@@ -300,6 +249,26 @@ $mainRenderOrder = ['About', 'History', 'Deity', 'Mystical', 'Seva', 'Contact'];
                                     </svg>
                                 </div>
                                 <div class="timing-list"><?php echo $timingsContent; ?></div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($hasGallery) : ?>
+                            <div id="Photo" class="border p-4 rounded-4 shadow-sm mt-5 temple-sidebar-photos hidePrint">
+                                <h4 class="mb-3 text-primary">Photos</h4>
+                                <div class="row g-2 review-image zoom-gallery">
+                                    <?php foreach ($galleryImages as $image) :
+                                        $imagePath = abroad_detail_image_url($image);
+                                        if ($imagePath === '') {
+                                            continue;
+                                        }
+                                    ?>
+                                        <div class="col-4">
+                                            <a href="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" class="gallery-overlay-hover dark-overlay position-relative d-block overflow-hidden rounded-3 gallery-image-link">
+                                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Gallery Image" class="rounded-3 gallery-thumb w-100" onerror="this.closest('.col-4').style.display='none';">
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         <?php endif; ?>
 

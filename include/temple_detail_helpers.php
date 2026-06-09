@@ -40,6 +40,64 @@ function temple_detail_is_video_url($url)
     return (bool) preg_match('#(youtube\.com|youtu\.be)#i', (string) $url);
 }
 
+function temple_detail_live_embed_url($url)
+{
+    $url = trim((string) $url);
+    if ($url === '') {
+        return '';
+    }
+
+    if (stripos($url, 'embed/') !== false) {
+        return $url;
+    }
+
+    $url = preg_replace('#youtube\.com/watch\?v=#i', 'youtube.com/embed/', $url);
+    $url = preg_replace('#youtu\.be/#i', 'youtube.com/embed/', $url);
+
+    if (strpos($url, '?') === false) {
+        $url .= '?rel=0&modestbranding=1&showinfo=0&autohide=1&fs=1';
+    }
+
+    return $url;
+}
+
+function temple_detail_live_streams($db, $templeId)
+{
+    $templeId = (int) $templeId;
+    if ($templeId <= 0) {
+        return [];
+    }
+
+    $streams = [];
+    $sql = "SELECT temple_name, god_name, live_url, stream_start, stream_end, status
+            FROM live_darshan
+            WHERE temple_id = '" . $templeId . "'
+            ORDER BY stream_start ASC";
+    $result = @mysqli_query($db, $sql);
+    if (!$result) {
+        return [];
+    }
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $embedUrl = temple_detail_live_embed_url($row['live_url'] ?? '');
+        if ($embedUrl === '') {
+            continue;
+        }
+
+        $streams[] = [
+            'temple_name' => trim((string) ($row['temple_name'] ?? '')),
+            'god_name' => trim((string) ($row['god_name'] ?? '')),
+            'youtube_url' => $embedUrl,
+            'start_time' => substr((string) ($row['stream_start'] ?? ''), 0, 5),
+            'end_time' => substr((string) ($row['stream_end'] ?? ''), 0, 5),
+            'timezone' => 'Asia/Kolkata',
+            'status' => trim((string) ($row['status'] ?? 'Offline')),
+        ];
+    }
+
+    return $streams;
+}
+
 function temple_detail_image_url($filename)
 {
     $filename = trim((string) $filename);

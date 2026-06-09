@@ -1,15 +1,20 @@
 <?php
 
 include('./include/header.php');
-
-
+include_once './include/breadcrumb_helpers.php';
 
 error_reporting(0);
 
+render_breadcrumbs([
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Temples in India'],
+]);
+
 ?>
+<link href="assets/css/temple-pages-responsive.css" rel="stylesheet">
 
-<div class="col-lg-3 col-md-4 col-mg-3 d-xl-none gap-3 gap-md-2 hstack justify-content-center">
-
+<div class="container d-xl-none py-2 temples-india-page">
+    <div class="d-flex justify-content-center">
     <a href="#" class="sidebarCollapse align-items-center d-flex justify-content-center filters-text fw-semibold gap-2">
 
         <i class="fa-solid fa-arrow-up-short-wide fs-18"></i>
@@ -17,10 +22,10 @@ error_reporting(0);
         <span>All filters</span>
 
     </a>
-
+    </div>
 </div>
 
-<div class="py-3 py-xl-5 bg-gradient">
+<div class="py-3 py-xl-5 bg-gradient temples-india-page">
 
     <div class="container">
 
@@ -28,7 +33,7 @@ error_reporting(0);
 
             <!-- start sidebar filters -->
 
-            <aside class="col-xl-3 filters-col content pe-lg-4 pe-xl-5 shadow-end ">
+            <aside class="col-12 col-xl-3 filters-col content pe-lg-4 pe-xl-5 shadow-end">
 
                 <div class="sidebar-filters js-sidebar-filters-mobile">
 
@@ -154,115 +159,103 @@ error_reporting(0);
 
                         </div>
 
-                        <div class="mb-4 border-bottom pb-4">
-
+                        <div class="mb-4 border-bottom pb-4 temple-god-filter-wrap">
                             <div class="mb-3">
+                                <h4 class="fs-5 fw-semibold mb-1">Filter by</h4>
+                            </div>
+                            <ul class="nav nav-tabs temple-god-filter-tabs mb-3" role="tablist">
+                                <li class="nav-item flex-fill" role="presentation">
+                                    <button type="button" class="nav-link active w-100" id="filter-tab-temples-btn" data-filter-tab="temples" role="tab" aria-selected="true">Temples</button>
+                                </li>
+                                <li class="nav-item flex-fill" role="presentation">
+                                    <button type="button" class="nav-link w-100" id="filter-tab-god-btn" data-filter-tab="god" role="tab" aria-selected="false">God</button>
+                                </li>
+                            </ul>
 
-                                <h4 class="fs-5 fw-semibold mb-2">Filter by Temple</h4>
-
+                            <div class="temple-god-filter-panel active" id="filter-panel-temples" role="tabpanel">
+                                <input type="search" class="form-control form-control-sm mb-2" id="templeFilterSearch" placeholder="Search temples..." autocomplete="off">
+                                <div class="temple-god-filter-scroll" id="templeFilterList">
+                                    <?php
+                                    $templeQuery = "SELECT index_id, title FROM temples WHERE status = 'approved' AND title != '' ORDER BY title ASC";
+                                    $templeResult = mysqli_query($DatabaseCo->dbLink, $templeQuery);
+                                    if ($templeResult && mysqli_num_rows($templeResult) > 0) {
+                                        while ($templeRow = mysqli_fetch_assoc($templeResult)) {
+                                            $temple_id = (int) $templeRow['index_id'];
+                                            $temple_title = htmlspecialchars($templeRow['title'], ENT_QUOTES, 'UTF-8');
+                                            $temple_search = htmlspecialchars(strtolower($templeRow['title']), ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <div class="form-check mb-2 filter-check-row" data-filter-label="<?php echo $temple_search; ?>">
+                                            <input class="form-check-input temple-check-input" type="checkbox" value="<?php echo $temple_id; ?>" id="temple<?php echo $temple_id; ?>">
+                                            <label class="form-check-label" for="temple<?php echo $temple_id; ?>"><?php echo $temple_title; ?></label>
+                                        </div>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<p class='small text-muted mb-0'>No temples found.</p>";
+                                    }
+                                    ?>
+                                </div>
                             </div>
 
-                            <!-- Start Form Check (Temple) -->
-
-                            <?php
-
-                            $templeQuery = "SELECT index_id, title FROM temples WHERE status = 'approved' AND title != '' ORDER BY title ASC";
-
-                            $templeResult = mysqli_query($DatabaseCo->dbLink, $templeQuery);
-
-                            if ($templeResult && mysqli_num_rows($templeResult) > 0) {
-
-                                while ($templeRow = mysqli_fetch_assoc($templeResult)) {
-
-                                    $temple_id = (int)$templeRow['index_id'];
-
-                                    $temple_title = htmlspecialchars($templeRow['title'], ENT_QUOTES, 'UTF-8');
-
-                            ?>
-
-                                <div class="form-check mb-2">
-
-                                    <input class="form-check-input temple-check-input" type="checkbox" value="<?php echo $temple_id; ?>" id="temple<?php echo $temple_id; ?>">
-
-                                    <label class="form-check-label" for="temple<?php echo $temple_id; ?>">
-
-                                        <?php echo $temple_title; ?>
-
-                                    </label>
-
+                            <div class="temple-god-filter-panel" id="filter-panel-god" role="tabpanel" hidden>
+                                <input type="search" class="form-control form-control-sm mb-2" id="godFilterSearch" placeholder="Search gods..." autocomplete="off">
+                                <div class="temple-god-filter-scroll" id="godFilterList">
+                                    <?php
+                                    $godQuery = "SELECT DISTINCT g.index_id, g.god_name
+                                        FROM temples t
+                                        INNER JOIN god g ON g.index_id = t.god_id
+                                        WHERE t.status = 'approved' AND t.god_id > 0
+                                        ORDER BY g.god_name ASC";
+                                    $godResult = mysqli_query($DatabaseCo->dbLink, $godQuery);
+                                    if ($godResult && mysqli_num_rows($godResult) > 0) {
+                                        while ($godRow = mysqli_fetch_assoc($godResult)) {
+                                            $god_name = htmlspecialchars($godRow['god_name'], ENT_QUOTES, 'UTF-8');
+                                            $index_id = (int) $godRow['index_id'];
+                                            $god_search = htmlspecialchars(strtolower($godRow['god_name']), ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <div class="form-check mb-2 filter-check-row" data-filter-label="<?php echo $god_search; ?>">
+                                            <input class="form-check-input god-check-input" type="checkbox" value="<?php echo $index_id; ?>" id="god<?php echo $index_id; ?>">
+                                            <label class="form-check-label" for="god<?php echo $index_id; ?>"><?php echo $god_name; ?></label>
+                                        </div>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<p class='small text-muted mb-0'>No gods found.</p>";
+                                    }
+                                    ?>
                                 </div>
-
-                            <?php
-
-                                }
-
-                            } else {
-
-                                echo "<p class='small text-muted'>No temples found.</p>";
-
-                            }
-
-                            ?>
-
-                        </div>
-
-                        <div class="mb-4 border-bottom pb-4">
-
-                            <div class="mb-3">
-
-                                <h4 class="fs-5 fw-semibold mb-2">Filter by God Name</h4>
-
                             </div>
-
-                            <!-- Start Form Check -->
-
-                            <?php
-
-                            $godQuery = "SELECT DISTINCT g.index_id, g.god_name
-                                FROM temples t
-                                INNER JOIN god g ON g.index_id = t.god_id
-                                WHERE t.status = 'approved' AND t.god_id > 0
-                                ORDER BY g.god_name ASC";
-
-                            $godResult = mysqli_query($DatabaseCo->dbLink, $godQuery);
-
-                            if ($godResult && mysqli_num_rows($godResult) > 0) {
-
-                                while ($godRow = mysqli_fetch_assoc($godResult)) {
-
-                                    $god_name = htmlspecialchars($godRow['god_name'], ENT_QUOTES, 'UTF-8');
-
-                                    $index_id = (int) $godRow['index_id'];
-
-                            ?>
-
-                                <div class="form-check mb-2">
-
-                                    <input class="form-check-input" type="checkbox" value="<?php echo $index_id; ?>" id="god<?php echo $index_id; ?>">
-
-                                    <label class="form-check-label" for="god<?php echo $index_id; ?>">
-
-                                        <?php echo $god_name; ?>
-
-                                    </label>
-
-                                </div>
-
-                            <?php
-
-                                }
-
-                            } else {
-
-                                echo "<p class='small text-muted'>No gods found.</p>";
-
-                            }
-
-                            ?>
-
-
-
                         </div>
+
+                        <style>
+                        .temple-god-filter-tabs .nav-link {
+                            font-weight: 600;
+                            text-align: center;
+                            color: #333;
+                            border-color: #dee2e6;
+                        }
+                        .temple-god-filter-tabs .nav-link.active {
+                            color: #fff;
+                            background-color: var(--bs-primary, #862c71);
+                            border-color: var(--bs-primary, #862c71);
+                        }
+                        .temple-god-filter-panel { display: none; }
+                        .temple-god-filter-panel.active { display: block; }
+                        .temple-god-filter-scroll {
+                            max-height: 28rem;
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            padding-right: 4px;
+                            -webkit-overflow-scrolling: touch;
+                        }
+                        .temple-god-filter-scroll .form-check {
+                            min-height: 2rem;
+                        }
+                        #viewmore.is-loading {
+                            opacity: 0.55;
+                            pointer-events: none;
+                        }
+                        </style>
 
 
 
@@ -300,7 +293,7 @@ error_reporting(0);
 
             <!-- start items content -->
 
-            <div class="col-xl-9 ps-lg-4 ps-xl-5 sidebar">
+            <div class="col-12 col-xl-9 px-2 px-md-3 ps-lg-4 ps-xl-5 sidebar">
 
                 <?php
                 $india_per_page = 50;
@@ -311,7 +304,7 @@ error_reporting(0);
 
                 <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
 
-                    <div class="fs-1 font-caveat page-header-title fw-bold m-2 pb-3 text-primary">
+                    <div class="fs-1 font-caveat page-header-title fw-bold m-0 m-md-2 pb-2 pb-md-3 text-primary text-center text-xl-start">
                         Temples in India
                         <span id="temple-listing-count" class="fs-4 fw-semibold text-dark">(<?php echo number_format($approved_temple_count); ?>)</span>
                     </div>
@@ -355,39 +348,17 @@ error_reporting(0);
                     ?>
 
                             <div class="listing">
-
-                                <a href="temple-details.php?id=<?php echo $Row['index_id']; ?> " >
-
-                                    <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>" >
-
-                                        <img src="app/uploads/temple/<?php echo $photos; ?>" alt="">
-
+                                <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">
+                                    <img src="app/uploads/temple/<?php echo $photos; ?>" alt="<?php echo htmlspecialchars($Row['title'], ENT_QUOTES, 'UTF-8'); ?>">
+                                </a>
+                                <div class="listing-details">
+                                    <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">
+                                        <div class="listing-title"><?php echo $Row['title'];
+                                            echo !empty($cff['city_name']) ? ', ' . $cff['city_name'] : '';
+                                            echo !empty($fff['state_name']) ? ', ' . $fff['state_name'] : ''; ?></div>
                                     </a>
-
-                                    <div class="listing-details">
-
-                                        <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>" >
-
-                                            <div class="listing-title"><?php echo $Row['title'];
-
-                                                                        echo $cff['city_name'] != '' ? ', ' : '';
-
-                                                                        echo $cff['city_name'];
-
-                                                                        echo  $fff['state_name'] != '' ? ', ' : '';
-
-                                                                        echo $fff['state_name']; ?></div>
-
-                                        </a>
-
-                                        <!-- <a href="#"><i class="fs-501 fa-solid fa-map-location text-primary address"></i></a> -->
-
-
-
-                                        <div class="listing-rating text-dark"><a href="temple-details.php?id=<?php echo $Row['index_id']; ?>" >Read more</a></div>
-
-                                    </div>
-
+                                    <div class="listing-rating text-dark"><a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">Read more</a></div>
+                                </div>
                             </div>
 
                             <!-- Repeat for additional listings -->
@@ -629,6 +600,32 @@ $(document).on('click', '.show_more', function () {
     })
     
 
+    function hasActiveFilters() {
+        var state = ($('#state').val() || '').toString().trim();
+        var city = ($('#city').val() || '').toString().trim();
+        var town = ($('#town').val() || '').toString().trim();
+        var hasCheckbox = document.querySelector('.temple-check-input:checked, .god-check-input:checked');
+        return !!(state || city || town || hasCheckbox);
+    }
+
+    function updateLoadMoreVisibility() {
+        if (hasActiveFilters()) {
+            $('#show_more_main1').hide();
+        } else {
+            $('#show_more_main1').show();
+        }
+    }
+
+    function scrollToTempleListingCount() {
+        var el = document.getElementById('temple-listing-count');
+        if (!el) {
+            return;
+        }
+        var headerOffset = 100;
+        var top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+
     // Fetch listings based on selected country, state, and city filters
 
     // Fetch listings based on selected country, state, and city
@@ -642,6 +639,7 @@ $(document).on('click', '.show_more', function () {
         var city  = ($('#city').val() || '').toString().trim();
 
         var town  = ($('#town').val() || '').toString().trim();
+        var hasLocationFilter = !!(state || city || town);
 
         $('.form-check-input, .temple-check-input').each(function() {
 
@@ -676,6 +674,10 @@ $(document).on('click', '.show_more', function () {
                 $('#viewmore').html(payload.html || '');
                 if (payload.count !== undefined) {
                     $('#temple-listing-count').text('(' + Number(payload.count).toLocaleString('en-IN') + ')');
+                }
+                updateLoadMoreVisibility();
+                if (hasLocationFilter) {
+                    scrollToTempleListingCount();
                 }
             },
 
@@ -717,92 +719,126 @@ $(document).on('click', '.show_more', function () {
 
 
 
-    function fetchListings(page = 1) {
+    var indiaFilterXhr = null;
 
+    function fetchListings() {
         var selectedFilters = [];
-
         var selectedTempleFilters = [];
 
-        document.querySelectorAll('.form-check-input:checked').forEach(function(checkbox) {
-
+        document.querySelectorAll('.temple-check-input:checked, .god-check-input:checked').forEach(function(checkbox) {
             if (checkbox.classList.contains('temple-check-input')) {
-
                 selectedTempleFilters.push(checkbox.value);
-
             } else {
-
                 selectedFilters.push(checkbox.value);
-
             }
-
         });
 
-        $("#state").prop("selectedIndex", 0).val();
+        if (selectedFilters.length === 0 && selectedTempleFilters.length === 0) {
+            location.reload();
+            return;
+        }
 
+        if (indiaFilterXhr) {
+            indiaFilterXhr.abort();
+        }
+
+        $("#state").prop("selectedIndex", 0).val('');
         $('#city').html("<option value=''>Select City</option>");
-
-
+        $('#town').html("<option value=''>Select Town</option>");
 
         var params = new URLSearchParams();
-
-        params.append('page', page);
         params.append('country', 'IN');
 
         if (selectedFilters.length > 0) {
-
             params.append('selectedFilters', selectedFilters.join(','));
-
         }
 
         if (selectedTempleFilters.length > 0) {
-
             params.append('selectedTempleFilters', selectedTempleFilters.join(','));
-
         }
 
+        var viewmore = document.getElementById('viewmore');
+        viewmore.classList.add('is-loading');
 
+        indiaFilterXhr = new XMLHttpRequest();
+        indiaFilterXhr.open('POST', 'fetch_listings_india_filter.php', true);
+        indiaFilterXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        const xhr = new XMLHttpRequest();
+        indiaFilterXhr.onload = function() {
+            viewmore.classList.remove('is-loading');
 
-        xhr.open('POST', 'fetch_listings.php', true);
-
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-        xhr.onload = function() {
-
-            if (xhr.status === 200) {
-
-                const response = JSON.parse(xhr.responseText);
-
-                document.getElementById('viewmore').innerHTML = response.listings;
-
-                if (response.total !== undefined) {
-                    document.getElementById('temple-listing-count').textContent =
-                        '(' + Number(response.total).toLocaleString('en-IN') + ')';
-                }
-
-                var paginationEl = document.getElementById('paginationControls');
-                if (paginationEl && response.pagination) {
-                    paginationEl.innerHTML = response.pagination;
-                }
-
+            if (indiaFilterXhr.status !== 200) {
+                return;
             }
 
+            const response = JSON.parse(indiaFilterXhr.responseText);
+            viewmore.innerHTML = response.listings || '<p>No listings found.</p>';
+
+            if (response.total !== undefined) {
+                document.getElementById('temple-listing-count').textContent =
+                    '(' + Number(response.total).toLocaleString('en-IN') + ')';
+            }
+
+            updateLoadMoreVisibility();
+            scrollToTempleListingCount();
         };
 
-        xhr.send(params.toString());
+        indiaFilterXhr.onerror = function() {
+            viewmore.classList.remove('is-loading');
+        };
 
+        indiaFilterXhr.send(params.toString());
     }
 
 
 
-    // Event listener for checkboxes (god and temple) to fetch listings on change
-
-    document.querySelectorAll('.form-check-input, .temple-check-input').forEach(function(checkbox) {
-
-        checkbox.addEventListener('change', function() { fetchListings(); });
-
+    // Temple / God filter tabs
+    document.querySelectorAll('[data-filter-tab]').forEach(function(tabBtn) {
+        tabBtn.addEventListener('click', function() {
+            var target = tabBtn.getAttribute('data-filter-tab');
+            document.querySelectorAll('[data-filter-tab]').forEach(function(btn) {
+                btn.classList.toggle('active', btn === tabBtn);
+                btn.setAttribute('aria-selected', btn === tabBtn ? 'true' : 'false');
+            });
+            document.querySelectorAll('.temple-god-filter-panel').forEach(function(panel) {
+                var isActive = panel.id === 'filter-panel-' + target;
+                panel.classList.toggle('active', isActive);
+                panel.hidden = !isActive;
+            });
+        });
     });
+
+    function filterCheckboxList(searchInput, listEl) {
+        if (!searchInput || !listEl) return;
+        var q = searchInput.value.toLowerCase().trim();
+        listEl.querySelectorAll('.filter-check-row').forEach(function(row) {
+            var label = (row.getAttribute('data-filter-label') || '').toLowerCase();
+            row.style.display = !q || label.indexOf(q) !== -1 ? '' : 'none';
+        });
+    }
+
+    var templeFilterSearch = document.getElementById('templeFilterSearch');
+    var godFilterSearch = document.getElementById('godFilterSearch');
+    var templeFilterList = document.getElementById('templeFilterList');
+    var godFilterList = document.getElementById('godFilterList');
+
+    if (templeFilterSearch) {
+        templeFilterSearch.addEventListener('input', function() {
+            filterCheckboxList(templeFilterSearch, templeFilterList);
+        });
+    }
+    if (godFilterSearch) {
+        godFilterSearch.addEventListener('input', function() {
+            filterCheckboxList(godFilterSearch, godFilterList);
+        });
+    }
+
+    // Event listener for checkboxes (god and temple) to fetch listings on change
+    document.querySelectorAll('.form-check-input, .temple-check-input').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() { fetchListings(); });
+    });
+
+    updateLoadMoreVisibility();
 
 
 

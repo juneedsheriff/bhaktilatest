@@ -1,7 +1,13 @@
 <?php
 include('./include/header.php');
 include_once './include/abroad_listing_helpers.php';
+include_once './include/breadcrumb_helpers.php';
 error_reporting(0);
+
+render_breadcrumbs([
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Temples Abroad'],
+]);
 ?>
 <style>
     .card-img-wrap img {
@@ -78,39 +84,58 @@ error_reporting(0);
                             </select>
                             <!-- /.End Select2 -->
                         </div>
-                        <div class="mb-4 border-bottom pb-4">
+                        <div class="mb-4 border-bottom pb-4 temple-god-filter-wrap">
                             <div class="mb-3">
-                                <h4 class="fs-5 fw-semibold mb-2">Filter by God Name</h4>
+                                <h4 class="fs-5 fw-semibold mb-1">Filter by</h4>
                             </div>
-                            <!-- Start Form Check -->
-                            <?php
-                            $godQuery = "SELECT DISTINCT g.index_id, g.god_name
-                                FROM abroad a
-                                INNER JOIN god g ON g.index_id = a.god_id
-                                WHERE a.status = 'approved' AND a.god_id > 0
-                                ORDER BY g.god_name ASC";
-                            $godResult = mysqli_query($DatabaseCo->dbLink, $godQuery);
+                            <div class="temple-god-filter-panel active" id="filter-panel-god" role="tabpanel">
+                                <input type="search" class="form-control form-control-sm mb-2" id="godFilterSearch" placeholder="Search gods..." autocomplete="off">
+                                <div class="temple-god-filter-scroll" id="godFilterList">
+                                    <?php
+                                    $godQuery = "SELECT DISTINCT g.index_id, g.god_name
+                                        FROM abroad a
+                                        INNER JOIN god g ON g.index_id = a.god_id
+                                        WHERE a.status = 'approved' AND a.god_id > 0
+                                        ORDER BY g.god_name ASC";
+                                    $godResult = mysqli_query($DatabaseCo->dbLink, $godQuery);
 
-                            if ($godResult && mysqli_num_rows($godResult) > 0) {
-                                while ($godRow = mysqli_fetch_assoc($godResult)) {
-                                    $god_name = htmlspecialchars($godRow['god_name'], ENT_QUOTES, 'UTF-8');
-                                    $index_id = (int) $godRow['index_id'];
-                            ?>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="<?php echo $index_id; ?>" id="god<?php echo $index_id; ?>">
-                                    <label class="form-check-label" for="god<?php echo $index_id; ?>">
-                                        <?php echo $god_name; ?>
-                                    </label>
+                                    if ($godResult && mysqli_num_rows($godResult) > 0) {
+                                        while ($godRow = mysqli_fetch_assoc($godResult)) {
+                                            $god_name = htmlspecialchars($godRow['god_name'], ENT_QUOTES, 'UTF-8');
+                                            $index_id = (int) $godRow['index_id'];
+                                            $god_search = htmlspecialchars(strtolower($godRow['god_name']), ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <div class="form-check mb-2 filter-check-row" data-filter-label="<?php echo $god_search; ?>">
+                                            <input class="form-check-input god-check-input" type="checkbox" value="<?php echo $index_id; ?>" id="god<?php echo $index_id; ?>">
+                                            <label class="form-check-label" for="god<?php echo $index_id; ?>"><?php echo $god_name; ?></label>
+                                        </div>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<p class='small text-muted mb-0'>No gods found.</p>";
+                                    }
+                                    ?>
                                 </div>
-                            <?php
-                                }
-                            } else {
-                                echo "<p class='small text-muted'>No gods found.</p>";
-                            }
-                            ?>
-
-
+                            </div>
                         </div>
+
+                        <style>
+                        .temple-god-filter-panel { display: block; }
+                        .temple-god-filter-scroll {
+                            max-height: 28rem;
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            padding-right: 4px;
+                            -webkit-overflow-scrolling: touch;
+                        }
+                        .temple-god-filter-scroll .form-check {
+                            min-height: 2rem;
+                        }
+                        #viewmore.is-loading {
+                            opacity: 0.55;
+                            pointer-events: none;
+                        }
+                        </style>
 
                         <!-- start apply button -->
                         <!-- <button type="button" class="btn btn-primary w-100">Apply filters</button> -->
@@ -289,7 +314,7 @@ $(document).on('click', '.show_more', function () {
         let country = ($('#country').val() || '').toString().trim();
         let city = ($('#city').val() || '').toString().trim();
         let filterType = $('input[name="filter_type"]:checked').val();
-        $('.form-check-input').each(function() {
+        $('.god-check-input').each(function() {
             this.checked = false;
         });
 
@@ -315,7 +340,7 @@ $(document).on('click', '.show_more', function () {
         $("#country").prop("selectedIndex", 0).val();
         $('#city').html('<option value="" selected disabled>Select City</option>');
         let selectedFilters = [];
-        document.querySelectorAll('.form-check-input:checked').forEach(checkbox => {
+        document.querySelectorAll('.god-check-input:checked').forEach(checkbox => {
             selectedFilters.push(checkbox.value);
         });
 
@@ -341,8 +366,25 @@ $(document).on('click', '.show_more', function () {
         xhr.send(params.toString());
     }
 
-    // Event listener for checkboxes to fetch listings on change
-    document.querySelectorAll('.form-check-input').forEach(checkbox => {
+    function filterCheckboxList(searchInput, listEl) {
+        if (!searchInput || !listEl) return;
+        const q = searchInput.value.toLowerCase().trim();
+        listEl.querySelectorAll('.filter-check-row').forEach(function(row) {
+            const label = (row.getAttribute('data-filter-label') || '').toLowerCase();
+            row.style.display = !q || label.indexOf(q) !== -1 ? '' : 'none';
+        });
+    }
+
+    const godFilterSearch = document.getElementById('godFilterSearch');
+    const godFilterList = document.getElementById('godFilterList');
+    if (godFilterSearch) {
+        godFilterSearch.addEventListener('input', function() {
+            filterCheckboxList(godFilterSearch, godFilterList);
+        });
+    }
+
+    // Event listener for god checkboxes to fetch listings on change
+    document.querySelectorAll('.god-check-input').forEach(checkbox => {
         checkbox.addEventListener('change', () => fetchListings());
     });
 
