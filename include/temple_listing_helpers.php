@@ -84,7 +84,6 @@ function temples_india_listing_html(array $row): string
                     <a href='temple-details.php?id={$indexId}'>
                         <div class='listing-title'>{$title}</div>
                     </a>
-                    <div class='listing-rating text-dark'><a href='temple-details.php?id={$indexId}'>Read more</a></div>
                 </div>
               </div>";
 }

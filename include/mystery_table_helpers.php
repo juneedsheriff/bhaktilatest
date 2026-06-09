@@ -341,9 +341,6 @@ function mystery_table_listing_html(array $row)
             <a href="<?php echo $detailUrl; ?>">
                 <div class="listing-title"><?php echo $title . $locationSuffix; ?></div>
             </a>
-            <div class="listing-rating text-dark">
-                <a href="<?php echo $detailUrl; ?>">Read more</a>
-            </div>
         </div>
     </div>
     <?php

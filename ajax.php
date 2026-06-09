@@ -44,7 +44,6 @@ if ($type === 'india') {
                                 <a href='temple-details.php?id={$index_id}' target='_blank'>
                                     <div class='listing-title'>{$title}</div>
                                 </a>
-                                <div class='listing-rating text-dark'><a href='temple-details.php?id={$index_id}' target='_blank'>Read more</a></div>
                             </div>
                           </div>";
     }

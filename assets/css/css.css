@@ -1122,8 +1122,12 @@ hr {
 /* Breadcrumb ----- */
 
 .breadcrumb-wrap {
-    padding: 12px 0;
+    padding: 10px 0;
     border-bottom: 1px dotted #ddd;
+}
+
+.breadcrumb-toolbar.breadcrumb-wrap {
+    padding: 10px 0;
 }
 
 .breadcrumb {
@@ -5188,4 +5192,19 @@ hr {
     line-height: 1.4;
     font-size: 14px;
     box-sizing: border-box;
+}
+
+.text-dark.icon-desc p{
+    font-family: 'georgia';
+    font-size: 17px;
+    line-height: 32px;
+    margin: 25px 0 20px 0;
+}
+
+.text-dark.icon-desc  h2, .text-dark.icon-desc  h3 {
+    font-family: 'georgia' !important;
+    font-size: 20px !important;
+    line-height: 32px;
+    margin: 15px 0;
+    color: #000;
 }

@@ -4,1216 +4,516 @@ error_reporting(1);
 
 include('./include/header.php');
 
-
-
-// Include required classes
-
 include_once './app/class/XssClean.php';
-
 include_once './app/class/databaseConn.php';
-
 include_once './app/lib/requestHandler.php';
-
-
+include_once './include/iconic_detail_helpers.php';
+include_once './include/breadcrumb_helpers.php';
 
 $DatabaseCo = new DatabaseConn();
-
 $xssClean = new xssClean();
-
 $id = $xssClean->clean_input($_REQUEST['id']);
 
-
-
-// Fetch temple details for the provided id
-
 $select = "SELECT * FROM `iconic_temples` WHERE index_id='$id'";
-
 $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
 
-
-
-// Check if the query returns a result
-
 if (mysqli_num_rows($SQL_STATEMENT) > 0) {
-
     $Row = mysqli_fetch_object($SQL_STATEMENT);
-
-    $photo = $Row->upload_image;
-
     $country = $Row->country;
-
     $state = $Row->state;
-
     $city = $Row->city;
-
     $address = $Row->address;
+    $temple_name = $Row->title;
 
+    extract(iconic_detail_build_view($DatabaseCo->dbLink, $Row));
+    $mainRenderOrder = ['About', 'History', 'Deity', 'Mystical', 'Seva', 'Contact'];
+
+    $commentsQuery = "SELECT * FROM `comments` WHERE type='iconic' AND temple_id='" . mysqli_real_escape_string($DatabaseCo->dbLink, $id) . "' AND is_approved=1 ORDER BY index_id DESC";
+    $commentsResult = mysqli_query($DatabaseCo->dbLink, $commentsQuery);
+    $allComments = [];
+    if ($commentsResult) {
+        while ($commentRow = mysqli_fetch_object($commentsResult)) {
+            $allComments[] = $commentRow;
+        }
+    }
+    $totalComments = count($allComments);
 } else {
-
-    echo "<p>Temple not found.</p>";
-
+    echo '<p>Temple not found.</p>';
+    include('./include/footer.php');
     exit;
-
 }
 
-
-
-// Create the full address
-
-$fullAddress = urlencode("$address, $city, $state, $country");
+$categoryCrumb = iconic_detail_category_breadcrumb($DatabaseCo->dbLink, $Row);
+$breadcrumbItems = [
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Iconic Temples', 'url' => 'iconic-category.php'],
+];
+if ($categoryCrumb) {
+    $breadcrumbItems[] = $categoryCrumb;
+}
+$breadcrumbItems[] = ['label' => $Row->title ?? 'Temple Details'];
 
 ?>
 <style>
-/* ------------------------ */
-/*      PRINT STYLE         */
-/* ------------------------ */
-@media print {
+.mt-10 { margin-top: 15px; }
 
-    /* Hide unwanted sections */
-    .hidePrint,
-    .sidebar,
-    .social-media,
-    .tab-container,
-    .owl-carousel,
-    #map,
-    iframe,
-    .comment-box,
-    .review-image,
-    .zoom-gallery {
-        display: none !important;
-    }
+.tab-container {
+    position: sticky;
+    top: 0;
+    z-index: 56;
+    padding: 10px 0;
+    text-align: center;
+}
 
-    /* Full width layout */
-    body, html {
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #ffffff !important;
-        -webkit-print-color-adjust: exact !important;
-    }
+.temple-section-nav { overflow: hidden; }
 
-    #printable-area {
-        width: 100%!important;
-        padding: 20px 40px!important;
-        background: #ffffff!important;
-        font-size: 16px!important;
-        line-height: 1.6!important;
-    }
+.temple-section-nav .btn-cus {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: break-word;
+}
 
-    /* Header Logo */
-    .print-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #ff8776;
-    }
-    .print-header img {
-        width: 120px;
-        height: auto;
-        margin-bottom: 10px;
-    }
-    .print-header h1 {
-        font-size:20px;
-        font-weight: bold;
-        margin: 0;
-        text-transform: uppercase;
-        color: #333;
-    }
+.sth-text img,
+#pageReadContent img {
+    max-width: 100%;
+    height: auto;
+}
 
-    /* Section headings */
-    h2 {
-        font-size: 22px!important;
-        margin-top: 25px!important;
-        padding-bottom: 5px!important;
-        border-bottom: 2px solid #ff8776!important;
-        color: #000!important;
-        font-weight: bold!important;
-    }
+.theiaStickySidebar .btn-cus {
+    padding: 8px 10px;
+}
 
-    /* Normal paragraph text */
-    p, span {
-        font-size: 16px!important;
-        color: #000!important;
-    }
+.timing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #000;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+}
 
-    /* Cards in print */
-    .card {
-        box-shadow: none!important;
-        border: 1px solid #ddd!important;
-        padding: 20px!important;
-        margin-bottom: 25px!important;
-        background: #fff!important;
-    }
+.timing-list p {
+    margin-bottom: 0.5rem;
+    color: #000;
+}
 
-    /* Avoid page breaks inside a section */
-    .card, h2, p {
-        page-break-inside: avoid!important;
-    }
+.comment-item-hidden { display: none !important; }
 
-    /* Force page break before gallery & comments */
-    #gallery,
-    #comments {
-        page-break-before: always!important;
-    }
+.content p,
+.sth-text p {
+    text-align: left !important;
 }
 </style>
-<style>
 
-    .custom-btn {
+<?php render_breadcrumbs($breadcrumbItems); ?>
+<link href="assets/css/temple-pages-responsive.css" rel="stylesheet">
 
-        font-size: 18px;
-
-        font-weight: 600;
-
-        border: 3px solid #ff8776;
-
-        /* Primary border color */
-
-        color: black;
-
-        /* Primary text color */
-
-        background-color: transparent;
-
-        transition: all 0.3s ease;
-
-    }
-
-
-
-
-
-    .custom-btn:hover {
-
-        border: 3px solid black;
-
-        background-color: #ff8776 !important;
-
-        /* Primary background on hover */
-
-        color: black;
-
-        /* White text on hover */
-
-    }
-
-
-
-    .custom-sticky {
-
-        position: sticky;
-
-        top: 0;
-
-        /* Stick to the top of the viewport */
-
-        z-index: 1030;
-
-        /* Ensure it stays above other elements */
-
-       
-
-        /* Background to avoid transparency issues */
-
-        padding: 10px 0;
-
-        /* Add padding for spacing */
-
-
-
-    }
-
-</style>
-
-<!-- Start gallery with print icon -->
-
-<div class="container-fluid m-0 p-0 text-center bg-gradient text-center">
-
-    <div class="overflow-hidden position-relative  banner-over-container">
-
-                    <img class="w-100" src="app/uploads/iconic_temple/banner/<?php echo $Row->banner; ?>" class="img-fluid" alt="Temple Image">
-
-        <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-primary"><?php echo $Row->title; ?></h1>
-
+<div class="container-fluid m-0 p-0 text-center bg-gradient text-center temple-detail-page">
+    <div class="overflow-hidden position-relative banner-over-container">
+        <img <?php echo iconic_detail_photo_attrs($Row); ?>>
+        <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3 text-primary"><?php echo htmlspecialchars($Row->title, ENT_QUOTES, 'UTF-8'); ?></h1>
     </div>
-
 </div>
 
-
-
-<div id="printable-content" class="bg-gradient">
+<div id="printable-content" class="bg-gradient temple-detail-page">
     <div id="printable-area">
-        <div class="py-5">
-            <div class="container">
-
-                <!-- 1) SPECIALITY TITLE SECTION -->
-                <div class="row">
-                    <div class="col-lg-9 mx-auto">
-                        <?php if (!empty($Row->speciality_title)) : 
-                            $specialities = $Row->speciality_title;
-                            $items = array_map('trim', explode(',', $specialities));
-
-                            if (count($items) > 1) {
-                                $last = array_pop($items);
-                                $formatted = implode(', ', $items) . ' and ' . $last;
-                            } else {
-                                $formatted = $items[0];
-                            }
-                        ?>
-                        <div class="mb-5 bg-body p-4 mb-4 sth-text">
-                            <h2 class="iconic-head text-center"><?php echo $formatted; ?></h2>
-                            <p class="text-dark sth-text"><?php echo $Row->speciality; ?></p>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-
-                <!-- 2) TOP MENU AND SIDEBAR -->
-                <div class="row">
-
-                    <!-- LEFT: TAB MENU (FULL WIDTH ON MOBILE) -->
-                    <div class="col-lg-9">
-                        <div class="tab-container text-center mb-4 hidePrint custom-sticky">
-                            <div class="card rounded-4 border-0 bg-gradient">
-                                <div class="row m-3">
-
-                                    <?php if (!empty($Row->sthalam)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('Sthalam')" class="btn btn-primary">Temple Overview</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($Row->puranam)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('Puranam')" class="btn btn-primary">Origin Story</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($Row->varnam)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('Varnam')" class="btn btn-primary">Architecture</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($Row->highlights)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('Highlights')" class="btn btn-primary">Mystical Beliefs</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($Row->sevas)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('Sevas')" class="btn btn-primary">Festivals & Rituals</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($Row->gallery_image)) : ?>
-                                        <div class="col-6 col-sm-4 col-md-auto">
-                                            <button onclick="scrollToCard('gallery')" class="btn btn-primary">Photos</button>
-                                        </div>
-                                    <?php endif; ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RIGHT: SIDEBAR -->
-                    <div class="col-lg-3">
-                        <div class="card rounded-4 border-0 bg-gradient p-3">
-
-                            <div class="social-media hidePrint">
-                                <a class="btn btn-primary d-inline-block mb-2" href="#" id="printBtn">
-                                    <i class="fas fa-print"></i>
-                                </a>
-                                <a class="btn btn-primary d-inline-block mb-2" href="#" onclick="shareToWhatsApp()">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- 3) MAIN CONTENT SECTIONS -->
-                <div class="row mt-4">
-
-                    <div class="col-lg-9">
-
-                        <?php if (!empty($Row->sthalam)) : ?>
-                            <div id="Sthalam" class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="text-dark caveat-text">Temple Overview</h2>
-                                <p><?php echo $Row->sthalam; ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($Row->puranam)) : ?>
-                            <div id="Puranam" class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="text-dark caveat-text">Origin Story</h2>
-                                <p><?php echo $Row->puranam; ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($Row->varnam)) : ?>
-                            <div id="Varnam" class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="text-dark caveat-text">Architecture</h2>
-                                <p><?php echo $Row->varnam; ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($Row->highlights)) : ?>
-                            <div id="Highlights" class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="text-dark caveat-text">Mystical Beliefs</h2>
-                                <p><?php echo $Row->highlights; ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($Row->sevas)) : ?>
-                            <div id="Sevas" class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="text-dark caveat-text">Festivals & Daily Rituals</h2>
-                                <p><?php echo $Row->sevas; ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                         <!-- GALLERY RIGHT SIDE FULL WIDTH -->
-                    <?php if (!empty($Row->gallery_image)): ?>
-                        <div class="col-lg-12">
-                            <div id="gallery" class="card shadow mb-4 p-4 bg-body text-dark hidePrint">
-                                <h2 class="caveat-text">Photos</h2>
-                                <div class="row mt-3 g-2 zoom-gallery">
-
-                                    <?php
-                                        $imgs = array_filter(explode(',', $Row->gallery_image));
-                                        foreach ($imgs as $image):
-                                            $imagePath = "app/uploads/iconic_temple/gallery/" . $image;
-                                            if(file_exists($imagePath)):
-                                    ?>
-                                        <div class="col-lg-3 col-6">
-                                            <a href="<?= $imagePath ?>" class="gallery-overlay-hover">
-                                                <img src="<?= $imagePath ?>" class="img-fluid rounded-3 object-fit-cover" style="height: 250px; width:100%;">
-                                            </a>
-                                        </div>
-                                    <?php
-                                            endif;
-                                        endforeach;
-                                    ?>
-
-                                </div>
-                            </div>
+        <div class="py-3 py-lg-5">
+            <div class="container px-2 px-md-3">
+                <div class="col-12">
+                    <?php if ($specialityTitle !== '' || $specialityText !== '') : ?>
+                        <div class="card shadow mb-5 bg-body rounded text-dark p-4 mb-4 sth-text">
+                            <?php if ($specialityTitle !== '') : ?>
+                                <h2 class="text-dark text-center"><?php echo htmlspecialchars($specialityTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
+                            <?php endif; ?>
+                            <?php if ($specialityText !== '') : ?>
+                                <div class="text-dark sth-text"><?php echo $specialityText; ?></div>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
+                </div>
 
-                        <?php if (!empty($Row->time)) : ?>
-                            <div class="card shadow mb-4 p-4 bg-body text-dark">
-                                <h2 class="caveat-text mb-3">Temple Timings</h2>
-                                <p><?php echo $Row->time; ?></p>
+                <div class="row">
+                    <div id="pageReadContent" class="col-12 col-lg-8 ps-lg-3 ps-xxl-5 content">
+                        <?php if (!empty($navSections)) : ?>
+                            <div class="tab-container text-center mb-4 hidePrint custom-sticky">
+                                <div class="card rounded-4 border-0 bg-gradient temple-section-nav">
+                                    <div class="card-body p-2 p-sm-3">
+                                        <div class="row g-2 g-sm-3 justify-content-center temple-section-nav__grid">
+                                            <?php foreach ($navSections as $section) : ?>
+                                                <div class="col-6 col-sm-4 col-lg">
+                                                    <button type="button" onclick="scrollToCard('<?php echo iconic_detail_section_id($section); ?>')" class="btn btn-primary btn-cus w-100">
+                                                        <?php echo htmlspecialchars($section['title'], ENT_QUOTES, 'UTF-8'); ?>
+                                                    </button>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
 
-                        
-
-                        <div class="card shadow mb-4 p-4 bg-body text-dark">
-                            <h2 class="caveat-text mb-3">Contact</h2>
-                            <p><?php echo nl2br($address); ?></p>
-
-                            <h2 class="mb-2 caveat-text">Wheelchair Access</h2>
-                            <p>Available</p>
-
-                            <h2 class="mb-2 caveat-text">Location Information</h2>
-                            <div id="locationInfoDiv2" class="hidePrint">
-                                <iframe 
-    width="100%" 
-    height="400" 
-    style="border:0"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    src="https://www.google.com/maps?q=<?php echo $address; ?>&output=embed">
-</iframe>
-                            </div>
+                        <div id="bannerTitle">
+                            <?php foreach ($mainRenderOrder as $anchor) : ?>
+                                <?php if ($anchor === 'Contact') : ?>
+                                    <?php if (!$contactSection) { continue; } ?>
+                                    <div id="Contact" class="card shadow mb-5 bg-body rounded p-4 mb-4 sth-text text-dark">
+                                        <h2 class="text-dark font-caveat">Contact</h2>
+                                        <div><?php echo $contactSection['content']; ?></div>
+                                    </div>
+                                <?php else : ?>
+                                    <?php
+                                    if (!isset($sectionByAnchor[$anchor]) || !temple_detail_section_visible($sectionByAnchor[$anchor])) {
+                                        continue;
+                                    }
+                                    $section = $sectionByAnchor[$anchor];
+                                    $sectionId = iconic_detail_section_id($section);
+                                    ?>
+                                    <div id="<?php echo htmlspecialchars($sectionId, ENT_QUOTES, 'UTF-8'); ?>" class="card shadow mb-5 bg-body rounded p-4 mb-4 sth-text text-dark">
+                                        <h2 class="text-dark font-caveat"><?php echo htmlspecialchars($section['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                                        <div><?php echo $section['content']; ?></div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
 
+                        <div class="row print-disable">
+                            <div class="comment-box mt-3">
+                                <h4>Leave a Comment</h4>
+                                <div class="alert alert-success mt-3 d-none" id="success-message">
+                                    Comment successfully submitted and is pending approval!
+                                </div>
+                                <form action="" method="post" id="submit-comment">
+                                    <div class="form-group mb-3">
+                                        <p>Name</p>
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>Comment</p>
+                                        <textarea class="form-control" id="comment" rows="4" placeholder="Your Comment" required></textarea>
+                                    </div>
+                                    <input type="hidden" name="type" id="type" value="iconic" />
+                                    <button class="btn btn-primary mt-10" type="submit">Post Comment</button>
+                                </form>
+                            </div>
+
+                            <?php if ($totalComments > 0) : ?>
+                                <h3 class="mt-5">Comments</h3>
+                                <div id="comments-section" class="comment-section">
+                                    <?php foreach ($allComments as $ci => $Rowc) :
+                                        $isHidden = $ci >= 3 ? ' comment-item-hidden' : '';
+                                    ?>
+                                        <div class="comment-item<?php echo $isHidden; ?>" data-index="<?php echo $ci; ?>">
+                                            <p>
+                                                <strong><?php echo htmlspecialchars($Rowc->name ?? '', ENT_QUOTES, 'UTF-8'); ?></strong> says,<br>
+                                                <?php echo nl2br(htmlspecialchars($Rowc->comment ?? '', ENT_QUOTES, 'UTF-8')); ?>
+                                            </p>
+                                            <hr>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php if ($totalComments > 3) : ?>
+                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="viewMoreComments" data-show-each="3">View more</button>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
+                    <div class="col-12 col-lg-4 sidebar mt-4 mt-lg-0">
+                        <div class="social-media hidePrint">
+                            <a class="btn btn-primary d-inline-block" href="#" data-lang="<?php echo $_GET['lang'] ?? 'en'; ?>" id="printBtn">
+                                <i class="fas fa-print"></i>
+                            </a>
+                            <a class="btn btn-primary d-inline-block" href="#" onclick="shareToWhatsApp(); return false;">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <button id="toggleIcon" class="btn btn-primary d-inline-block">
+                                <i class="fa fa-play"></i> Listen to Page
+                            </button>
+                        </div>
 
-                   
+                        <?php if ($timingsContent !== '') : ?>
+                            <div class="border p-4 rounded-4 shadow-sm" style="margin-top: 30px;">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4 class="mb-0">Temple <span class="text-primary">Timings</span></h4>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                    </svg>
+                                </div>
+                                <div class="d-flex justify-content-between timing-list flex-column">
+                                    <?php echo $timingsContent; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
 
+                        <?php if ($hasGallery) : ?>
+                            <div id="Photo" class="border p-4 rounded-4 shadow-sm mt-5 temple-sidebar-photos hidePrint">
+                                <h4 class="mb-3 text-primary">Photos</h4>
+                                <div class="row g-2 review-image zoom-gallery">
+                                    <?php foreach ($galleryImages as $image) :
+                                        $imagePath = iconic_detail_image_url($image);
+                                        if ($imagePath === '') {
+                                            continue;
+                                        }
+                                    ?>
+                                        <div class="col-4">
+                                            <a href="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" class="gallery-overlay-hover dark-overlay position-relative d-block overflow-hidden rounded-3 gallery-image-link">
+                                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Gallery Image" class="rounded-3 gallery-thumb w-100" onerror="this.closest('.col-4').style.display='none';">
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($addressSection) : ?>
+                            <div class="border p-4 rounded-4 shadow-sm mt-5">
+                                <h5 class="mb-3">Temple <span class="text-primary">Address</span></h5>
+                                <div class="timing-list"><?php echo $addressSection['content']; ?></div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($hasLocation) : ?>
+                            <div id="Location" class="border p-4 rounded-4 shadow-sm mt-5 print-disable">
+                                <h5 class="mb-3">Temple <span class="text-primary">Location</span></h5>
+                                <?php if ($mapEmbed !== '') : ?>
+                                    <iframe src="<?php echo htmlspecialchars($mapEmbed, ENT_QUOTES, 'UTF-8'); ?>" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <?php else : ?>
+                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
-
-<!-- <div class="container">
-
-    <h2>Temple Location</h2>
-
-    <p><?php echo htmlspecialchars("$address, $city, $state, $country"); ?></p>
-
-    <div id="map" style="width: 100%; height: 400px;"></div>
-
-</div> -->
-
-<?php
-function getTemplePrintContent($Row) {
-
-    // Handle empty fields
-    $safe = function($data) {
-        return !empty($data) ? $data : "Information not available.";
-    };
-
-    // Prepare gallery
-    $galleryHTML = "";
-    if (!empty($Row->gallery_image)) {
-        $galleryHTML .= "<h2 class='sec-head caveat-text' style=' width:fit-content;'>Gallery</h2><div>";
-         
-        $imgs = array_filter(explode(",", $Row->gallery_image));
-        foreach ($imgs as $img) {
-            $path = "app/uploads/iconic_temple/gallery/" . trim($img);
-            if (file_exists($path)) {
-                $galleryHTML .= "<img src='$path' style='width:200px; margin:10px; border-radius:8px; height:220px;'/>";
-            }
+<script>
+    function scrollToCard(cardId) {
+        const card = document.getElementById(cardId);
+        if (!card) {
+            return;
         }
-       $galleryHTML .= "</div>";
-    } else {
-        $galleryHTML = "<p>No gallery images available.</p>";
+
+        card.scrollIntoView({ behavior: 'smooth' });
+        card.classList.add('highlight');
+        setTimeout(function () {
+            card.classList.remove('highlight');
+        }, 1000);
     }
-    
-    // Build full printable HTML
-    $html = "
-    <style>
-        /* Google fonts --------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
-    p{
-    font-family: 'georgia';
-    font-size: 18px !important;
-    text-align: justify;
-    word-spacing: -0.5px;
-}
-    .sec-head{
-        font-family: 'georgia';
+</script>
+
+<?php if ($mapEmbed === '' && !empty(trim((string) $address))) : ?>
+<script>
+    function initMap() {
+        const mapElement = document.getElementById('map');
+        if (!mapElement || typeof google === 'undefined') {
+            return;
+        }
+
+        const fromAddress = <?php echo json_encode(strip_tags((string) $address)); ?>;
+        const geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ address: fromAddress }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK && results[0]) {
+                const location = results[0].geometry.location;
+                const map = new google.maps.Map(mapElement, {
+                    center: location,
+                    zoom: 14,
+                });
+
+                new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: <?php echo json_encode($temple_name); ?>,
+                });
+            }
+        });
     }
-     .caveat-text {
-        font-family: 'Caveat', cursive !important;
+
+    window.initMap = initMap;
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG-RZCzEuy7JMyMu4ykftt5ooRcCeqhKY&callback=initMap" async defer></script>
+<?php endif; ?>
+
+<script>
+(function () {
+    var toggleButton = document.getElementById('toggleIcon');
+    if (!toggleButton || !window.speechSynthesis) {
+        return;
     }
-    </style>
-        <div style='padding:20px; font-family:Arial;'>
 
-            <h1 class='caveat-text' style='font-weight: 600 !important;'>{$safe($Row->title)}</h1>
+    var synth = window.speechSynthesis;
+    var utterance = null;
+    var isPlaying = false;
+    var selectedVoice = null;
+    var idleLabel = '<i class="fa fa-play"></i> Listen to Page';
+    var stopLabel = '<i class="fa fa-stop"></i> Stop';
 
-            <img src='app/uploads/iconic_temple/banner/{$Row->banner}'
-                 style='width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:20px;' />
+    function getTextToSpeak() {
+        var sthalamEl = document.getElementById('Sthalam');
+        var bannerTitleEl = document.getElementById('bannerTitle');
+        if (sthalamEl && bannerTitleEl) {
+            return ((sthalamEl.textContent || '').trim() + ' ' + (bannerTitleEl.textContent || '').trim()).trim();
+        }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Speciality</h2>
-            <p>{$safe($Row->speciality)}</p>
+        var mainContent = document.getElementById('pageReadContent');
+        return mainContent ? (mainContent.textContent || '').replace(/\s+/g, ' ').trim() : '';
+    }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Temple Overview</h2>
-            <p>{$safe($Row->sthalam)}</p>
+    function setupVoice() {
+        var voices = synth.getVoices();
+        selectedVoice = voices.find(function (v) {
+            return v.lang === 'hi-IN' || v.name.toLowerCase().indexOf('hindi') !== -1 || v.lang === 'en-IN';
+        });
+    }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Origin Story</h2>
-            <p>{$safe($Row->puranam)}</p>
+    if (synth.getVoices().length) {
+        setupVoice();
+    }
+    synth.onvoiceschanged = setupVoice;
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Architecture</h2>
-            <p>{$safe($Row->varnam)}</p>
+    function playSpeech() {
+        if (synth.speaking) {
+            synth.cancel();
+        }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Mystical Beliefs</h2>
-            <p>{$safe($Row->highlights)}</p>
+        var text = getTextToSpeak();
+        if (!text) {
+            if (typeof toastr !== 'undefined') {
+                toastr.info('No content to read.');
+            }
+            return;
+        }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Festivals & Daily Rituals</h2>
-            <p>{$safe($Row->sevas)}</p>
+        utterance = new SpeechSynthesisUtterance(text);
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+        }
+        utterance.rate = 0.95;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        utterance.onend = function () {
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        };
+        utterance.onerror = function () {
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        };
+        synth.speak(utterance);
+        isPlaying = true;
+        toggleButton.innerHTML = stopLabel;
+    }
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Timings</h2>
-            <p>{$safe($Row->time)}</p>
+    toggleButton.addEventListener('click', function () {
+        if (isPlaying) {
+            synth.cancel();
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        } else {
+            playSpeech();
+        }
+    });
 
-            <h2 class='sec-head caveat-text' style=' width:fit-content;'>Address</h2>
-            <p>{$safe($Row->address)}, {$safe($Row->city)}, {$safe($Row->state)}, {$safe($Row->country)}</p>
+    window.addEventListener('beforeunload', function () {
+        if (synth.speaking) {
+            synth.cancel();
+        }
+    });
+})();
+</script>
 
-             ".$galleryHTML."
-
-        </div>
-    ";
-
-    return $html;
-}
-
-$printContent = getTemplePrintContent($Row);
-?>
+<?php $printContent = iconic_detail_print_content($Row); ?>
 <div id="printArea" style="display:none;">
     <?php echo $printContent; ?>
 </div>
-<?php
-// Ensure proper SQL queries are working
-
-
-
-// Calculate total pages
-
-
-
-
-
-$select = "SELECT * FROM `iconic_temples` WHERE index_id='$id'";
-
-$SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
-
-
-
-// Check if the query returns a result
-
-if (mysqli_num_rows($SQL_STATEMENT) > 0) {
-
-    $Row = mysqli_fetch_object($SQL_STATEMENT);
-
-    $photo = $Row->upload_image;
-
-    $country = $Row->country;
-
-    $temple_name = $Row->title;
-
-    $state = $Row->state;
-
-    $city = $Row->city;
-
-    $address = $Row->address;
-
-} else {
-
-    echo "<p>Temple not found.</p>";
-
-    exit;
-
-}
-
-?>
 
 <script>
-
-    function scrollToCard(cardId) {
-
-        const card = document.getElementById(cardId);
-
-
-
-        // Scroll to the card
-
-        card.scrollIntoView({
-
-            behavior: 'smooth'
-
-        });
-
-
-
-        // Add the highlight animation
-
-        card.classList.add('highlight');
-
-
-
-        // Remove the highlight animation after 1 second
-
-        setTimeout(() => {
-
-            card.classList.remove('highlight');
-
-        }, 1000);
-
+(function () {
+    function getPrintBaseHref() {
+        var pathParts = window.location.pathname.split('/');
+        pathParts.pop();
+        return window.location.origin + pathParts.join('/') + '/';
     }
 
-</script>
-
-<!-- <script>
-
-    // Google Maps initialization function
-
-    function initAutocomplete() {
-
-        // Combine the address details into one full address
-
-        var address = "<?php echo "$address, $city, $state, $country"; ?>";
-
-
-
-        // Initialize the Geocoder and map
-
-        const map = new google.maps.Map(document.getElementById("map"), {
-
-            center: {
-
-                lat: -33.8688,
-
-                lng: 151.2195
-
-            }, // Default center, updated upon geocode
-
-            zoom: 13,
-
-            mapTypeId: "roadmap"
-
-        });
-
-
-
-        const geocoder = new google.maps.Geocoder();
-
-
-
-        // Geocode the address to get coordinates
-
-        geocoder.geocode({
-
-            'address': address
-
-        }, function(results, status) {
-
-            if (status === 'OK') {
-
-                map.setCenter(results[0].geometry.location);
-
-                new google.maps.Marker({
-
-                    map: map,
-
-                    position: results[0].geometry.location
-
-                });
-
-            } else {
-
-                alert('Geocode was not successful for the following reason: ' + status);
-
-            }
-
-        });
-
-    }
-
-</script> -->
-
-<script>
-
-    function initMap() {
-
-        const locationInfoDiv = document.getElementById('location-info');
-
-        const mapElement = document.getElementById('map');
-
-        const [fromAddress, templeName] = <?php echo json_encode([$address, $temple_name]); ?>;
-
-
-
-        const geocoder = new google.maps.Geocoder();
-
-
-
-        // Show a loading spinner or message while waiting for the map to load
-
-        locationInfoDiv.textContent = 'Loading map...';
-
-
-
-        // Geocode the address to get the user's location
-
-        geocoder.geocode({ address: fromAddress }, (results, status) => {
-
-            if (status === google.maps.GeocoderStatus.OK && results[0]) {
-
-                const userLocation = results[0].geometry.location;
-
-                console.log("Coordinates fetched: ", userLocation.lat(), userLocation.lng());
-
-
-
-                // Initialize the map centered on the user's location
-
-                const map = new google.maps.Map(mapElement, {
-
-                    center: userLocation,
-
-                    zoom: 11,
-
-                });
-
-
-
-                // Add a marker for the user's location with the highest z-index
-
-                const userMarker = new google.maps.Marker({
-
-                    position: userLocation,
-
-                    map: map,
-
-                    title: results[0].formatted_address,
-
-                    zIndex: 9999, // Highest z-index for userMarker
-
-                    icon: {
-
-                        url: "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png",
-
-                        scaledSize: new google.maps.Size(40, 40),
-
-                    },
-
-                });
-
-
-
-                // Create an info window for the user's location
-
-                let currentInfoWindow = null; // Track the currently open info window
-
-
-
-                // Function to set the content of the InfoWindow
-
-                function setInfoWindowContent(marker, data) {
-
-    // Ensure the data object contains a valid name before rendering
-
-    const name = data.Name ? data.Name : 'Name not available';
-
-    const content = `
-
-        <div style="text-align: center;">
-
-            <h4 class="fs-5 fw-semibold restaurant-text-truncate overflow-hidden mb-0">
-
-                <span style="padding:50px;">${templeName}</span>
-
-            </h4>
-
-            <br>
-
-            <span style="color: #555;">${data.address}</span>
-
-            <br>
-
-            <br>
-
-            <a href="https://www.google.com/maps/place/?q=place_id:${results[0].place_id}"  style="color: #007bff; text-decoration: none;">
-
-                View on Google Maps
-
-            </a>
-
-        </div>
-
-    `;
-
-
-
-    return content;
-
-}
-
-
-
-// Attach the info window to the user marker
-
-userMarker.addListener('click', function() {
-
-    if (currentInfoWindow) {
-
-        currentInfoWindow.close(); // Close the previous info window
-
-    }
-
-
-
-    currentInfoWindow = new google.maps.InfoWindow({
-
-        content: setInfoWindowContent(userMarker, {
-
-        
-
-            address: results[0].formatted_address, // Example data
-
-            placeId: results[0].place_id, // Example data
-
-        }),
-
-    });
-
-    google.maps.event.addListener(currentInfoWindow, 'domready', function() {
-
-                const closeButton = currentInfoWindow.getContent().querySelector('.info-window-close');
-
-                closeButton.style.display = 'none';
-
-
-
-                currentInfoWindow.getDiv().addEventListener('mouseover', function() {
-
-                    closeButton.style.display = 'inline-block';
-
-                });
-
-
-
-                currentInfoWindow.getDiv().addEventListener('mouseout', function() {
-
-                    closeButton.style.display = 'none';
-
-                });
-
-            });
-
-    currentInfoWindow.open(map, userMarker); // Open the new info window
-
-});
-
-
-
-
-
-                // Extract city and area/place from the geocoded results
-
-                const components = results[0].address_components;
-
-                let city = "", area = "";
-
-                components.forEach((component) => {
-
-                    if (component.types.includes("locality")) {
-
-                        city = component.long_name;
-
-                    }
-
-                    if (component.types.includes("sublocality") || component.types.includes("neighborhood")) {
-
-                        area = component.long_name;
-
-                    }
-
-                });
-
-
-
-                const formattedLocation = `${area ? area + ", " : ""}${city}`;
-
-                //document.title = `Nearby Temples - ${formattedLocation}`;
-
-
-
-                // Search for nearby temples
-
-                const service = new google.maps.places.PlacesService(map);
-
-                const request = {
-
-                    location: userLocation,
-
-                    radius: 50000, // 50 km radius
-
-                    type: ['hindu_temple'], // Specify "Hindu temples"
-
-                };
-
-
-
-                service.nearbySearch(request, (results, status) => {
-
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-                        const infoWindows = []; // To hold open info windows
-
-
-
-                        results.forEach((place) => {
-
-                            // Create a custom marker for temples
-
-                            const placeMarker = new google.maps.Marker({
-
-                                position: place.geometry.location,
-
-                                map: map,
-
-                                title: place.name,
-
-                                icon: {
-
-                                    url: './assets/images/temple-icon.png', // Red Om symbol
-
-                                    scaledSize: new google.maps.Size(40, 40),
-
-                                },
-
-                            });
-
-
-
-                            // Variable to track the currently displayed card
-
-                            let customCardElement = null;
-
-
-
-                            placeMarker.addListener('mouseover', () => {
-
-                                // Remove any existing custom card
-
-                                if (customCardElement) {
-
-                                    customCardElement.remove();
-
-                                }
-
-
-
-                                // Create the custom card container
-
-                                customCardElement = document.createElement('div');
-
-                                customCardElement.innerHTML = `
-
-                                    <div style="
-
-                                        font-family: Arial, sans-serif; 
-
-                                        font-size: 10px; 
-
-                                        line-height: 1.4; 
-
-                                        width: 250px; /* Set a smaller card width */
-
-                                        display: flex; 
-
-                                        flex-direction: column; 
-
-                                        align-items: center; 
-
-                                        text-align: center; 
-
-                                        box-sizing: border-box; 
-
-                                        padding: 10px; 
-
-                                        margin: 10px auto; 
-
-                                        border: 1px solid #ddd; 
-
-                                        border-radius: 8px; 
-
-                                        background-color: #fff; 
-
-                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-
-                                        position: absolute; 
-
-                                        z-index: 1000;">
-
-                                        
-
-                                        <!-- Card Header -->
-
-                                        <strong style="font-size: 12px; color: #d9534f; text-transform: capitalize;">
-
-                                            ${place.name}
-
-                                        </strong>
-
-                                        <br>
-
-                                        
-
-                                        <!-- Vicinity -->
-
-                                        <span style="color: #555; font-size: 11px;">
-
-                                            ${place.vicinity}
-
-                                        </span>
-
-                                        <br>
-
-                                        
-
-                                        <!-- Link -->
-
-                                        <a href="https://www.google.com/maps/place/?q=place_id:${place.place_id}" 
-
-                                            
-
-                                           style="color: #007bff; text-decoration: none; font-size: 12px; margin-top: 5px;">
-
-                                           View on Google Maps
-
-                                        </a>
-
-                                        
-
-                                        <!-- Close Button -->
-
-                                        <button onclick="this.parentElement.remove(); customCardElement = null;" 
-
-                                                style="
-
-                                                position: absolute; 
-
-                                                top: 5px; 
-
-                                                right: 5px; 
-
-                                                width: 20px; 
-
-                                                height: 20px; 
-
-                                                background: none; 
-
-                                                border: none; 
-
-                                                color: #000; 
-
-                                                font-size: 25px; 
-
-                                                font-weight: 600;
-
-                                                cursor: pointer; 
-
-                                                line-height: 1;">
-
-                                            &times;
-
-                                        </button>
-
-                                    </div>`;
-
-
-
-                                // Position the card near the marker
-
-                                const markerPosition = placeMarker.getPosition();
-
-                                const projection = map.getProjection();
-
-                                const markerPoint = projection.fromLatLngToPoint(markerPosition);
-
-                                const container = document.querySelector('#map'); // Ensure your map container has an ID
-
-                                const containerOffset = container.getBoundingClientRect();
-
-
-
-                                // Convert map position to pixel position
-
-                                const x = markerPoint.x * Math.pow(2, map.getZoom()) - containerOffset.left;
-
-                                const y = markerPoint.y * Math.pow(2, map.getZoom()) - containerOffset.top;
-
-
-
-                                // Set position
-
-                                customCardElement.style.left = `${x}px`;
-
-                                customCardElement.style.top = `${y}px`;
-
-
-
-                                // Add to the map container
-
-                                container.appendChild(customCardElement);
-
-                            });
-
-
-
-                            // Consistent hover effect for marker icons
-
-                            placeMarker.addListener('mouseover', () => {
-
-                                placeMarker.setIcon({
-
-                                    url: 'https://example.com/images/hover_red_om_symbol.png', // Larger red Om symbol for hover
-
-                                    scaledSize: new google.maps.Size(50, 50), // Larger size for hover
-
-                                });
-
-                            });
-
-
-
-                            placeMarker.addListener('mouseout', () => {
-
-                                placeMarker.setIcon({
-
-                                    url: './assets/images/temple-icon.png', // Reset to default red Om symbol
-
-                                    scaledSize: new google.maps.Size(40, 40),
-
-                                });
-
-                            });
-
-                        });
-
-                    } else {
-
-                        locationInfoDiv.textContent += "No nearby temples found.";
-
-                    }
-
-                });
-
-            } else {
-
-                locationInfoDiv.textContent = "Unable to fetch your location. Please check the address.";
-
-                //document.title = "Nearby Temples";
-
-            }
-
-        });
-
-    }
-
-
-
-   (function() {
     function initPrint() {
-        var printBtn = document.getElementById("printBtn");
-        var printArea = document.getElementById("printArea");
-        if (!printBtn || !printArea) return;
+        var printBtn = document.getElementById('printBtn');
+        var printArea = document.getElementById('printArea');
+        if (!printBtn || !printArea) {
+            return;
+        }
 
-        printBtn.addEventListener("click", function (e) {
+        printBtn.addEventListener('click', function (e) {
             e.preventDefault();
+
             var printContents = printArea.innerHTML;
-            var printWindow = window.open('', '', 'width=900,height=650');
+            var printWindow = window.open('', '_blank', 'width=900,height=650');
             if (!printWindow) {
                 alert('Please allow popups to print.');
                 return;
             }
-            printWindow.document.write('<html><head><title>Print Temple</title><' + '/head><body>' + printContents + '<' + '/body><' + '/html>');
+
+            var baseHref = getPrintBaseHref();
+            var watermarkStyle = '<style type="text/css">' +
+                '.print-watermark{position:fixed;top:0;left:0;width:100%;height:100%;' +
+                'display:flex;align-items:center;justify-content:center;pointer-events:none;' +
+                'z-index:1;opacity:0.12;font-size:120px;font-weight:bold;color:#000;' +
+                'font-family:Arial,sans-serif;transform:rotate(-25deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
+                '.print-content-wrap{position:relative;z-index:2;}' +
+                '</style>';
+            var watermarkHtml = '<div class="print-watermark" aria-hidden="true">Bhaktikalpa</div><div class="print-content-wrap">' + printContents + '</div>';
+
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print Temple</title><base href="' + baseHref + '">' + watermarkStyle + '</head><body>');
+            printWindow.document.write(watermarkHtml);
+            printWindow.document.write('</body></html>');
             printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+
+            var didPrint = false;
+            function triggerPrint() {
+                if (didPrint || printWindow.closed) {
+                    return;
+                }
+                didPrint = true;
+                printWindow.focus();
+                printWindow.print();
+            }
+
+            printWindow.onload = triggerPrint;
+            setTimeout(triggerPrint, 400);
         });
     }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initPrint);
     } else {
         initPrint();
     }
 })();
-
 </script>
 
-
-
-
-
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG-RZCzEuy7JMyMu4ykftt5ooRcCeqhKY&libraries=places&callback=initMap"></script>
-
 <?php include('./include/footer.php'); ?>
+
+<script>
+$(document).ready(function () {
+    $('#viewMoreComments').on('click', function () {
+        var hidden = $('#comments-section .comment-item-hidden');
+        var showCount = parseInt($(this).data('show-each') || 3, 10);
+        hidden.slice(0, showCount).removeClass('comment-item-hidden');
+        if ($('#comments-section .comment-item-hidden').length === 0) {
+            $(this).hide();
+        }
+    });
+});
+</script>

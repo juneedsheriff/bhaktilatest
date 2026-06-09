@@ -541,68 +541,78 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- <a href="#" class="sticky-button">Download Mantras</a> -->
 <style>
-    .sn_language_links{
-            margin: 10px 0;
-            padding:10px 0;
-            margin-bottom:0px;
+    .breadcrumb-sec {
+        background: #f5f5f5;
     }
-    .sn_language_links p{
 
-    font-size: 15px !important;
-    color: #444;
-    margin-bottom:0px;
-}
+    .breadcrumb-toolbar {
+        padding: 10px 0;
+        border-bottom: 1px dotted #ddd;
+    }
 
-.sn_language_links a {
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
-}
+    .breadcrumb-toolbar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
 
-.sn_language_links a:hover {
-    text-decoration: underline;
-}
-.breadcrumb-sec {
-    background:#f5f5f5;
-    
-}
-.sn_language_links a.active {
-    font-weight: bold;
-    text-decoration: underline;
-    color: #ff8776; /* blue */
-}
+    .breadcrumb-toolbar__nav {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .breadcrumb-toolbar__nav .breadcrumb {
+        flex-wrap: wrap;
+    }
+
+    .sn_language_links {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .sn_language_links p {
+        font-size: 15px !important;
+        color: #444;
+        margin-bottom: 0;
+        text-align: right;
+    }
+
+    .sn_language_links a {
+        color: #000;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .sn_language_links a:hover,
+    .sn_language_links a.active {
+        text-decoration: underline;
+        color: #ff8776;
+    }
+
+    .sn_language_links a.active {
+        font-weight: bold;
+    }
+
+    @media (max-width: 575.98px) {
+        .breadcrumb-toolbar__inner {
+            align-items: flex-start;
+        }
+
+        .sn_language_links {
+            width: 100%;
+            text-align: right;
+        }
+    }
 </style>
-<section class="breadcrumb-sec">
-    <div class="container">
-        <div class="sn_language_links">
-    <p class="notranslate">
-      
-       <?php
-// Get current URL
-$current_url = "//" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-// Remove existing lang parameter if already present
-$current_url = preg_replace('/(\?|&)lang=[a-z]{2}/', '', $current_url);
-
-// Remove any trailing ? or &
-$current_url = rtrim($current_url, '?&');
-
-// Function to append lang parameter correctly
-function addLang($url, $lang) {
-    return $url . (strpos($url, '?') === false ? '?' : '&') . "lang=" . $lang;
-}
+<?php
+include_once __DIR__ . '/breadcrumb_helpers.php';
+render_language_toolbar();
 ?>
-<a href="<?php echo htmlspecialchars(addLang($current_url, 'en')); ?>">A</a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'hi')); ?>">अ</a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'kn')); ?>">ಕ </a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'ml')); ?>">അ</a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'bn')); ?>">অ</a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'ta')); ?>">அ</a> /
-    <a href="<?php echo htmlspecialchars(addLang($current_url, 'te')); ?>">అ</a>
-    </p>
-    </div>
-    </div>
-</section>
 
 <?php
 // Build correction form URL so it works on localhost and live (same folder as current page)

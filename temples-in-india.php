@@ -168,7 +168,7 @@ render_breadcrumbs([
                                     <button type="button" class="nav-link active w-100" id="filter-tab-temples-btn" data-filter-tab="temples" role="tab" aria-selected="true">Temples</button>
                                 </li>
                                 <li class="nav-item flex-fill" role="presentation">
-                                    <button type="button" class="nav-link w-100" id="filter-tab-god-btn" data-filter-tab="god" role="tab" aria-selected="false">God</button>
+                                    <button type="button" class="nav-link w-100" id="filter-tab-god-btn" data-filter-tab="god" role="tab" aria-selected="false">Deities</button>
                                 </li>
                             </ul>
 
@@ -317,7 +317,7 @@ render_breadcrumbs([
 
                 </div>
 
-                <div id="viewmore" class="listings grid-view">
+                <div id="viewmore" class="listings grid-view listings-yellow-border">
 
                     <?php
 
@@ -357,7 +357,6 @@ render_breadcrumbs([
                                             echo !empty($cff['city_name']) ? ', ' . $cff['city_name'] : '';
                                             echo !empty($fff['state_name']) ? ', ' . $fff['state_name'] : ''; ?></div>
                                     </a>
-                                    <div class="listing-rating text-dark"><a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">Read more</a></div>
                                 </div>
                             </div>
 

@@ -1,4 +1,4 @@
-<?php ob_start();
+﻿<?php ob_start();
 
 error_reporting(0);
 
@@ -20,6 +20,7 @@ include_once './app/class/XssClean.php';
 include_once './app/class/databaseConn.php';
 
 include_once './app/lib/requestHandler.php';
+include_once './include/breadcrumb_helpers.php';
 
 
 
@@ -91,8 +92,21 @@ $id = $xssClean->clean_input($_REQUEST['id']);
 
     }
 
-    .banner-over-title{
-        display: none;
+    .iconic-category-detail-page .banner-over-container {
+        overflow: visible;
+        line-height: 0;
+    }
+
+    .iconic-category-detail-page .banner-over-container img {
+        width: 100%;
+        height: auto !important;
+        max-height: none;
+        object-fit: contain;
+        display: block;
+    }
+
+    .iconic-category-detail-page .banner-over-title {
+        line-height: 1.3;
     }
 
     .toggle-btn1 {
@@ -109,7 +123,9 @@ $id = $xssClean->clean_input($_REQUEST['id']);
 
     }
 
-
+p{
+    text-align: left !important;
+}
 
     .btn1 i {
 
@@ -150,6 +166,70 @@ $id = $xssClean->clean_input($_REQUEST['id']);
 }
 
 .comment-item-hidden { display: none !important; }
+
+     
+
+    .iconic-featured-wrap {
+        width: 55%;
+        margin-left: 14%;
+        margin-bottom: 30px;
+    }
+
+    .iconic-featured-wrap::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    #printable-content {
+        clear: both;
+        width: 100%;
+    }
+
+    .iconic-main-content {
+        width: 55%;
+        margin-left: 14%;
+        max-width: 100%;
+    }
+
+    @media (max-width: 991px) {
+        .iconic-featured-wrap,
+        .iconic-main-content {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+    .iconic-fixed-actions {
+        position: fixed;
+        top: 50%;
+        right: 40px;
+        transform: translateY(-50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .iconic-fixed-actions .btn {
+        display: block;
+        min-width: 70px;
+    }
+
+    .iconic-fixed-actions .voicebtn-play {
+        background-color: #0e8733;
+        color: #fff;
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .iconic-fixed-actions {
+            top: auto;
+            bottom: 80px;
+            transform: none;
+        }
+    }
 </style>
 
 <?php
@@ -167,16 +247,29 @@ $id = $xssClean->clean_input($_REQUEST['id']);
     if (mysqli_num_rows($SQL_STATEMENT) > 0) {
 
         $Row = mysqli_fetch_object($SQL_STATEMENT);
+        $categoryTitle = htmlspecialchars($Row->title ?? '', ENT_QUOTES, 'UTF-8');
+        $bannerSrc = trim((string) ($Row->banner ?? '')) !== ''
+            ? 'app/uploads/iconic/banner/' . $Row->banner
+            : 'assets/images/default-image.png';
 
    ?>
 
-<div class="container-fluid m-0 p-0 text-center bg-gradient text-center">
+<?php
+render_breadcrumbs([
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Iconic Temples', 'url' => 'iconic-category.php'],
+    ['label' => $Row->title ?? 'Category Details'],
+]);
+?>
+<link href="assets/css/temple-pages-responsive.css" rel="stylesheet">
 
-    <div class="overflow-hidden position-relative  banner-over-container">
+<div class="container-fluid m-0 p-0 text-center bg-gradient temple-detail-page iconic-category-detail-page">
 
-                    <img class="w-100 iconic-banner-mob" src="app/uploads/iconic/banner/<?php echo $Row->banner; ?>" class="img-fluid" alt="Temple Image" style=" height: 88vh; object-fit:contain;">
+    <div class="position-relative banner-over-container">
 
-        <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-primary"><?php echo $Row->title; ?></h1>
+        <img src="<?php echo htmlspecialchars($bannerSrc, ENT_QUOTES, 'UTF-8'); ?>" class="w-100 img-fluid iconic-banner-mob" alt="<?php echo $categoryTitle; ?>" loading="lazy" onerror="this.onerror=null;this.src='assets/images/default-image.png';">
+
+        <h1 class="banner-over-title fs-1 font-caveat page-header-title fw-semibold m-2 pb-3 text-primary"><?php echo $categoryTitle; ?></h1>
 
     </div>
 
@@ -198,203 +291,71 @@ $id = $xssClean->clean_input($_REQUEST['id']);
 
     ?>
 
-    <div class="row print-disable">
-
-        <div class="col-6">
-
-            
-
-<table>
-
-    <tbody><tr>
-
-        <td>
-
-            <a href="">
-
-                <img src="assets/images/logo/bakthi-logo.png" height="30px" style="margin-left: 30px; margin-top: 20px;
-
-                    margin-bottom: 20px">
-
-            </a>
-
-        </td>
-
-        <td style="font-size: 17px; padding: 2px; color: #878787">
-
-            &gt;
-
-        </td>
-
-        <td style="font-size: 17px; padding: 2px; color: #878787">
-
-            Iconic Temples
-
-        </td>
-
-        <td style="font-size: 17px; padding: 2px; color: #878787">
-
-            &gt;
-
-        </td>
-
-        <td style="font-size: 17px; padding: 2px; color: #878787">
-
-            <?php echo $Row->title; ?>
-
-        </td>
-
-    </tr>
-
-</tbody></table>
-
-        </div>
-
-        
-
-        <?php if (mysqli_num_rows($SQL_STATEMENT) > 0) {?>
-
-        <div class="col-6 pull-right">
-
-            <?php
-
-        if ($res3 && isset($res3->categories_id)) {
-
-        ?>
-
-            <!-- View All link (disabled)
-            <a href="iconic.php?id=<?php echo htmlspecialchars($res3->categories_id, ENT_QUOTES, 'UTF-8'); ?>"  class="btn btn-primary mt-3 all" align="center">
-
-                View All
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right mb-1" viewBox="0 0 16 16">
-
-                    <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"></path>
-
-                </svg>
-
-            </a>
-            -->
-
-        <?php
-
-        }
-
-        ?>
-
-        </div> <?php
-
-        }
-
-        ?>
-
-    </div>
-
     <?php if (mysqli_num_rows($SQL_STATEMENT) > 0) {?>
 
 <div class="position-relative print-disable">
 
-    <div class="container" >
-<div  class="row">
-    <div class="col-md-9" >
-      
-    <div class="row">
+    <div class="iconic-featured-wrap">
+        <div id="last" class="listings grid-view listings-yellow-border">
+                    <?php
+                    $count = 0;
+                    while ($templeRow = mysqli_fetch_assoc($SQL_STATEMENT)) {
+                        if ($count >= 3) {
+                            break;
+                        }
+                        $count++;
 
-<?php
+                        $photos = $templeRow['photos'];
+                        $title = htmlspecialchars($templeRow['title'] ?? '', ENT_QUOTES, 'UTF-8');
+                        $templeId = (int) ($templeRow['index_id'] ?? 0);
+                        $photoSrc = trim((string) $photos) !== ''
+                            ? 'app/uploads/iconic_temple/' . $photos
+                            : 'assets/images/default-image.png';
 
-while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
+                        $cityName = '';
+                        $stateName = '';
+                        if (!empty($templeRow['city'])) {
+                            $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . mysqli_real_escape_string($DatabaseCo->dbLink, $templeRow['city']) . "' LIMIT 1");
+                            if ($ccc && ($cff = mysqli_fetch_array($ccc))) {
+                                $cityName = trim((string) ($cff['city_name'] ?? ''));
+                            }
+                        }
+                        if (!empty($templeRow['state'])) {
+                            $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $templeRow['state']) . "' AND country_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $templeRow['country'] ?? '') . "' LIMIT 1");
+                            if ($sss && ($fff = mysqli_fetch_array($sss))) {
+                                $stateName = trim((string) ($fff['state_name'] ?? ''));
+                            }
+                        }
 
-    $photos = $Row['photos'];
-    if ($count == 3) {
-        break;   // stop after 3 cards
-    }  $count++;
-    $title = $Row['title'];
-
-            $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . $Row['city'] . "'");
-
-            $cff = mysqli_fetch_array($ccc);
-
-            $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_id='" . $Row['state'] . "' AND country_code='" . $Row['country'] . "'");
-
-            $fff = mysqli_fetch_array($sss);
-
-
-
-?>
-
-    <!-- start listing card -->
-
-  <div class="col-md-4 col-sm-6">
-  <div class="card rounded-3 flex-fill overflow-hidden ">
-
-<!-- start card link -->
-
-<a href="iconic.php?id=<?php echo $Row['categories_id']; ?>"  class="stretched-link z-2"></a>
-
-<!-- end /. card link -->
-
-<div class="image-container"
-     style="background-image: url('app/uploads/iconic_temple/<?php echo $photos; ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 320px;">
-</div>
-  </div>
-
-    <div class="d-flex flex-column position-relative p-2 card-content">
-
-    <h5 class="fs-6 fw-semibold mb-0 text-center" style="min-height:60px;">
-
-        <a href="iconic.php?id=<?php echo $Row['categories_id']; ?>"  >
-
-            <?php echo $title; echo $cff['city_name'] != '' ? '<br> ' : '';
-
-                                                        echo $cff['city_name'];
-
-                                                        echo  $fff['state_name'] != '' ? ', ' : '';
-
-                                                        echo $fff['state_name'];?>
-
-        </a>
-
-    </h5>
-
-</div>
-
+                        $placeLine = $cityName;
+                        if ($stateName !== '') {
+                            $placeLine .= ($placeLine !== '' ? ', ' : '') . $stateName;
+                        }
+                    ?>
+                    <div class="listing">
+                        <a href="iconic-details.php?id=<?php echo $templeId; ?>">
+                            <img src="<?php echo htmlspecialchars($photoSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo $title; ?>" onerror="this.onerror=null;this.src='assets/images/default-image.png';">
+                        </a>
+                        <div class="listing-details">
+                            <a href="iconic-details.php?id=<?php echo $templeId; ?>">
+                                <div class="listing-title">
+                                    <?php echo $title; ?>
+                                    <?php if ($placeLine !== '') : ?>, <?php echo htmlspecialchars($placeLine, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>
+                                </div>
+                            </a>
+                            <div class="listing-rating text-dark"><a href="iconic-details.php?id=<?php echo $templeId; ?>">Read more</a></div>
+                        </div>
+                    </div>
+                <?php } ?>
+        </div>
     </div>
 
-    <!-- end /. listing card -->
-
-
-
-
-
-<?php
-
-}
-
-?>
-
 </div>
-    </div>
-</div>
-
-
-
-            </div>
-
-    </div>
 
         <?php } ?>
 
         
 
-<div class="position-relative overflow-hidden bg-gradient  print-disable" id="scroll">
-
-    <div class="icons">
-
-       
-
-    </div>
-
-</div>
 
            
 
@@ -404,9 +365,9 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
     <div class="py-5">
 
-    <div class="container scroll">
+    <div class=" scroll">
 
-    <div class="row">
+    <div class="row iconic-main-content">
 
         <?php
 
@@ -436,46 +397,16 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
         <!-- Main Content Section -->
 
-        <div class="col-12 col-lg-9 order-first sidebar content" id="bannerTitle">
+        <div class="col-12 order-first iconic-article" id="bannerTitle">
 
-            <!-- Content Cards -->
-            <div class="social-media hidePrint mb-2 gap-3 text-end">
-
-<!-- Print Icon -->
-
-<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="printContent()">
-
-    <i class="fas fa-print"></i>
-
-</a>
-
-<!-- WhatsApp Icon -->
-
-<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="shareToWhatsApp()">
-
-    <i class="fab fa-whatsapp"></i>
-
-</a>
-<button id="toggleIcon" class="btn btn-primary d-inline-block">
-
-<i class="fa  fa-play"></i> Play
-
-</button>
-<!-- PDF Download Icon
-
-<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="downloadPDF()">
-
-    <i class="fas fa-file-pdf"></i>
-
-</a>
-
-<a class="btn btn-primary d-inline-block" href="javascript:void(0)" onclick="copyContent()">
-
-    <i class="fas fa-copy"></i>
-
-</a> -->
-
-</div>
+            <div class="iconic-fixed-actions hidePrint">
+                <a class="btn btn-primary voicebtn" href="javascript:void(0)" onclick="printContent()">
+                    <i class="fas fa-print"></i> Print
+                </a>
+                <button id="toggleIcon" class="btn voicebtn voicebtn-play" type="button">
+                    <i class="fa fa-play"></i> Play
+                </button>
+            </div>
 
             <div class="iconic-head">
 
@@ -483,56 +414,19 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
             </div>
 
+            <?php if (!empty(trim((string) ($Row->small_description ?? '')))) : ?>
             <div class="iconic-subhead">
 
                 <?php echo $Row->small_description; ?>
 
             </div>
+            <?php endif; ?>
 
             <div class="text-dark icon-desc"><?php echo $Row->description; ?></div>
 
-            <!-- Comments Section -->
-            <div class="row print-disable mt-4">
-                <div class="comment-box mt-3 ">
-                    <h4>Leave a Comment</h4>
-                    <div class="alert alert-success mt-3 d-none" id="success-message">Comment successfully submitted and is pending approval!</div>
-                    <form action="" method="post" id="submit-comment">
-                        <div class="form-group mb-3">
-                            <p>Name</p>
-                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <p>Comment</p>
-                            <textarea class="form-control " id="comment" rows="4" placeholder="Your Comment" required></textarea>
-                        </div>
-                        <input type="hidden" name="type" id="type" value="icon-cate" />
-                        <button class="btn btn-primary mt-4" type="submit">Post Comment</button>
-                    </form>
-                </div>
-                <?php $query = "SELECT * FROM `comments` WHERE type='icon-cate' AND is_approved=1 ORDER BY index_id DESC";
-                $result = mysqli_query($DatabaseCo->dbLink,$query);
-                $allComments = [];
-                while ($row = mysqli_fetch_object($result)) { $allComments[] = $row; }
-                $totalComments = count($allComments);
-                if($totalComments > 0){?>
-                <h3 class="mt-5">Comments</h3>
-                <div id="comments-section" class="comment-section">
-                <?php foreach ($allComments as $ci => $Rowc) { $isHidden = $ci >= 3 ? ' comment-item-hidden' : ''; ?>
-                    <div class="comment-item<?php echo $isHidden; ?>" data-index="<?php echo $ci; ?>">
-                    <p><strong><?php echo htmlspecialchars($Rowc->name);?></strong> says,<br><?php echo nl2br(htmlspecialchars($Rowc->comment));?></p>
-                    <hr>
-                    </div>
-                <?php }?>
-                </div>
-                <?php if ($totalComments > 3): ?>
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="viewMoreComments" data-show-each="3">View more</button>
-                <?php endif; ?>
-                <?php }?>
-            </div>
-
     </div>
 
-    <div class="col-12 col-lg-3 print-disable filters-col content ps-lg-4 ps-xl-5 ">
+    <div class="col-12 col-lg-3 print-disable filters-col iconic-sidebar ps-lg-4 ps-xl-5 ">
 
             <!-- Social Media Icons -->
 
@@ -584,7 +478,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
     <?php if($address !=''){?>
 
-            <div class="border p-2 rounded-4 shadow-sm mt-5 sticky-top" style="z-index: 1000;">
+            <div class="border p-2 rounded-4 shadow-sm mt-5">
 
     
 
@@ -638,7 +532,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                                             <div>
 
-                                                                                <a href="#0" >
+                                                                                <a href="iconic-category-details.php?id=63">
 
                                                                                     <div class=" ">
 
@@ -678,7 +572,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                                             <div>
 
-                                                                                <a href="#0" >
+                                                                                <a href="iconic-category-details.php?id=60">
 
                                                                                     <div class=" ">
 
@@ -718,7 +612,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                                             <div>
 
-                                                                                <a href="#0" >
+                                                                                <a href="iconic-category-details.php?id=80">
 
                                                                                     <div class=" ">
 
@@ -758,7 +652,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                                             <div>
 
-                                                                                <a href="#0" >
+                                                                                <a href="mystery.php">
 
                                                                                     <div class=" ">
 
@@ -798,7 +692,7 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                                             <div>
 
-                                                                                <a href="#0" >
+                                                                                <a href="iconic-category-details.php?id=61">
 
                                                                                     <div class=" ">
 
@@ -870,27 +764,54 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
                                                 </div>
 
-<script>
+<div class="container print-disable iconic-comments-wrap mt-4 d-none">
+    <div class="row">
+        <div class="col-12">
+            <div class="comment-box mt-3">
+                <h4>Leave a Comment</h4>
+                <div class="alert alert-success mt-3 d-none" id="success-message">Comment successfully submitted and is pending approval!</div>
+                <form action="" method="post" id="submit-comment">
+                    <div class="form-group mb-3">
+                        <p>Name</p>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <p>Comment</p>
+                        <textarea class="form-control" id="comment" rows="4" placeholder="Your Comment" required></textarea>
+                    </div>
+                    <input type="hidden" name="type" id="type" value="icon-cate" />
+                    <button class="btn btn-primary mt-4" type="submit">Post Comment</button>
+                </form>
+            </div>
+            <?php
+            $query = "SELECT * FROM `comments` WHERE type='icon-cate' AND is_approved=1 ORDER BY index_id DESC";
+            $result = mysqli_query($DatabaseCo->dbLink, $query);
+            $allComments = [];
+            while ($row = mysqli_fetch_object($result)) {
+                $allComments[] = $row;
+            }
+            $totalComments = count($allComments);
+            if ($totalComments > 0) {
+            ?>
+            <h3 class="mt-5">Comments</h3>
+            <div id="comments-section" class="comment-section">
+                <?php foreach ($allComments as $ci => $Rowc) {
+                    $isHidden = $ci >= 3 ? ' comment-item-hidden' : '';
+                ?>
+                <div class="comment-item<?php echo $isHidden; ?>" data-index="<?php echo $ci; ?>">
+                    <p><strong><?php echo htmlspecialchars($Rowc->name); ?></strong> says,<br><?php echo nl2br(htmlspecialchars($Rowc->comment)); ?></p>
+                    <hr>
+                </div>
+                <?php } ?>
+            </div>
+            <?php if ($totalComments > 3) : ?>
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="viewMoreComments" data-show-each="3">View more</button>
+            <?php endif; ?>
+            <?php } ?>
+        </div>
+    </div>
+</div>
 
-    // Function to sync scroll between columns
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        var mainContent = document.querySelector('.col-lg-8.scroll');
-
-        var mapContent = document.querySelector('.col-lg-4');
-
-
-
-        mainContent.addEventListener('scroll', function () {
-
-            mapContent.scrollTop = mainContent.scrollTop;
-
-        });
-
-    });
-
-</script>
 
 
 
@@ -968,7 +889,9 @@ while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
             zoom: 5, // Adjust zoom level
 
-            mapTypeId: "roadmap"
+            mapTypeId: "roadmap",
+
+            gestureHandling: "cooperative"
 
         });
 

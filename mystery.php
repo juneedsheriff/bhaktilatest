@@ -136,7 +136,7 @@ $mysteryGods = mystery_table_fetch_gods($db);
 
                 </div>
 
-                <div id="viewmore" class="listings grid-view">
+                <div id="viewmore" class="listings grid-view listings-yellow-border">
 
                     <?php
 

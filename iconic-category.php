@@ -4,8 +4,14 @@
 // error_reporting(E_ALL);
 
 include('./include/header.php');
+include_once './include/breadcrumb_helpers.php';
 
 error_reporting(1);
+
+render_breadcrumbs([
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Iconic Temples'],
+]);
 
 
 
@@ -47,6 +53,71 @@ $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select_query);
 
         object-fit: cover;
 
+    }
+
+    .product-item1:hover {
+        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .iconic-featured-card-image {
+        width: 100%;
+        height: 290px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .iconic-featured-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        margin: 0;
+    }
+
+    .iconic-featured-row > .iconic-featured-col {
+        padding: 5px;
+        display: flex;
+    }
+
+    .product-item1 {
+        border: 10px solid rgba(246, 222, 22, 0.7);
+        background-color: #fff;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-item1 > a {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex: 1;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .iconic-featured-card-title {
+        text-align: center;
+        padding: 15px 10px;
+        min-height: 90px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.35;
+    }
+
+    .iconic-featured-card-footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: auto;
+    }
+
+    .iconic-featured-card-footer img {
+        display: block;
+        margin: 0 auto;
     }
 
 
@@ -419,9 +490,9 @@ $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select_query);
 
             <div class="col-xl-12 ps-lg-4 ps-xl-5 sidebar">
 
-                <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+                <div class=" flex-wrap align-items-center mb-3 gap-2 w-full w-100">
 
-                    <div class="fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-primary">Iconic Temples </div>
+                    <div class="fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-dark">Iconic Temples </div>
 
                     <!-- start button group -->
 
@@ -429,7 +500,7 @@ $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select_query);
 
                 </div>
 
-                <div id="listings-container" class="listings grid-view">
+                <div id="listings-container" class="row iconic-featured-row">
 
 
 
@@ -515,46 +586,51 @@ $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select_query);
 
                         while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
-                            // Use Featured Image (photos); fallback to banner for backward compatibility
-                            $photos = !empty($Row['photos']) ? $Row['photos'] : $Row['banner'];
+                            $photos = !empty($Row['photos']) ? $Row['photos'] : ($Row['banner'] ?? '');
+                            $title = htmlspecialchars($Row['title'] ?? '', ENT_QUOTES, 'UTF-8');
+                            $categoryId = (int) ($Row['index_id'] ?? 0);
+                            $photoSrc = trim((string) $photos) !== ''
+                                ? 'app/uploads/iconic/' . $photos
+                                : 'assets/images/default-image.png';
 
-                            $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . $Row['city'] . "'");
+                            $cityName = '';
+                            $stateName = '';
+                            if (!empty($Row['city'])) {
+                                $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['city']) . "' LIMIT 1");
+                                if ($ccc && ($cff = mysqli_fetch_array($ccc))) {
+                                    $cityName = trim((string) ($cff['city_name'] ?? ''));
+                                }
+                            }
+                            if (!empty($Row['state'])) {
+                                $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['state']) . "' AND country_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['country'] ?? '') . "' LIMIT 1");
+                                if ($sss && ($fff = mysqli_fetch_array($sss))) {
+                                    $stateName = trim((string) ($fff['state_name'] ?? ''));
+                                }
+                            }
 
-                            $cff = mysqli_fetch_array($ccc);
+                            $placeLine = $cityName;
+                            if ($stateName !== '') {
+                                $placeLine .= ($placeLine !== '' ? ', ' : '') . $stateName;
+                            }
+                            ?>
 
-                            $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='" . $Row['state'] . "' AND country_code='" . $Row['country'] . "'");
-
-                            $fff = mysqli_fetch_array($sss); ?>
-
-                            <div class="listing" >
-
-                                <a href="iconic-category-details.php?id=<?php echo $Row['index_id']; ?>" >
-
-                                    <img src="app/uploads/iconic/<?php echo $photos; ?>" onerror="this.onerror=null; this.src='assets/images/default-image.png';" 
-     alt="">
-
-                                </a>
-
-                                <div class="listing-details">
-
-                                    <a href="iconic-category-details.php?id=<?php echo $Row['index_id']; ?>" style="" >
-
-                                        <div class="listing-title"><?php echo $Row['title'];
-
-                                                                    echo $cff['city_name'] != '' ? ', ' : '';
-
-                                                                    echo $cff['city_name'];
-
-                                                                    echo  $fff['state_name'] != '' ? ', ' : '';
-
-                                                                    echo $fff['state_name']; ?></div>
-
+                            <div class="col-lg-4 col-sm-6 iconic-featured-col">
+                                <div class="product-item1">
+                                    <a href="iconic-category-details.php?id=<?php echo $categoryId; ?>">
+                                        <div class="iconic-featured-card-image" style="background-image:url('<?php echo htmlspecialchars($photoSrc, ENT_QUOTES, 'UTF-8'); ?>')" role="img" aria-label="<?php echo $title; ?>"></div>
+                                        <div class="iconic-featured-card-title">
+                                            <span class="shiny" style="margin: 0">
+                                                <span style="margin: 0">
+                                                    <?php echo $title; ?>
+                                                    <?php if ($placeLine !== '') : ?><br><?php echo htmlspecialchars($placeLine, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="iconic-featured-card-footer">
+                                            <img src="assets/images/backbutton.png" alt="">
+                                        </div>
                                     </a>
-
-                                    <div class="listing-rating text-dark"><a href="iconic-category-details.php?id=<?php echo $Row['index_id']; ?>" >Read more</a></div>
-
                                 </div>
-
                             </div>
 
                     <?php

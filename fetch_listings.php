@@ -91,19 +91,50 @@ $result = $stmt->get_result();
 // Generate HTML for listings
 $listingsHtml = '';
 while ($Row = $result->fetch_assoc()) {
-    $photos = htmlspecialchars($Row['photos']);
-    $title = htmlspecialchars($Row['title']);
-    $index_id = (int)$Row['index_id'];
+    $photos = !empty($Row['photos']) ? $Row['photos'] : ($Row['banner'] ?? '');
+    $title = htmlspecialchars($Row['title'] ?? '', ENT_QUOTES, 'UTF-8');
+    $index_id = (int) ($Row['index_id'] ?? 0);
+    $photoSrc = trim((string) $photos) !== ''
+        ? 'app/uploads/iconic/' . htmlspecialchars($photos, ENT_QUOTES, 'UTF-8')
+        : 'assets/images/default-image.png';
 
-    $listingsHtml .= "<div class='listing'>
-                        <a href='iconic-details.php?id={$index_id}' target='_blank'>
-                            <img src='app/uploads/iconic/{$photos}' alt=''>
-                        </a>
-                        <div class='listing-details'>
-                            <a href='iconic-details.php?id={$index_id}' target='_blank'>
-                                <div class='listing-title'>{$title}</div>
+    $cityName = '';
+    $stateName = '';
+    if (!empty($Row['city'])) {
+        $cityId = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['city']);
+        $cityResult = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='{$cityId}' LIMIT 1");
+        if ($cityResult && ($cityRow = mysqli_fetch_array($cityResult))) {
+            $cityName = trim((string) ($cityRow['city_name'] ?? ''));
+        }
+    }
+    if (!empty($Row['state'])) {
+        $stateCode = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['state']);
+        $countryCode = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['country'] ?? '');
+        $stateResult = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='{$stateCode}' AND country_code='{$countryCode}' LIMIT 1");
+        if ($stateResult && ($stateRow = mysqli_fetch_array($stateResult))) {
+            $stateName = trim((string) ($stateRow['state_name'] ?? ''));
+        }
+    }
+
+    $placeLine = $cityName;
+    if ($stateName !== '') {
+        $placeLine .= ($placeLine !== '' ? ', ' : '') . $stateName;
+    }
+    $placeHtml = $placeLine !== '' ? '<br>' . htmlspecialchars($placeLine, ENT_QUOTES, 'UTF-8') : '';
+
+    $listingsHtml .= "<div class='col-lg-4 col-sm-6 iconic-featured-col'>
+                        <div class='product-item1'>
+                            <a href='iconic-category-details.php?id={$index_id}'>
+                                <div class='iconic-featured-card-image' style=\"background-image:url('{$photoSrc}')\" role='img' aria-label='{$title}'></div>
+                                <div class='iconic-featured-card-title'>
+                                    <span class='shiny' style='margin: 0'>
+                                        <span style='margin: 0'>{$title}{$placeHtml}</span>
+                                    </span>
+                                </div>
+                                <div class='iconic-featured-card-footer'>
+                                    <img src='assets/images/backbutton.png' alt=''>
+                                </div>
                             </a>
-                            <div class='listing-rating text-dark'><a href='iconic-details.php?id={$index_id}' target='_blank'>Read more</a></div>
                         </div>
                       </div>";
 }
@@ -402,19 +433,50 @@ $result = $stmt->get_result();
 // Generate HTML for listings
 $listingsHtml = '';
 while ($Row = $result->fetch_assoc()) {
-    $photos = htmlspecialchars($Row['photos']);
-    $title = htmlspecialchars($Row['title']);
-    $index_id = (int)$Row['index_id'];
+    $photos = $Row['photos'];
+    $title = htmlspecialchars($Row['title'] ?? '', ENT_QUOTES, 'UTF-8');
+    $index_id = (int) ($Row['index_id'] ?? 0);
+    $photoSrc = trim((string) $photos) !== ''
+        ? 'app/uploads/iconic_temple/' . htmlspecialchars($photos, ENT_QUOTES, 'UTF-8')
+        : 'assets/images/default-image.png';
 
-    $listingsHtml .= "<div class='listing'>
-                        <a href='iconic-details.php?id={$index_id}' target='_blank'>
-                            <img src='app/uploads/iconic_temple/{$photos}' alt=''>
-                        </a>
-                        <div class='listing-details'>
-                            <a href='iconic-details.php?id={$index_id}' target='_blank'>
-                                <div class='listing-title'>{$title}</div>
+    $cityName = '';
+    $stateName = '';
+    if (!empty($Row['city'])) {
+        $cityId = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['city']);
+        $cityResult = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='{$cityId}' LIMIT 1");
+        if ($cityResult && ($cityRow = mysqli_fetch_array($cityResult))) {
+            $cityName = trim((string) ($cityRow['city_name'] ?? ''));
+        }
+    }
+    if (!empty($Row['state'])) {
+        $stateCode = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['state']);
+        $countryCode = mysqli_real_escape_string($DatabaseCo->dbLink, $Row['country'] ?? '');
+        $stateResult = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='{$stateCode}' AND country_code='{$countryCode}' LIMIT 1");
+        if ($stateResult && ($stateRow = mysqli_fetch_array($stateResult))) {
+            $stateName = trim((string) ($stateRow['state_name'] ?? ''));
+        }
+    }
+
+    $placeLine = $cityName;
+    if ($stateName !== '') {
+        $placeLine .= ($placeLine !== '' ? ', ' : '') . $stateName;
+    }
+    $placeHtml = $placeLine !== '' ? '<br>' . htmlspecialchars($placeLine, ENT_QUOTES, 'UTF-8') : '';
+
+    $listingsHtml .= "<div class='col-lg-4 col-sm-6 iconic-featured-col'>
+                        <div class='product-item1'>
+                            <a href='iconic-details.php?id={$index_id}'>
+                                <div class='iconic-featured-card-image' style=\"background-image:url('{$photoSrc}')\" role='img' aria-label='{$title}'></div>
+                                <div class='iconic-featured-card-title'>
+                                    <span class='shiny' style='margin: 0'>
+                                        <span style='margin: 0'>{$title}{$placeHtml}</span>
+                                    </span>
+                                </div>
+                                <div class='iconic-featured-card-footer'>
+                                    <img src='assets/images/backbutton.png' alt=''>
+                                </div>
                             </a>
-                            <div class='listing-rating text-dark'><a href='iconic-details.php?id={$index_id}' target='_blank'>Read more</a></div>
                         </div>
                       </div>";
 }

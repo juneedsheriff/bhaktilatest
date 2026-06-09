@@ -125,6 +125,16 @@
         padding: 15px;
     }
 
+    .listings-yellow-border.grid-view .listing {
+        border: 10px solid rgba(246, 222, 22, 0.7);
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .listings-yellow-border.grid-view .listing:hover {
+        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+    }
+
     /* Common Listing Styles */
     .listing-header {
         display: flex;

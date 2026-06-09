@@ -169,7 +169,7 @@ render_breadcrumbs([
                     <!-- start button group -->
                     <!-- end /. button group -->
                 </div>
-                <div id="viewmore" class="listings grid-view">
+                <div id="viewmore" class="listings grid-view listings-yellow-border">
                     <?php
                     $select = "SELECT * FROM abroad WHERE status='approved' ORDER BY " . abroad_listing_order_sql() . " LIMIT 0, {$abroad_per_page}";
                     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
@@ -188,7 +188,6 @@ render_breadcrumbs([
                                         <a href="abroad-details.php?id=<?php echo $Row['index_id']; ?>" >
                                         <div class="listing-title"><?php echo $Row['title']; echo $placeLabel !== '' ? ', ' . htmlspecialchars($placeLabel, ENT_QUOTES, 'UTF-8') : ''; ?></div>
                                        </a>
-                                        <div class="listing-rating text-dark"><a href="abroad-details.php?id=<?php echo $Row['index_id']; ?>" >Read more</a></div>
                                     </div>
                             </div>
                             <!-- Repeat for additional listings -->

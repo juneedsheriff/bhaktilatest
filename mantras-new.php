@@ -148,13 +148,70 @@ footer { text-align:center; color:#444; margin-top:25px; }
 #downloadPdf{
   width:170px;
 }
-.list-wrap{
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding:15px;
-}
+    .product-item1:hover {
+        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .iconic-featured-card-image {
+        width: 100%;
+        height: 290px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .iconic-featured-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        margin: 0;
+    }
+
+    .iconic-featured-row > .iconic-featured-col {
+        padding: 5px;
+        display: flex;
+    }
+
+    .product-item1 {
+        border: 10px solid rgba(246, 222, 22, 0.7);
+        background-color: #fff;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-item1 > a {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex: 1;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .iconic-featured-card-title {
+        text-align: center;
+        padding: 15px 10px;
+        min-height: 90px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.35;
+    }
+
+    .iconic-featured-card-footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: auto;
+    }
+
+    .iconic-featured-card-footer img {
+        display: block;
+        margin: 0 auto;
+    }
 
 .mantra-item {
     padding: 10px;
@@ -191,7 +248,7 @@ footer { text-align:center; color:#444; margin-top:25px; }
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <section class="pt-2">
 
-
+<div class="py-3 py-xl-5 bg-gradient">
 <div class="container">
 <!-- 
   <div class="header">
@@ -356,39 +413,39 @@ $all_gods = "
 
     <!-- MIDDLE COLUMN: MANTRAS -->
     <div class="main-sec col-md-12">
-      <div class="section-box2">
+        <div class="fs-1 font-caveat page-header-title fw-semibold m-2 pb-3 text-dark">Mantras &amp; Stotras</div>
 
-        <div id="mantraList" class="row">
+        <div id="mantraList" class="row iconic-featured-row">
                 <?php
                 if (mysqli_num_rows($SQL_STATEMENT_GODS) > 0) {
 
                         while ($Row_gods = mysqli_fetch_assoc($SQL_STATEMENT_GODS)) {
 
-                            $title2 = htmlspecialchars($Row_gods['title'], ENT_QUOTES, 'UTF-8'); // Secure output
-
-                            $id = $Row_gods['index_id'];
+                            $title2 = htmlspecialchars($Row_gods['title'], ENT_QUOTES, 'UTF-8');
+                            $id = (int) $Row_gods['index_id'];
+                            $photoSrc = trim((string) ($Row_gods['photos'] ?? '')) !== ''
+                                ? 'app/uploads/gods/' . $Row_gods['photos']
+                                : (trim((string) ($Row_gods['banner'] ?? '')) !== ''
+                                    ? 'app/uploads/gods/banner/' . $Row_gods['banner']
+                                    : 'assets/images/default-image.png');
 
                     ?>
 
-                           <div class="listing col-md-4 mb-3">
-                                <div class="list-wrap">
-                                <a href="mantras-details.php?id=<?php echo $id;?>" >
-                                    <img src="app/uploads/gods/<?php echo $Row_gods['photos'];?>" alt="Dattatreya" class="img-fluid" onerror="this.onerror=null; this.src='assets/images/default-image.png';">
-                                </a>
-
-                                <div class="listing-details">
-                                    <a href="mantras-details.php?id=<?php echo $id;?>" >
-                                        <div class="listing-title"><?php echo $title2;?></div>
-                                    </a>
-
-                                    <div class="listing-rating text-dark">
-                                        <a href="mantras-details.php?id=<?php echo $id;?>" >
-                                            Read more
-                                        </a>
-                                    </div>
+                    <div class="col-lg-4 col-sm-6 iconic-featured-col">
+                        <div class="product-item1">
+                            <a href="mantras-details.php?id=<?php echo $id; ?>">
+                                <div class="iconic-featured-card-image" style="background-image:url('<?php echo htmlspecialchars($photoSrc, ENT_QUOTES, 'UTF-8'); ?>')" role="img" aria-label="<?php echo $title2; ?>"></div>
+                                <div class="iconic-featured-card-title">
+                                    <span class="shiny" style="margin: 0">
+                                        <span style="margin: 0"><?php echo $title2; ?></span>
+                                    </span>
                                 </div>
+                                <div class="iconic-featured-card-footer">
+                                    <img src="assets/images/backbutton.png" alt="">
                                 </div>
-                            </div>
+                            </a>
+                        </div>
+                    </div>
 
                     <?php
 
@@ -401,7 +458,6 @@ $all_gods = "
                     }
                 ?>
         </div>
-      </div>
               
 
  
@@ -410,6 +466,7 @@ $all_gods = "
 
   </div>
 
+</div>
 </div>
 </section>
 <!-- jQuery -->
@@ -457,28 +514,22 @@ $(document).on("change", ".godCheck", function () {
             let html = "";
 
             response.data.forEach(function (item) {
-
+                const photoSrc = item.photos || item.banner || 'assets/images/default-image.png';
+                const title = item.title_clean || '';
                 html += `
-                    <div class="listing col-md-4 mb-3">
-                        <div class="list-wrap">
-                        <a href="mantras-details.php?id=${item.index_id}" >
-                            <img src="${item.photos || 'assets/images/default-image.png'}" 
-                                 alt="${item.title_clean}" 
-                                 class="img-fluid"
-                                 onerror="this.onerror=null; this.src='assets/images/default-image.png';">
-                        </a>
-
-                        <div class="listing-details">
-                            <a href="mantras-details.php?id=${item.index_id}" >
-                                <div class="listing-title">${item.title_clean}</div>
+                    <div class="col-lg-4 col-sm-6 iconic-featured-col">
+                        <div class="product-item1">
+                            <a href="mantras-details.php?id=${item.index_id}">
+                                <div class="iconic-featured-card-image" style="background-image:url('${photoSrc}')" role="img" aria-label="${title}"></div>
+                                <div class="iconic-featured-card-title">
+                                    <span class="shiny" style="margin: 0">
+                                        <span style="margin: 0">${title}</span>
+                                    </span>
+                                </div>
+                                <div class="iconic-featured-card-footer">
+                                    <img src="assets/images/backbutton.png" alt="">
+                                </div>
                             </a>
-
-                            <div class="listing-rating text-dark">
-                                <a href="mantras-details.php?id=${item.index_id}" >
-                                    Read more
-                                </a>
-                            </div>
-                        </div>
                         </div>
                     </div>
                 `;

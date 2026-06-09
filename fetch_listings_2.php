@@ -95,7 +95,6 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <a href='temple-details.php?id={$Row['index_id']}'>
                         <div class='listing-title'>" . htmlspecialchars($title_display) . "</div>
                     </a>
-                    <div class='listing-rating text-dark'><a href='temple-details.php?id={$Row['index_id']}'>Read more</a></div>
                 </div>
               </div>";
     }

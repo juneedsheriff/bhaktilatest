@@ -697,7 +697,6 @@ function abroad_listing_html($db, array $row)
                     <a href='abroad-details.php?id={$indexId}'>
                         <div class='listing-title'>{$titleLine}</div>
                     </a>
-                    <div class='listing-rating text-dark'><a href='abroad-details.php?id={$indexId}'>Read more</a></div>
                 </div>
             </div>";
 }
