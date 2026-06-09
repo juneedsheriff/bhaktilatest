@@ -617,6 +617,70 @@ function abroad_detail_section_visible(array $section)
     return abroad_detail_has_content($section['content'] ?? '');
 }
 
+function abroad_detail_print_content($row)
+{
+    $safe = function ($data) {
+        return abroad_detail_has_content($data) ? $data : 'Information not available.';
+    };
+
+    $title = htmlspecialchars((string) (is_object($row) ? ($row->title ?? '') : ($row['title'] ?? '')), ENT_QUOTES, 'UTF-8');
+    $photoSrc = htmlspecialchars(abroad_detail_banner_image($row), ENT_QUOTES, 'UTF-8');
+    $sthalam = $safe(abroad_detail_sthalam_text($row));
+    $puranam = $safe(is_object($row) ? ($row->puranam ?? '') : ($row['puranam'] ?? ''));
+    $varnam = $safe(abroad_detail_varnam_text($row));
+    $highlights = $safe(is_object($row) ? ($row->highlights ?? '') : ($row['highlights'] ?? ''));
+    $sevas = $safe(abroad_detail_sevas_text($row));
+    $timings = $safe(abroad_detail_timings_text($row));
+    $contact = $safe(abroad_detail_contact_text($row));
+    $address = htmlspecialchars((string) (is_object($row) ? ($row->address ?? '') : ($row['address'] ?? '')), ENT_QUOTES, 'UTF-8');
+    $city = htmlspecialchars((string) (is_object($row) ? ($row->city ?? '') : ($row['city'] ?? '')), ENT_QUOTES, 'UTF-8');
+    $state = htmlspecialchars((string) (is_object($row) ? ($row->state ?? '') : ($row['state'] ?? '')), ENT_QUOTES, 'UTF-8');
+    $country = htmlspecialchars((string) (is_object($row) ? ($row->country ?? '') : ($row['country'] ?? '')), ENT_QUOTES, 'UTF-8');
+
+    $galleryHTML = '';
+    foreach (abroad_detail_gallery_images($row) as $image) {
+        $path = abroad_detail_image_url($image);
+        if ($path === '' || !file_exists($path)) {
+            continue;
+        }
+        $galleryHTML .= "<img src='" . htmlspecialchars($path, ENT_QUOTES, 'UTF-8') . "' style='width:300px; margin:10px; border-radius:8px; height:220px;'/>";
+    }
+    if ($galleryHTML !== '') {
+        $galleryHTML = "<h2 class='sec-head font-caveat' style='width:fit-content;'>Gallery</h2><div>{$galleryHTML}</div>";
+    }
+
+    return "
+    <link href='assets/css/css.css' rel='stylesheet'>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+    .para{font-family:georgia;font-size:18px !important;text-align:justify;word-spacing:-0.5px;}
+    .sec-head{font-family:georgia;}
+    .caveat-text{font-family:'Caveat',cursive !important;}
+    </style>
+    <div style='padding:20px; font-family:Arial;'>
+        <h1 class='caveat-text font-caveat' style='font-weight:600 !important;'>{$title}</h1>
+        <img src='{$photoSrc}' style='width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:20px;' />
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Sthalam</h2>
+        <div class='para'>{$sthalam}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Puranam</h2>
+        <div class='para'>{$puranam}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Varnam</h2>
+        <div class='para'>{$varnam}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Highlights</h2>
+        <div class='para'>{$highlights}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Sevas</h2>
+        <div class='para'>{$sevas}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Timings</h2>
+        <div class='para'>{$timings}</div>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Address</h2>
+        <p class='para'>{$address}, {$city}, {$state}, {$country}</p>
+        <h2 class='sec-head caveat-text' style='width:fit-content;'>Contact</h2>
+        <div class='para'>{$contact}</div>
+        {$galleryHTML}
+    </div>";
+}
+
 function abroad_listing_html($db, array $row)
 {
     $title = htmlspecialchars($row['title'] ?? '', ENT_QUOTES, 'UTF-8');

@@ -963,7 +963,7 @@ $liveStreams = temple_detail_live_streams($DatabaseCo->dbLink, $id);
 
 
 
-                            <a class="btn btn-primary d-inline-block" href="" data-lang="<?php echo $_GET['lang'] ?? 'en'; ?>" id="printBtn">
+                            <a class="btn btn-primary d-inline-block" href="#" data-lang="<?php echo $_GET['lang'] ?? 'en'; ?>" id="printBtn">
 
 
 
@@ -1028,14 +1028,8 @@ $liveStreams = temple_detail_live_streams($DatabaseCo->dbLink, $id);
 
 
                             <button id="toggleIcon" class="btn btn-primary d-inline-block">
-
-
-
-            <i class="fa  fa-play"></i> Play
-
-
-
-        </button>
+                                <i class="fa fa-play"></i> Listen to Page
+                            </button>
 
 
 
@@ -2343,11 +2337,11 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
     utterance.volume = 1;
     utterance.onend = function() {
       isPlaying = false;
-      toggleButton.innerHTML = '<i class="fa fa-volume-up"></i> Play';
+      toggleButton.innerHTML = '<i class="fa fa-play"></i> Listen to Page';
     };
     utterance.onerror = function() {
       isPlaying = false;
-      toggleButton.innerHTML = '<i class="fa fa-volume-up"></i> Play';
+      toggleButton.innerHTML = '<i class="fa fa-play"></i> Listen to Page';
     };
     synth.speak(utterance);
     isPlaying = true;
@@ -2358,7 +2352,7 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
     if (isPlaying) {
       synth.cancel();
       isPlaying = false;
-      toggleButton.innerHTML = '<i class="fa fa-play"></i> Play';
+      toggleButton.innerHTML = '<i class="fa fa-play"></i> Listen to Page';
     } else {
       playSpeech();
     }
@@ -2526,30 +2520,70 @@ $printContent = getTemplePrintContent($Row);
 </div>
 
 <script>
-   document.getElementById("printBtn").addEventListener("click", function () {
-    var printContents = document.getElementById("printArea").innerHTML;
-    var printWindow = window.open('', '', 'width=900,height=650');
+(function () {
+    function getPrintBaseHref() {
+        var pathParts = window.location.pathname.split('/');
+        pathParts.pop();
+        return window.location.origin + pathParts.join('/') + '/';
+    }
 
-    var watermarkStyle = '<style type="text/css">' +
-      '.print-watermark{position:fixed;top:0;left:0;width:100%;height:100%;' +
-      'display:flex;align-items:center;justify-content:center;pointer-events:none;' +
-      'z-index:1;opacity:0.12;font-size:120px;font-weight:bold;color:#000;' +
-      'font-family:Arial,sans-serif;transform:rotate(-25deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
-      '.print-content-wrap{position:relative;z-index:2;}' +
-      '</style>';
-    var watermarkHtml = '<div class="print-watermark" aria-hidden="true">Bhaktikalpa</div><div class="print-content-wrap">' + printContents + '</div>';
+    function initPrint() {
+        var printBtn = document.getElementById('printBtn');
+        var printArea = document.getElementById('printArea');
+        if (!printBtn || !printArea) {
+            return;
+        }
 
-    printWindow.document.write('<html><head><title>Print Temple</title>' + watermarkStyle + '</head><body>');
-    printWindow.document.write(watermarkHtml);
-    printWindow.document.write('</body></html>');
+        printBtn.addEventListener('click', function (e) {
+            e.preventDefault();
 
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
-});
+            var printContents = printArea.innerHTML;
+            var printWindow = window.open('', '_blank', 'width=900,height=650');
+            if (!printWindow) {
+                alert('Please allow popups to print.');
+                return;
+            }
 
+            var baseHref = getPrintBaseHref();
+            var watermarkStyle = '<style type="text/css">' +
+                '.print-watermark{position:fixed;top:0;left:0;width:100%;height:100%;' +
+                'display:flex;align-items:center;justify-content:center;pointer-events:none;' +
+                'z-index:1;opacity:0.12;font-size:120px;font-weight:bold;color:#000;' +
+                'font-family:Arial,sans-serif;transform:rotate(-25deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
+                '.print-content-wrap{position:relative;z-index:2;}' +
+                '</style>';
+            var watermarkHtml = '<div class="print-watermark" aria-hidden="true">Bhaktikalpa</div><div class="print-content-wrap">' + printContents + '</div>';
 
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print Temple</title><base href="' + baseHref + '">' + watermarkStyle + '</head><body>');
+            printWindow.document.write(watermarkHtml);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+
+            var didPrint = false;
+            function triggerPrint() {
+                if (didPrint || printWindow.closed) {
+                    return;
+                }
+                didPrint = true;
+                printWindow.focus();
+                printWindow.print();
+            }
+
+            printWindow.onload = triggerPrint;
+            setTimeout(triggerPrint, 400);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPrint);
+    } else {
+        initPrint();
+    }
+})();
 </script>
 
 

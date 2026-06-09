@@ -98,11 +98,7 @@
     }
 }
 
-/* Temple details page */
-.temple-detail-page #printable-area .container,
-.temple-detail-page #pageReadContent {
-    max-width: 100%;
-}
+ 
 
 .temple-detail-page .banner-over-container img {
     width: 100%;

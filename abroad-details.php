@@ -231,12 +231,15 @@ render_breadcrumbs([
 
                     <div class="col-lg-4 sidebar">
                         <div class="social-media hidePrint">
-                            <a class="btn btn-primary d-inline-block" href="" data-lang="<?php echo $_GET['lang'] ?? 'en'; ?>" id="printBtn">
+                            <a class="btn btn-primary d-inline-block" href="#" data-lang="<?php echo $_GET['lang'] ?? 'en'; ?>" id="printBtn">
                                 <i class="fas fa-print"></i>
                             </a>
                             <a class="btn btn-primary d-inline-block" href="#" onclick="shareToWhatsApp(); return false;">
                                 <i class="fab fa-whatsapp"></i>
                             </a>
+                            <button id="toggleIcon" class="btn btn-primary d-inline-block">
+                                <i class="fa fa-play"></i> Listen to Page
+                            </button>
                         </div>
 
                         <?php if ($timingsContent !== '') : ?>
@@ -343,5 +346,165 @@ render_breadcrumbs([
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG-RZCzEuy7JMyMu4ykftt5ooRcCeqhKY&callback=initMap" async defer></script>
 <?php endif; ?>
+
+<script>
+(function () {
+    var toggleButton = document.getElementById('toggleIcon');
+    if (!toggleButton || !window.speechSynthesis) {
+        return;
+    }
+
+    var synth = window.speechSynthesis;
+    var utterance = null;
+    var isPlaying = false;
+    var selectedVoice = null;
+    var idleLabel = '<i class="fa fa-play"></i> Listen to Page';
+    var stopLabel = '<i class="fa fa-stop"></i> Stop';
+
+    function getTextToSpeak() {
+        var sthalamEl = document.getElementById('Sthalam');
+        var bannerTitleEl = document.getElementById('bannerTitle');
+        if (sthalamEl && bannerTitleEl) {
+            return ((sthalamEl.textContent || '').trim() + ' ' + (bannerTitleEl.textContent || '').trim()).trim();
+        }
+
+        var mainContent = document.getElementById('pageReadContent');
+        return mainContent ? (mainContent.textContent || '').replace(/\s+/g, ' ').trim() : '';
+    }
+
+    function setupVoice() {
+        var voices = synth.getVoices();
+        selectedVoice = voices.find(function (v) {
+            return v.lang === 'hi-IN' || v.name.toLowerCase().indexOf('hindi') !== -1 || v.lang === 'en-IN';
+        });
+    }
+
+    if (synth.getVoices().length) {
+        setupVoice();
+    }
+    synth.onvoiceschanged = setupVoice;
+
+    function playSpeech() {
+        if (synth.speaking) {
+            synth.cancel();
+        }
+
+        var text = getTextToSpeak();
+        if (!text) {
+            if (typeof toastr !== 'undefined') {
+                toastr.info('No content to read.');
+            }
+            return;
+        }
+
+        utterance = new SpeechSynthesisUtterance(text);
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+        }
+        utterance.rate = 0.95;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        utterance.onend = function () {
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        };
+        utterance.onerror = function () {
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        };
+        synth.speak(utterance);
+        isPlaying = true;
+        toggleButton.innerHTML = stopLabel;
+    }
+
+    toggleButton.addEventListener('click', function () {
+        if (isPlaying) {
+            synth.cancel();
+            isPlaying = false;
+            toggleButton.innerHTML = idleLabel;
+        } else {
+            playSpeech();
+        }
+    });
+
+    window.addEventListener('beforeunload', function () {
+        if (synth.speaking) {
+            synth.cancel();
+        }
+    });
+})();
+</script>
+
+<?php $printContent = abroad_detail_print_content($Row); ?>
+<div id="printArea" style="display:none;">
+    <?php echo $printContent; ?>
+</div>
+
+<script>
+(function () {
+    function getPrintBaseHref() {
+        var pathParts = window.location.pathname.split('/');
+        pathParts.pop();
+        return window.location.origin + pathParts.join('/') + '/';
+    }
+
+    function initPrint() {
+        var printBtn = document.getElementById('printBtn');
+        var printArea = document.getElementById('printArea');
+        if (!printBtn || !printArea) {
+            return;
+        }
+
+        printBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var printContents = printArea.innerHTML;
+            var printWindow = window.open('', '_blank', 'width=900,height=650');
+            if (!printWindow) {
+                alert('Please allow popups to print.');
+                return;
+            }
+
+            var baseHref = getPrintBaseHref();
+            var watermarkStyle = '<style type="text/css">' +
+                '.print-watermark{position:fixed;top:0;left:0;width:100%;height:100%;' +
+                'display:flex;align-items:center;justify-content:center;pointer-events:none;' +
+                'z-index:1;opacity:0.12;font-size:120px;font-weight:bold;color:#000;' +
+                'font-family:Arial,sans-serif;transform:rotate(-25deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
+                '.print-content-wrap{position:relative;z-index:2;}' +
+                '</style>';
+            var watermarkHtml = '<div class="print-watermark" aria-hidden="true">Bhaktikalpa</div><div class="print-content-wrap">' + printContents + '</div>';
+
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print Temple</title><base href="' + baseHref + '">' + watermarkStyle + '</head><body>');
+            printWindow.document.write(watermarkHtml);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+
+            var didPrint = false;
+            function triggerPrint() {
+                if (didPrint || printWindow.closed) {
+                    return;
+                }
+                didPrint = true;
+                printWindow.focus();
+                printWindow.print();
+            }
+
+            printWindow.onload = triggerPrint;
+            setTimeout(triggerPrint, 400);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPrint);
+    } else {
+        initPrint();
+    }
+})();
+</script>
 
 <?php include('./include/footer.php'); ?>
