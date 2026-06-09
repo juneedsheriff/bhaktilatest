@@ -107,6 +107,10 @@ $india_temple_list_tab = '';
 if ($current_page === 'temple-listing.php' && !empty($_GET['temple_status']) && in_array((string) $_GET['temple_status'], ['approved', 'pending', 'rejected'], true)) {
     $india_temple_list_tab = (string) $_GET['temple_status'];
 }
+$mystery_temple_list_tab = '';
+if ($current_page === 'temple-mystery-listing.php' && !empty($_GET['temple_status']) && in_array((string) $_GET['temple_status'], ['approved', 'pending', 'rejected'], true)) {
+    $mystery_temple_list_tab = (string) $_GET['temple_status'];
+}
 $other_page_list_tab = '';
 if ($current_page === 'other_page.php' && !empty($_GET['other_status']) && in_array((string) $_GET['other_status'], ['approved', 'pending', 'rejected'], true)) {
     $other_page_list_tab = (string) $_GET['other_status'];
@@ -823,8 +827,21 @@ if ($user_role === 'Staff' && !empty($current_page)) {
                         </li>
                         <?php endif; ?>
 
-                        <?php if (staff_can_see_menu('mystery_temples')): ?>
-                        <li class="<?php echo ($current_page === 'temple-mystery-listing.php') ? 'mm-active' : ''; ?>">
+                        <?php
+                        $mystery_menu_counts = ['approved' => 0, 'pending' => 0, 'rejected' => 0];
+                        if (staff_can_see_page('temple-mystery-listing.php')) {
+                            $mysteryCntSql = "SELECT COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) = 'approved' THEN 1 ELSE 0 END), 0) AS c_app, COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) = 'unapproved' THEN 1 ELSE 0 END), 0) AS c_pend, COALESCE(SUM(CASE WHEN LOWER(TRIM(COALESCE(`status`,''))) IN ('rejected', 'reject', 'denied', 'disapproved') OR TRIM(COALESCE(`status`,'')) = '' THEN 1 ELSE 0 END), 0) AS c_rej FROM `mystery` WHERE index_id != '0'";
+                            if ($mcr = @mysqli_query($DatabaseCo->dbLink, $mysteryCntSql)) {
+                                $mrow = mysqli_fetch_assoc($mcr);
+                                if ($mrow) {
+                                    $mystery_menu_counts['approved'] = (int) $mrow['c_app'];
+                                    $mystery_menu_counts['pending'] = (int) $mrow['c_pend'];
+                                    $mystery_menu_counts['rejected'] = (int) $mrow['c_rej'];
+                                }
+                            }
+                        }
+                        if (staff_can_see_menu('mystery_temples')): ?>
+                        <li class="<?php echo in_array($current_page, ['add-mystery-temple.php', 'temple-mystery-listing.php']) ? 'mm-active' : ''; ?>">
 
 
 
@@ -848,11 +865,15 @@ if ($user_role === 'Staff' && !empty($current_page)) {
 
 
 
-                                <!-- <li><a href="add-mystery-temple.php">Add Mystery Temples</a></li> -->
+                                <?php if (staff_can_see_page('add-mystery-temple.php')): ?><li class="<?php echo ($current_page === 'add-mystery-temple.php') ? 'mm-active' : ''; ?>"><a href="add-mystery-temple.php">Add Mystery Temples</a></li><?php endif; ?>
 
 
 
-                                <?php if (staff_can_see_page('temple-mystery-listing.php')): ?><li class="<?php echo ($current_page === 'temple-mystery-listing.php') ? 'mm-active' : ''; ?>"><a href="temple-mystery-listing.php"> Mystery Temples Listing</a></li><?php endif; ?>
+                                <?php if (staff_can_see_page('temple-mystery-listing.php')): ?>
+                                <li class="<?php echo ($current_page === 'temple-mystery-listing.php' && $mystery_temple_list_tab === 'approved') ? 'mm-active' : ''; ?>"><a href="temple-mystery-listing.php?temple_status=approved">Approved Temple(<?php echo (int) $mystery_menu_counts['approved']; ?>)</a></li>
+                                <li class="<?php echo ($current_page === 'temple-mystery-listing.php' && $mystery_temple_list_tab === 'pending') ? 'mm-active' : ''; ?>"><a href="temple-mystery-listing.php?temple_status=pending">Approval Pending(<?php echo (int) $mystery_menu_counts['pending']; ?>)</a></li>
+                                <li class="<?php echo ($current_page === 'temple-mystery-listing.php' && $mystery_temple_list_tab === 'rejected') ? 'mm-active' : ''; ?>"><a href="temple-mystery-listing.php?temple_status=rejected">Rejected Temple(<?php echo (int) $mystery_menu_counts['rejected']; ?>)</a></li>
+                                <?php endif; ?>
 
 
 

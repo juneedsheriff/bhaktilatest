@@ -244,124 +244,63 @@ $mantras_chunks = !empty($mantras_footer_cats) ? array_chunk($mantras_footer_cat
 
         <div class="border-top py-5">
 
+            <?php
+            $footerIconicLinks = [
+                ['label' => 'Abhimana Kshetras', 'href' => '#'],
+                ['label' => 'Abodes Of Murugan', 'href' => 'iconic-category-details.php?id=26'],
+                ['label' => 'Aditya Temples', 'href' => 'iconic-category-details.php?id=54'],
+                ['label' => 'Ashta Veeratta Temples', 'href' => 'iconic-category-details.php?id=14'],
+                ['label' => 'Ashta Vinayaka Temples', 'href' => 'iconic-category-details.php?id=13'],
+                ['label' => 'Athara Sthalams', 'href' => 'iconic-category-details.php?id=25'],
+                ['label' => 'Char Dham', 'href' => 'iconic-category-details.php?id=35'],
+                ['label' => 'Divya Desams', 'href' => 'iconic-category-details.php?id=36'],
+                ['label' => 'Durga Aalayams', 'href' => 'iconic-category-details.php?id=57'],
+                ['label' => 'Jyorthirlinga Temples', 'href' => 'iconic-category-details.php?id=1'],
+                ['label' => 'Muktishetras', 'href' => 'iconic-category-details.php?id=50'],
+                ['label' => 'Naga Devatas Temples', 'href' => 'iconic-category-details.php?id=15'],
+                ['label' => 'Narasimha Skhetras', 'href' => 'iconic-category-details.php?id=4'],
+                ['label' => 'Nava Dwaraka Temples', 'href' => 'iconic-category-details.php?id=41'],
+                ['label' => 'Nava Puliyur Temples', 'href' => 'iconic-category-details.php?id=19'],
+                ['label' => 'Nava Tirupati Temples', 'href' => 'iconic-category-details.php?id=38'],
+                ['label' => 'Navagraha Parihara Temples', 'href' => 'iconic-category-details.php?id=17'],
+                ['label' => 'Paadal Petra Sthalams', 'href' => 'iconic-category-details.php?id=28'],
+                ['label' => 'Pancha Bootha Sthalams', 'href' => 'iconic-category-details.php?id=2'],
+                ['label' => 'Pancha Kannan Temples', 'href' => 'iconic-category-details.php?id=30'],
+                ['label' => 'Pancha Kedar Temples', 'href' => 'iconic-category-details.php?id=33'],
+                ['label' => 'Pancha Pandava Skhetras', 'href' => 'iconic-category-details.php?id=31'],
+                ['label' => 'Pancha Rama Kshetras', 'href' => 'iconic-category-details.php?id=3'],
+                ['label' => 'Pancha Ranga Kshetras', 'href' => 'iconic-category-details.php?id=29'],
+                ['label' => 'Pancha Sabhai Thalangal', 'href' => 'iconic-category-details.php?id=32'],
+                ['label' => 'Saptha Mangai Stalangal', 'href' => 'iconic-category-details.php?id=44'],
+                ['label' => 'Saptha Stana Temples', 'href' => 'iconic-category-details.php?id=45'],
+                ['label' => 'Saptha Vidangam', 'href' => 'iconic-category-details.php?id=42'],
+                ['label' => 'Sapthavigraha Moorthis', 'href' => 'iconic-category-details.php?id=46'],
+                ['label' => 'Sastha Aalayams', 'href' => 'iconic-category-details.php?id=47'],
+                ['label' => 'Shaktipeetams', 'href' => 'iconic-category-details.php?id=43'],
+                ['label' => 'Shivalayams', 'href' => 'iconic-category-details.php?id=48'],
+                ['label' => 'Shiridi Sai Temples', 'href' => 'https://saikalpa.com/'],
+                ['label' => 'Swayambhu Temples', 'href' => 'iconic-category-details.php?id=49'],
+                ['label' => 'Village Dieties', 'href' => 'iconic-category-details.php?id=51'],
+                ['label' => 'Vishnumaya Temples', 'href' => 'iconic-category-details.php?id=52'],
+            ];
+            usort($footerIconicLinks, static function ($a, $b) {
+                return strcasecmp($a['label'], $b['label']);
+            });
+            $footerIconicColumnCount = 4;
+            $footerIconicPerColumn = (int) ceil(count($footerIconicLinks) / $footerIconicColumnCount);
+            $footerIconicColumns = array_chunk($footerIconicLinks, $footerIconicPerColumn);
+            ?>
             <div class="footer-row row gy-5 g-sm-5 gx-xxl-6">
-
+                <?php foreach ($footerIconicColumns as $footerIconicColumn) : ?>
                 <div class="border-end col-lg-3 col-md-4 col-6">
-
-                    <h5 class="fw-bold mb-4"> <a  href="iconic-category-details.php?id=13">Ashta Vinayaka Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=14"> Ashta Veeratta Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=26">Abodes Of Murugan</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=25">Athara Sthalams</a></h5>
-
-                   
-
-                    <h5 class="fw-bold mb-4"> <a  href="iconic-category-details.php?id=54">Aditya Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=35">Char Dham</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=36">Divya Desams</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=57">Durga Aalayams</a></h5>
-
-                    <!-- <h5 class="fw-bold mb-4">Durga Aalayams by Sage Parasurma</h5> -->
-
- 
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=1"> Jyorthirlinga Temples</a></h5>
-
- 
-
+                    <?php foreach ($footerIconicColumn as $footerIconicLink) :
+                        $footerLinkHref = htmlspecialchars((string) $footerIconicLink['href'], ENT_QUOTES, 'UTF-8');
+                        $footerLinkLabel = htmlspecialchars((string) $footerIconicLink['label'], ENT_QUOTES, 'UTF-8');
+                    ?>
+                    <h5 class="fw-bold mb-4"><a href="<?php echo $footerLinkHref; ?>"><?php echo $footerLinkLabel; ?></a></h5>
+                    <?php endforeach; ?>
                 </div>
-
-                <div class="border-end col-lg-3 col-md-4 col-6">
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=50">Muktishetras</a></h5>
-
-                    
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=38">Nava Tirupati Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=19">Nava Puliyur Temples</a></h5>
-
- 
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=17">Navagraha Parihara Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=4">Narasimha Skhetras</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=15">Naga Devatas Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=41"></a>Nava Dwaraka Temples</h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=3">Pancha Rama Kshetras</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=33"></a>Pancha Kedar Temples</h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=32">Pancha Sabhai Thalangal</a></h5>
-
-                </div>
-
-
-
-                <div class="border-end col-lg-3 col-md-4 col-6">
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=31">Pancha Pandava Skhetras</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=2">Pancha Bootha Sthalams</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=29">Pancha Ranga Kshetras</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=30">Pancha Kannan Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=28">Paadal Petra Sthalams</a></h5>
-
- 
-
-                    <h5 class="fw-bold mb-4"><a  href="https://saikalpa.com/"></a>Shiridi Sai Temples</h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=49">Swayambhu Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=43">Shaktipeetams</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=42">Saptha Vidangam</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=44">Saptha Mangai Stalangal</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=45">Saptha Stana Temples</a></h5>
-
-                </div>
-
-
-
-                <div class="border-end col-lg-3 col-md-4 col-6">
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=46">Sapthavigraha Moorthis</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=47">Sastha Aalayams</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=48">Shivalayams</a></h5>
-
-           
-
-                  
-
-                     
-
-                   
-
-                   
-
-                  
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=51">Village Dieties</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="iconic-category-details.php?id=52">Vishnumaya Temples</a></h5>
-
-                    <h5 class="fw-bold mb-4"><a  href="#">Abhimana Kshetras</a></h5>
-
-                </div>
-
+                <?php endforeach; ?>
             </div>
 
         </div>
@@ -471,9 +410,14 @@ $mantras_chunks = !empty($mantras_footer_cats) ? array_chunk($mantras_footer_cat
 
 <div id="ContentPlaceHolder1_soc" class="social-buttons">
    <a href="#" class="social-button social-button--facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
-   <a href="#" class="social-button social-button--linkedin" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
-   <a href="#" class="social-button social-button--twitter" aria-label="twitter"><i class="fa fa-twitter"></i></a>
+   <!-- <a href="#" class="social-button social-button--linkedin" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+   <a href="#" class="social-button social-button--twitter" aria-label="twitter"><i class="fa fa-twitter"></i></a> -->
    <a href="#" class="social-button social-button--instagram" aria-label="instagram"><i class="fa fa-instagram"></i></a>
+   <a href="#" class="social-button social-button--whatsapp" aria-label="instagram"><i class="fa fa-whatsapp"></i></a>
+
+ 
+
+ 
 </div>
 
 <style>
@@ -546,30 +490,65 @@ $mantras_chunks = !empty($mantras_footer_cats) ? array_chunk($mantras_footer_cat
         display:none;
     }
 }
-.sticky-download-btn {
+.sticky-download-btn,
+.sticky-sankalp-btn {
     position: fixed;
-    right: -62px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    background: #fb523a;
+    right: 0;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
     color: #fff;
-    padding: 10px 16px;
-    font-size: 15px;
+    padding: 14px 10px;
+    font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 0px 0px 8px 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 8px 0 0 8px;
+    box-shadow: -2px 2px 12px rgba(0, 0, 0, 0.25);
     z-index: 9999;
-    transition: all 0.3s 
-ease;
-    
+    transition: background 0.3s ease, padding 0.3s ease;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.sticky-sankalp-btn {
+    top: 40%;
+    background: #B8860B;
+}
+
+.sticky-download-btn {
+    top: 60%;
+    background: #fb523a;
+}
+
+.sticky-sankalp-btn:hover {
+    background: #9A7209;
+    color: #fff;
+    padding: 18px 10px;
 }
 
 .sticky-download-btn:hover {
     background: #e55d00;
-    padding-top: 20px;
+    color: #fff;
+    padding: 18px 10px;
+}
+
+@media (max-width: 768px) {
+    .sticky-download-btn,
+    .sticky-sankalp-btn {
+        padding: 7px 5px;
+        font-size: 12px;
+    }
+
+    .sticky-download-btn:hover,
+    .sticky-sankalp-btn:hover {
+        padding: 7px 5px;
+    }
 }
 </style>
+
+<a href="bhakti-sankalp.php" class="sticky-sankalp-btn">
+    Bhakti Sankalp
+</a>
 
 <a href="mantra-book-creation-v2.php" class="sticky-download-btn">
     Download Mantras
@@ -666,6 +645,8 @@ ease;
 
         const icon = document.getElementById("playPauseIcon");
 
+        if (!audio || !icon) return;
+
 
 
         if (audio.paused) {
@@ -692,15 +673,23 @@ ease;
 
     // Reset icon when audio ends
 
-    document.getElementById("audioPlayer").addEventListener("ended", () => {
+    (function () {
+
+        const audio = document.getElementById("audioPlayer");
 
         const icon = document.getElementById("playPauseIcon");
 
-        icon.classList.remove("fa-pause");
+        if (!audio || !icon) return;
 
-        icon.classList.add("fa-play");
+        audio.addEventListener("ended", () => {
 
-    });
+            icon.classList.remove("fa-pause");
+
+            icon.classList.add("fa-play");
+
+        });
+
+    })();
 
 </script>
 
@@ -1022,6 +1011,10 @@ $(function(){
     if (correctionModal) {
         correctionModal.addEventListener("show.bs.modal", function(){
             $("#correctionResponse").html("");
+            var $pageUrl = $("#page_url");
+            if ($pageUrl.length) {
+                $pageUrl.val(window.location.href);
+            }
         });
     }
     $(document).on("submit", "#correctionForm", function(e){
@@ -1040,6 +1033,7 @@ $(function(){
                 if(res && res.status === "success"){
                     $response.html("<span style='color:green;'>" + (res.message || "Submitted successfully.") + "</span>");
                     $form[0].reset();
+                    $("#page_url").val(window.location.href);
                     if (correctionModal) {
                         var modal = bootstrap.Modal.getInstance(correctionModal);
                         if (modal) setTimeout(function(){ modal.hide(); }, 1500);

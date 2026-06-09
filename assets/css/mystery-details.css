@@ -1,0 +1,246 @@
+/* mystery_temple_details.aspx layout */
+
+.mystery-detail-page .inner_intro {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.mystery-detail-page .inner_intro img {
+    height: 200px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.mystery-detail-breadcrumb {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #000;
+}
+
+.mystery-detail-breadcrumb a {
+    color: #000;
+    text-decoration: none;
+}
+
+.mystery-detail-breadcrumb a:hover {
+    color: var(--bs-primary, #862c71);
+}
+
+.mystery-detail-layout {
+    padding-bottom: 50px;
+    padding-top: 10px;
+}
+
+.mystery-leftpane {
+    width: 14%;
+    float: left;
+    padding: 0;
+}
+
+.mystery-rightpane {
+    width: 75%;
+    float: left;
+    margin-left: 10px;
+}
+
+.mystery-name-filter {
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.mystery-name-filter-head {
+    background: #862c71;
+    color: #fff;
+    padding: 10px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.mystery-name-filter-body {
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.mystery-name-filter-body label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.mystery-name-filter-body input {
+    margin-right: 6px;
+}
+
+.mystery-actions {
+    text-align: center;
+    padding: 10px;
+}
+
+.mystery-actions a {
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.mystery-title-wrap {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.mystery-title-wrap h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 31px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+.mystery-type-badge {
+    text-align: center;
+    font-size: 27px;
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.mystery-v-for {
+    text-align: left;
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+.mystery-section-heading {
+    font-family: 'Caveat', cursive;
+    text-align: center;
+    font-size: 31px;
+    color: #000;
+    margin: 5px 10px 20px;
+}
+
+.mystery-history-body,
+.mystery-detail-content {
+    color: #000;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.mystery-history-body img,
+.mystery-detail-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+}
+
+.mystery-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    width: 70%;
+    margin: 0 auto 40px;
+    padding: 0 15px;
+}
+
+.mystery-gallery-card {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.mystery-gallery-card a {
+    display: block;
+    position: relative;
+    padding-top: 70%;
+}
+
+.mystery-gallery-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mystery-comments-heading {
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 31px;
+    color: #000;
+}
+
+.mystery-temple-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    clear: both;
+}
+
+.mystery-product-item {
+    border: 10px solid rgba(246, 222, 22, 0.7);
+    height: 100%;
+    background-color: #fff;
+    transition: box-shadow 0.2s ease;
+}
+
+.mystery-product-item:hover {
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.mystery-product-thumb {
+    height: 290px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.mystery-product-title {
+    text-align: center;
+    margin: 15px;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+}
+
+.mystery-product-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mystery-sidebar-toggle {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .mystery-leftpane,
+    .mystery-rightpane {
+        width: 100%;
+        float: none;
+        margin-left: 0;
+    }
+
+    .mystery-leftpane {
+        margin-bottom: 20px;
+    }
+
+    .mystery-gallery-grid {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .mystery-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

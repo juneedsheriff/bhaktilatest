@@ -17,13 +17,22 @@ if (isset($_REQUEST['submit'])) {
     $address = $xssClean->clean_input($_REQUEST['address']);
     $god_id = $xssClean->clean_input($_REQUEST['god_id']);
     $log_date = date("Y-m-d", strtotime($xssClean->clean_input($_REQUEST['log_date'])));
+    $status = $xssClean->clean_input($_REQUEST['status'] ?? '');
+    if ($user_role === 'Staff') {
+        $status_1 = 'unapproved';
+    } elseif ($user_role === 'Admin') {
+        $allowed_statuses = ['approved', 'unapproved', 'rejected'];
+        $status_1 = in_array($status, $allowed_statuses, true) ? $status : 'unapproved';
+    } else {
+        $status_1 = 'unapproved';
+    }
 
 
     if ($_REQUEST['id'] > 0) {
         $d_id = $_REQUEST['id'];
-        $DatabaseCo->dbLink->query("UPDATE `mystery` SET `title`='$title',`description`='$description',`small_description`='$small_description',`open_time`='$open_time',`close_time`='$close_time',`country`='$country',`state`='$state',`city`='$city',`address`='$address',`log_date`='$log_date',`god_id`='$god_id' WHERE `index_id`='$d_id'") or die(mysqli_error($DatabaseCo->dbLink));
+        $DatabaseCo->dbLink->query("UPDATE `mystery` SET `title`='$title',`description`='$description',`small_description`='$small_description',`open_time`='$open_time',`close_time`='$close_time',`country`='$country',`state`='$state',`city`='$city',`address`='$address',`log_date`='$log_date',`god_id`='$god_id',`status`='$status_1' WHERE `index_id`='$d_id'") or die(mysqli_error($DatabaseCo->dbLink));
     } else {
-        $DatabaseCo->dbLink->query("INSERT INTO `mystery`( `title`, `description`, `small_description`,`open_time`,`close_time`,`country`,`state`,`city`,`address`,`log_date`,`god_id`) VALUES ( '$title','$description', '$small_description','$open_time','$close_time','$country','$state','$city','$address','$log_date','$god_id')") or die(mysqli_error($DatabaseCo->dbLink));
+        $DatabaseCo->dbLink->query("INSERT INTO `mystery`( `title`, `description`, `small_description`,`open_time`,`close_time`,`country`,`state`,`city`,`address`,`log_date`,`god_id`,`status`) VALUES ( '$title','$description', '$small_description','$open_time','$close_time','$country','$state','$city','$address','$log_date','$god_id','$status_1')") or die(mysqli_error($DatabaseCo->dbLink));
         $d_id = mysqli_insert_id($DatabaseCo->dbLink);
     }
 
@@ -35,22 +44,41 @@ if (isset($_REQUEST['submit'])) {
         $DatabaseCo->dbLink->query("UPDATE `mystery` SET photos='$upload_image' WHERE index_id='$d_id'");
     }
 
-    if ($_REQUEST['edit'] > 0) {
-        header("location:temple-mystery-listing.php?alt=1");
-    } else {
-        header("location:add-mystery-temple.php");
+    $redirectQs = [];
+    if (!empty($_REQUEST['temple_status']) && in_array((string) $_REQUEST['temple_status'], ['approved', 'pending', 'rejected'], true)) {
+        $redirectQs['temple_status'] = (string) $_REQUEST['temple_status'];
     }
-
-    header("location:temple-mystery-listing.php");
+    header('location:temple-mystery-listing.php' . (!empty($redirectQs) ? '?' . http_build_query($redirectQs) : ''));
+    exit;
 }
 
-if ($_REQUEST['id'] > 0) {
-    // $titl = "Update ";
-    $select = "SELECT * FROM mystery WHERE index_id='" . $_REQUEST['id'] . "'"; //echo $select;
+$Row = null;
+if (!empty($_REQUEST['id']) && (int) $_REQUEST['id'] > 0) {
+    $titl = 'Update ';
+    $select = "SELECT * FROM mystery WHERE index_id='" . (int) $_REQUEST['id'] . "'";
     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
     $Row = mysqli_fetch_object($SQL_STATEMENT);
 } else {
-    $titl = "";
+    $titl = 'Add New ';
+    $Row = (object) [
+        'title' => '',
+        'description' => '',
+        'small_description' => '',
+        'open_time' => '00:00:00',
+        'close_time' => '00:00:00',
+        'country' => '',
+        'state' => '',
+        'city' => '',
+        'address' => '',
+        'god_id' => '',
+        'log_date' => date('Y-m-d'),
+        'status' => 'unapproved',
+        'photos' => '',
+    ];
+}
+$rowStatus = strtolower(trim((string) ($Row->status ?? '')));
+if ($rowStatus === '') {
+    $rowStatus = 'rejected';
 }
 ?>
 <div class="body-content">
@@ -71,6 +99,13 @@ if ($_REQUEST['id'] > 0) {
                             } ?>
                             <p class="card-title-desc">Please fill the required Mystery temples details.</p>
                             <form action="" method="post" name="finish-form" enctype="multipart/form-data" class="needs-validation" novalidate="">
+                                <?php if (!empty($_REQUEST['id']) && (int) $_REQUEST['id'] > 0) : ?>
+                                    <input type="hidden" name="id" value="<?php echo (int) $_REQUEST['id']; ?>">
+                                    <input type="hidden" name="edit" value="1">
+                                <?php endif; ?>
+                                <?php if (!empty($_REQUEST['temple_status'])) : ?>
+                                    <input type="hidden" name="temple_status" value="<?php echo htmlspecialchars((string) $_REQUEST['temple_status'], ENT_QUOTES, 'UTF-8'); ?>">
+                                <?php endif; ?>
                                 <div id="basic-layout" class="pt-30 pl-30 pr-30 pb-30">
                                     <div class="row is-multiline">
                                         <div class="col-sm-4 mb-3">
@@ -102,6 +137,16 @@ if ($_REQUEST['id'] > 0) {
 
                                             <!-- end /. form group -->
                                         </div>
+                                        <?php if ($user_role === 'Admin') : ?>
+                                        <div class="col-sm-4 mb-3">
+                                            <label class="required fw-medium">Status</label>
+                                            <select class="form-select" name="status" id="status">
+                                                <option value="approved" <?php echo $rowStatus === 'approved' ? 'selected' : ''; ?>>Approved</option>
+                                                <option value="unapproved" <?php echo ($rowStatus === 'unapproved' || $rowStatus === '') ? 'selected' : ''; ?>>Unapproved</option>
+                                                <option value="rejected" <?php echo $rowStatus === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
+                                            </select>
+                                        </div>
+                                        <?php endif; ?>
                                         <!-- <div class="col-sm-4 mb-3">
                                             <label>Temple Date</label>
                                             <div class="field">

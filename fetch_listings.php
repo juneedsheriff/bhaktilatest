@@ -3,6 +3,7 @@ include_once './app/class/XssClean.php';
 include_once './app/class/databaseConn.php';
 include_once './app/lib/requestHandler.php';
 include_once './include/mystery_helpers.php';
+include_once './include/mystery_table_helpers.php';
 include_once './include/abroad_listing_helpers.php';
 include_once './include/saints_media.php';
 
@@ -443,31 +444,15 @@ if (isset($_POST['saints_listing']) || isset($_POST['selectedFilters_saints'])) 
 
 
 if (isset($_POST['selectedFilters_mystery'])) {
-    $records_per_page = 9;
-    $selectedFilters = array_filter(array_map('intval', explode(',', $_POST['selectedFilters_mystery'] ?? '')));
-    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
-    $page = max($page, 1);
-    $offset = ($page - 1) * $records_per_page;
-    $db = $DatabaseCo->dbLink;
-
-    $allItems = mystery_collect_items($db, $selectedFilters);
-    $pageItems = array_slice($allItems, $offset, $records_per_page);
+    $selectedFilters = array_values(array_filter(array_map('trim', explode(',', $_POST['selectedFilters_mystery'] ?? ''))));
+    $allItems = mystery_table_filter_items($DatabaseCo->dbLink, $selectedFilters);
 
     $listingsHtml = '';
-    foreach ($pageItems as $Row) {
-        $listingsHtml .= mystery_listing_html($db, $Row);
+    foreach ($allItems as $Row) {
+        $listingsHtml .= mystery_table_listing_html($Row);
     }
 
-    $total_records = mystery_count_items($db, $selectedFilters);
-    $total_pages = $total_records > 0 ? (int) ceil($total_records / $records_per_page) : 0;
-
-    $paginationHtml = '';
-    for ($i = 1; $i <= $total_pages; $i++) {
-        $activeClass = $i == $page ? 'active' : '';
-        $paginationHtml .= "<button type='button' class='pagination-button {$activeClass}' onclick='fetchListings({$i})'>{$i}</button>";
-    }
-
-    echo json_encode(['listings' => $listingsHtml, 'pagination' => $paginationHtml]);
+    echo json_encode(['listings' => $listingsHtml, 'pagination' => '']);
 }
 
 

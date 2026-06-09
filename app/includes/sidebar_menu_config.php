@@ -40,7 +40,15 @@ $sidebar_menu_blocks = [
             ['Temples Bulk Upload', 'iconic-temple-upload.php'],
         ],
     ],
-    'mystery_temples'         => ['Mystery Temples', [['Mystery Temples Listing', 'temple-mystery-listing.php']]],
+    'mystery_temples'         => [
+        'Mystery Temples',
+        [
+            ['Add Mystery Temples', 'add-mystery-temple.php'],
+            ['Approved Temple', 'temple-mystery-listing.php'],
+            ['Approval Pending', 'temple-mystery-listing.php'],
+            ['Rejected Temple', 'temple-mystery-listing.php'],
+        ],
+    ],
     'mantras'                 => [
         'Mantras and Stotras',
         [

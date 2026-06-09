@@ -1,5 +1,4 @@
 <?php date_default_timezone_set("Asia/Kolkata");
-session_start();
 define('DB_HOST', '103.21.58.6:3306');
 
 define('DB_USER', 'bhaktiapp');
@@ -21,11 +20,37 @@ class DatabaseConn
 		$this->dbResult = '';
 		$this->dbRow = '';
 
-		$this->dbLink = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+
+		$this->dbLink = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		if (!$this->dbLink) {
+			return;
+		}
+
 		$this->dbLink->query("SET character_set_results=utf8");
 		mb_language('uni');
 		mb_internal_encoding('UTF-8');
 		$this->dbLink->query("set names 'utf8'");
+	}
+
+	function isConnected()
+	{
+		return $this->dbLink instanceof mysqli;
+	}
+
+	function safeQuery($sql)
+	{
+		if (!$this->isConnected()) {
+			return false;
+		}
+
+		try {
+			return @$this->dbLink->query($sql);
+		} catch (Throwable $e) {
+			return false;
+		}
 	}
 
 	function convertToLocalHtml($localHtmlEquivalent)
@@ -36,21 +61,26 @@ class DatabaseConn
 
 	function getSelectQueryResult($selectQuery)
 	{
+		if (!$this->isConnected()) {
+			return false;
+		}
+
 		$this->dbLink->query("SET character_set_results=utf8");
 		$this->sqlQuery = $selectQuery;
-		$this->dbResult = $this->dbLink->query($this->sqlQuery);
+		$this->dbResult = $this->safeQuery($this->sqlQuery);
 		return $this->dbResult;
 	}
 
 	function updateData($updateQuery)
 	{
+		if (!$this->isConnected()) {
+			return false;
+		}
+
 		$this->dbLink->query("SET character_set_results=utf8");
 		$this->sqlQuery = $updateQuery;
-		$this->dbResult = $this->dbLink->query($this->sqlQuery);
+		$this->dbResult = $this->safeQuery($this->sqlQuery);
 
-		if ($this->dbResult)
-			return true;
-		else
-			return false;
+		return (bool) $this->dbResult;
 	}
 }

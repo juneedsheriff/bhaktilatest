@@ -5145,3 +5145,47 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.01);
     transform: translateY(2px);
 }
+.transform-center {
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+.bhaktitempls .row > [class*="col-"] {
+    padding: 0;
+}
+
+.bhaktitempls a {
+    display: block;
+}
+
+.bhaktitempls .project-img {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.bhaktitempls .project-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bhaktitempls .project-img .expand {
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    transform: none;
+    color: #fff;
+    z-index: 2;
+    line-height: 1.4;
+    font-size: 14px;
+    box-sizing: border-box;
+}

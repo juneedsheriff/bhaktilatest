@@ -622,7 +622,7 @@
 
         headerOwl.owlCarousel({
 
-            loop: true,
+            loop: false,
 
             margin: 0,
 
@@ -652,9 +652,55 @@
 
             dots: false,
 
+            lazyLoad: true,
+
             autoplay: true,
 
             animateOut: 'fadeOut'
+
+        })
+
+        function updateHeaderCarouselNav(carousel, total) {
+
+            var current = carousel.current()
+
+            $('.header-carousel-prev').prop('disabled', current === 0)
+
+            $('.header-carousel-next').prop('disabled', current >= total - 1)
+
+            $('.header-carousel-count').text((current + 1) + '/' + total)
+
+        }
+
+        $('.header-carousel-prev').on('click', function () {
+
+            if (!$(this).prop('disabled')) {
+
+                headerOwl.trigger('prev.owl.carousel')
+
+            }
+
+        })
+
+        $('.header-carousel-next').on('click', function () {
+
+            if (!$(this).prop('disabled')) {
+
+                headerOwl.trigger('next.owl.carousel')
+
+            }
+
+        })
+
+        headerOwl.on('initialized.owl.carousel changed.owl.carousel', function (event) {
+
+            if (!event.namespace) {
+
+                return
+
+            }
+
+            updateHeaderCarouselNav(event.relatedTarget, event.item.count)
 
         })
 

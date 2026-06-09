@@ -4,6 +4,7 @@ include_once './app/class/XssClean.php';
 include_once './app/class/databaseConn.php';
 include_once './app/lib/requestHandler.php';
 include_once './include/mystery_helpers.php';
+include_once './include/mystery_table_helpers.php';
 include_once './include/abroad_listing_helpers.php';
 
 $DatabaseCo = new DatabaseConn();
@@ -62,12 +63,12 @@ if ($type === 'abroad') {
 }
 
 if ($type === 'mystery') {
-    $allItems = mystery_collect_items($db);
+    $allItems = mystery_table_load_all($db);
     $pageItems = array_slice($allItems, $start, $limit);
 
     $listingsHtml = '';
     foreach ($pageItems as $Row) {
-        $listingsHtml .= mystery_listing_html($db, $Row);
+        $listingsHtml .= mystery_table_listing_html($Row);
     }
 
     echo $listingsHtml;

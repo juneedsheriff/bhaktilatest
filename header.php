@@ -4,7 +4,9 @@ include_once './app/class/databaseConn.php';
 
 include_once './app/lib/requestHandler.php';
 
-$DatabaseCo = new DatabaseConn();
+if (!isset($DatabaseCo) || !($DatabaseCo instanceof DatabaseConn) || !$DatabaseCo->isConnected()) {
+    $DatabaseCo = new DatabaseConn();
+}
 
 include_once './app/class/XssClean.php';
 
@@ -328,10 +330,7 @@ $menuItems[] = [
 ];
 
 /* ---------- Static (visible everywhere) ---------- */
-$menuItems[] = ['title' => 'Bhakti Sankalp', 'url' => 'bhakti-sankalp.php'];
-$menuItems[] = ['title' => 'Forum', 'url' => 'forum.php'];
 $menuItems[] = ['title' => 'Live Darshan', 'url' => 'live-darshan.php'];
-$menuItems[] = ['title' => 'Puja Store', 'url' => '#'];
 
 /* ---------- Dynamic Categories ---------- */
 $select = "SELECT index_id, name FROM category WHERE index_id != '0'";
@@ -345,10 +344,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     ];
 }
 
-/* ---------- Alphabetical Sort ---------- */
+/* ---------- Alphabetical Sort (Forum always last) ---------- */
 usort($menuItems, function ($a, $b) {
     return strcasecmp($a['title'], $b['title']);
 });
+
+$menuItems[] = ['title' => 'Forum', 'url' => 'forum.php'];
 
 // Current page for active nav state (script name only, e.g. index.php)
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -393,19 +394,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
                 <!-- start button -->
 
-                <a href="https://www.youtube.com/channel/UCoYc4EJSNFkLaIjXM2bCJjQ"  class="play-pause-button-color" style=" margin-top: 10px;" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Our channel"><i class=" fa fa-youtube" style="width:28px;height:28px;margin-top:9px;margin-left: 8px;"></i></a>
-
-                <div class="audio-control">
-
-                    <button id="playPauseBtn" class="play-pause-button-color download" onclick="togglePlayPause()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Play">
-
-                        <i id="playPauseIcon" class="fa fa-play"></i> <!-- Initial icon is play -->
-
-                    </button>
-
-                    <audio id="audioPlayer" class="download" src="assets/audio/OMKARAM.mp3"></audio>
-
-                </div>
+                <a href="https://www.youtube.com/channel/UCoYc4EJSNFkLaIjXM2bCJjQ"  class="play-pause-button-color" style=" margin-top: 10px; " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Our channel"><i class=" fa fa-youtube" style="width:28px;height:28px;margin-top:9px;margin-right: 8px; margin-left:8px"></i></a>
 
                 <!-- end /. button -->
 
@@ -552,6 +541,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     .sn_language_links{
             margin: 10px 0;
             padding:10px 0;
+            margin-bottom:0px;
     }
     .sn_language_links p{
 
@@ -583,7 +573,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="container">
         <div class="sn_language_links">
     <p class="notranslate">
-        Read in 
+       
        <?php
 // Get current URL
 $current_url = "//" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -619,6 +609,12 @@ if ($script_dir === '' || $script_dir === '.') {
 } else {
     $correction_form_action = rtrim($script_dir, '/') . '/correction_submit.php';
 }
+
+$correction_page_url = $_SERVER['REQUEST_URI'] ?? '';
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $correction_scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $correction_page_url = $correction_scheme . '://' . $_SERVER['HTTP_HOST'] . ($_SERVER['REQUEST_URI'] ?? '');
+}
 ?>
  
         <a class="btn-show-correction-form" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#correctionModal">Any Corrections?</a>
@@ -634,7 +630,10 @@ if ($script_dir === '' || $script_dir === '.') {
             <div class="modal-body">
                 <form id="correctionForm" data-action="<?php echo htmlspecialchars($correction_form_action); ?>">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
-                    <input type="hidden" name="page_url" id="page_url" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI'] ?? ''); ?>">
+                    <div class="mb-3">
+                        <label class="form-label">Page URL</label>
+                        <input type="url" name="page_url" id="page_url" class="form-control" value="<?php echo htmlspecialchars($correction_page_url); ?>" readonly>
+                    </div>
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Your Name</label>
