@@ -1,6 +1,7 @@
 <?php ob_start();
 error_reporting(0);
 include_once './includes/header.php';
+include_once './lib/mantrasVrathamImages.php';
 if (!empty($_REQUEST['del_t'])) {
     $del_id = $_REQUEST['del_t'];
     echo $del_id; // For debugging, you can remove this later.
@@ -70,9 +71,24 @@ if (!empty($_REQUEST['del_t'])) {
                                     <td><?php echo $i;
                                         $i++; ?></td>
                                     <td>
-                                        <?php if ($res3->photos != '') { ?>
-                                            <a href="./uploads/gods/<?php echo $res3->photos; ?>" target="_blank"><img src="./uploads/gods/<?php echo $res3->photos; ?>" class=" header-profile-user" width="60" alt="" data-demo-src="./uploads/gods/<?php echo $res3->photos; ?>"></a>
-                                        <?php } ?>
+                                        <?php
+                                        $photoSrc = getMantraSubcategoryPhotoSrc([
+                                            'index_id' => $res3->index_id,
+                                            'title' => $res3->title,
+                                            'photos' => $res3->photos,
+                                            'banner' => $res3->banner ?? '',
+                                        ]);
+                                        if (strpos($photoSrc, 'assets/') === 0) {
+                                            $adminPhotoSrc = '../' . $photoSrc;
+                                        } elseif (strpos($photoSrc, 'app/uploads/') === 0) {
+                                            $adminPhotoSrc = './' . substr($photoSrc, 4);
+                                        } else {
+                                            $adminPhotoSrc = $photoSrc;
+                                        }
+                                        ?>
+                                        <a href="<?php echo htmlspecialchars($adminPhotoSrc, ENT_QUOTES, 'UTF-8'); ?>" target="_blank">
+                                            <img src="<?php echo htmlspecialchars($adminPhotoSrc, ENT_QUOTES, 'UTF-8'); ?>" class="header-profile-user" width="60" alt="<?php echo htmlspecialchars($res3->title, ENT_QUOTES, 'UTF-8'); ?>">
+                                        </a>
                                     </td>
 
                                     <td><?php echo $Row->title; ?></td>

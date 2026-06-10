@@ -7,6 +7,8 @@ header("Content-Type: application/json");
 
 include_once "../app/class/databaseConn.php";
 include_once "../app/lib/requestHandler.php";
+include_once "../app/lib/mantrasVrathamImages.php";
+include_once "../app/lib/mantrasTitleImport.php";
 
 $DatabaseCo = new DatabaseConn();
 $db = $DatabaseCo->dbLink;
@@ -48,7 +50,7 @@ if ($action == "get_sub_categories") {
                 status
             FROM mantras_subcategory
             WHERE status = 'approved'
-            ORDER BY order_by ASC, title ASC
+            ORDER BY index_id ASC
         ";
 
     } 
@@ -72,7 +74,7 @@ if ($action == "get_sub_categories") {
             FROM mantras_subcategory
             WHERE categories_id IN ($ids_str)
             AND status = 'approved'
-            ORDER BY order_by ASC, title ASC
+            ORDER BY index_id ASC
         ";
 
     } else {
@@ -96,11 +98,14 @@ if ($action == "get_sub_categories") {
 
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
+            $photoSrc = getMantraSubcategoryPhotoSrc($row);
             $data[] = [
                 "index_id"     => $row['index_id'],
                 "categories_id"=> $row['categories_id'],
                 "title"        => $row['title'],
                 "title_clean"  => htmlspecialchars($row['title']),
+                "details_url"  => getMantraDetailsUrl($row['title']),
+                "photo_src"    => $photoSrc,
                 "banner"       => 'app/uploads/gods/banner/'.$row['banner'],
                 "photos"       => 'app/uploads/gods/'.$row['photos'],
                 "description"  => $row['description'],
@@ -163,22 +168,18 @@ if ($action == "get_mantras_list_by_title") {
         exit();
     }
 
-    $title_id = intval($title);
-    $title_clean = mysqli_real_escape_string($db, trim($title));
-
-    // mantras_stotras.mantras_title can store either mantras_title.index_id or title text
-    $query = "SELECT * FROM mantras_stotras WHERE (mantras_title = '$title_id' OR mantras_title = '$title_clean') AND status = 'approved' ORDER BY title ASC";
-    $result = mysqli_query($db, $query);
-
-    // Fallback: if no results with id, try matching by mantras_title.title
-    if ($result && mysqli_num_rows($result) == 0 && $title_id > 0) {
-        $sub = mysqli_query($db, "SELECT title FROM mantras_title WHERE index_id = $title_id LIMIT 1");
-        if ($sub && $trow = mysqli_fetch_assoc($sub)) {
-            $title_text = mysqli_real_escape_string($db, $trow['title']);
-            $query = "SELECT * FROM mantras_stotras WHERE mantras_title = '$title_text' AND status = 'approved' ORDER BY title ASC";
-            $result = mysqli_query($db, $query);
-        }
+    $keyword = resolveMantraTitleKeyword($db, $title);
+    if ($keyword === '') {
+        echo json_encode([
+            "status" => false,
+            "message" => "Invalid mantra group selected."
+        ]);
+        exit();
     }
+
+    $keywordEsc = mysqli_real_escape_string($db, $keyword);
+    $query = "SELECT * FROM mantras_stotras WHERE title LIKE '%$keywordEsc%' AND status = 'approved' ORDER BY index_id ASC";
+    $result = mysqli_query($db, $query);
 
     if (!$result) {
         echo json_encode([

@@ -1,6 +1,7 @@
 <?php ob_start();
 error_reporting(0);
 include_once './includes/header.php';
+include_once './lib/mantrasVrathamImages.php';
 if (!empty($_REQUEST['del_t'])) {
     $del_id = $_REQUEST['del_t'];
     echo $del_id; // For debugging, you can remove this later.
@@ -68,9 +69,24 @@ if (!empty($_REQUEST['del_t'])) {
                                 <tr>
                                     <td><?php echo $Row->index_id;//$i;$i++; ?></td>
                                     <td>
-                                        <?php if ($Row->photos != '') { ?>
-                                            <a href="./uploads/gods/<?php echo $Row->photos; ?>" target="_blank"><img src="./uploads/gods/<?php echo $Row->photos; ?>" class=" header-profile-user" width="60" alt="" data-demo-src="./uploads/gods/<?php echo $Row->photos; ?>"></a>
-                                        <?php } ?>
+                                        <?php
+                                        $photoSrc = getMantraSubcategoryPhotoSrc([
+                                            'index_id' => $Row->index_id,
+                                            'title' => $Row->title,
+                                            'photos' => $Row->photos,
+                                            'banner' => $Row->banner,
+                                        ]);
+                                        if (strpos($photoSrc, 'assets/') === 0) {
+                                            $adminPhotoSrc = '../' . $photoSrc;
+                                        } elseif (strpos($photoSrc, 'app/uploads/') === 0) {
+                                            $adminPhotoSrc = './' . substr($photoSrc, 4);
+                                        } else {
+                                            $adminPhotoSrc = $photoSrc;
+                                        }
+                                        ?>
+                                        <a href="<?php echo htmlspecialchars($adminPhotoSrc, ENT_QUOTES, 'UTF-8'); ?>" target="_blank">
+                                            <img src="<?php echo htmlspecialchars($adminPhotoSrc, ENT_QUOTES, 'UTF-8'); ?>" class="header-profile-user" width="60" alt="<?php echo htmlspecialchars($Row->title, ENT_QUOTES, 'UTF-8'); ?>">
+                                        </a>
                                     </td>
                                     <td><?php echo $Row->title; ?></td>
                                     <!-- <td><?php echo substr($Row->description, 0, 50) . (strlen($Row->description) > 50 ? "..." : ""); ?></td> -->

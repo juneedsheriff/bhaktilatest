@@ -5208,3 +5208,6 @@ hr {
     margin: 15px 0;
     color: #000;
 }
+.mantras-filter-panel label{
+    display: block;
+}

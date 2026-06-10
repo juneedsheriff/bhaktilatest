@@ -1,21 +1,21 @@
 <?php ob_start();
 include_once './includes/header.php';
-if(isset($_REQUEST['upload'])){
-    $log_date = date("Y-m-d");
-    $created_staff=$_SESSION["staff_id"];
-    $filename=$_FILES["upload_file"]["tmp_name"];	    
+include_once './lib/mantrasListImport.php';
+if (isset($_REQUEST['upload'])) {
+    $filename = $_FILES["upload_file"]["tmp_name"];
     $ext = pathinfo($_FILES["upload_file"]["name"], PATHINFO_EXTENSION);
-	if(strtolower($ext) == "csv")
-	{
-	  	$file = fopen($filename, "r");
-	  	$i=0;$j=0;
-        while (($getData = fgetcsv($file)) !== FALSE) {
-	        if($i>0 && $getData[3] != ''){
-           		$DatabaseCo->dbLink->query("INSERT INTO `mantras_stotras` (`title`, `categories_id`, `sub_category`, `mantras_title`, `content`, `status`) VALUES ('$getData[0]','$getData[1]','$getData[2]','$getData[3]','$getData[4]','unapproved')");$j++;
-	       	}$i++;
-	   	}
-	}
-	header("location:mantras-upload.php?count=$j");
+
+    if (strtolower($ext) === "csv" && is_uploaded_file($filename)) {
+        $result = importMantrasListFromCsv($DatabaseCo->dbLink, $filename);
+        $j = (int) ($result['imported'] + $result['updated']);
+        $skipped = (int) $result['skipped'];
+        $errors = count($result['errors']);
+        header("location:mantras-upload.php?count=$j&skipped=$skipped&errors=$errors");
+        exit;
+    }
+
+    header("location:mantras-upload.php?count=0");
+    exit;
 }
 ?>
 <style>
@@ -39,22 +39,27 @@ if(isset($_REQUEST['upload'])){
             <div class="card-header">
                 <h5 class="fw-bolder">Upload multiple temples details</h2>
             </div>
-            <?php if(isset($_REQUEST['count']) && $_REQUEST['count']>0){?>
-            <div class="bg-success text-white m-5 p-3"><?php echo $_REQUEST['count'];?> number of temples have been imported!</div>
-            <?php } if(isset($_REQUEST['count']) && $_REQUEST['count']==0){?>
+            <?php if (isset($_REQUEST['count']) && (int) $_REQUEST['count'] > 0) { ?>
+            <div class="bg-success text-white m-5 p-3"><?php echo (int) $_REQUEST['count']; ?> mantra records imported or updated.</div>
+            <?php } elseif (isset($_REQUEST['count']) && (int) $_REQUEST['count'] === 0) { ?>
             <div class="bg-danger text-white m-5 p-3">No details have been imported. Follow the instructions provided and upload again!</div>
-            <?php }?>
+            <?php } ?>
+            <?php if (!empty($_REQUEST['skipped'])) { ?>
+            <div class="bg-warning text-dark m-5 p-3"><?php echo (int) $_REQUEST['skipped']; ?> rows were skipped.</div>
+            <?php } ?>
+            <?php if (!empty($_REQUEST['errors'])) { ?>
+            <div class="bg-danger text-white m-5 p-3"><?php echo (int) $_REQUEST['errors']; ?> rows had errors. Check god names and CSV format.</div>
+            <?php } ?>
         <div class="text-end">
-            <a href="iconic-temples.csv" class="btn btn-primary fw-medium mr-2 pr-2 mx-1"  download="iconic-temples.csv" type="text/csv"><i class="fa-solid fa-download me-1"></i>Download Sample File</a>
+            <a href="data/mantras_list.csv" class="btn btn-primary fw-medium mr-2 pr-2 mx-1" download="mantras_list.csv" type="text/csv"><i class="fa-solid fa-download me-1"></i>Download Sample File</a>
         </div>
             <div class="card-body align-items-center" align="left">
 										<h6><strong>Instructions:-</strong></h6>
 										<ul>
-										  <li>Fill all the fields provided</li>
-										  <li>Get the Mantras Category ID from the <a href="mantras_category.php" target="_blank">Mantras Category Master</a></li>
-										  <li>Get the Mantras God ID from the <a href="mantras_subcategory.php" target="_blank">God Subcategory Master</a></li>
-										  <li>Get the Mantras Group ID from <a href="mantras_title.php" target="_blank">Mantras Group Master</a></li>
-										  <li>Audio name should be added to the appropriate field and maintain unique name to avoid overriding</li>
+										  <li>CSV columns: id, title, content, status, date, description, godname, meaning, extra, mp3, mp4</li>
+										  <li>God name must match an existing record in <a href="mantras_subcategory.php" target="_blank">God Subcategory Master</a></li>
+										  <li>Status should be Approved or unapproved</li>
+										  <li>Audio file name should exist in uploads/mantras_audio</li>
 										</ul>
 										<div class="d-flex position-relative my-1" align="center">	
 											<form action="mantras-upload.php" method="post"  enctype="multipart/form-data">

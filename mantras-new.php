@@ -6,6 +6,8 @@
 include_once './include/header.php';   // if you have a header include
 // ensure DatabaseConn is available for server-side checks (e.g., logged in username display)
 include_once './app/class/databaseConn.php';
+include_once './app/lib/mantrasVrathamImages.php';
+include_once './app/lib/mantrasTitleImport.php';
 $DatabaseCo = new DatabaseConn();
 $conn = $DatabaseCo->dbLink;
 // ensure CSRF token
@@ -17,15 +19,53 @@ $csrf = $_SESSION['csrf_token'];
 $username = $_SESSION['username'] ?? null;
 $user_id = $_SESSION['user_id'] ?? null;
 
-// Fetch God Names from mantras_category table
-$godList = [];
-$sql = "SELECT index_id, title FROM mantras_category ORDER BY title ASC";
-$result = $conn->query($sql);
+$godCategoryFilters = getMantraGodCategoryFilters();
+$totalGodCount = getMantraActiveGodCountFromCsv();
+$godCategoryKeysMap = [];
+foreach ($godCategoryFilters as $categoryIndex => $category) {
+    $godCategoryKeysMap[$categoryIndex] = array_column($category['gods'], 'title_key');
+}
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $godList[] = $row;
+$mantraTitleFilters = getMantrasTitleFilterList($DatabaseCo->dbLink);
+
+$godsPageData = [];
+$godsQuery = "
+    SELECT banner, index_id, categories_id, title, photos, description, order_by, status
+    FROM mantras_subcategory
+    WHERE status = 'approved'
+    ORDER BY index_id ASC
+";
+$godsResult = mysqli_query($DatabaseCo->dbLink, $godsQuery);
+if ($godsResult) {
+    while ($godRow = mysqli_fetch_assoc($godsResult)) {
+        $godsPageData[] = [
+            'index_id' => (int) $godRow['index_id'],
+            'categories_id' => (int) $godRow['categories_id'],
+            'title' => $godRow['title'],
+            'title_key' => normalizeMantraTitleKey($godRow['title']),
+            'title_clean' => htmlspecialchars($godRow['title'], ENT_QUOTES, 'UTF-8'),
+            'details_url' => getMantraDetailsUrl($godRow['title']),
+            'photo_src' => getMantraSubcategoryPhotoSrc($godRow),
+        ];
     }
+}
+
+$mantraItemsData = [];
+$mantrasQuery = "SELECT index_id, title FROM mantras_stotras WHERE status = 'approved' ORDER BY index_id ASC";
+$mantrasResult = mysqli_query($DatabaseCo->dbLink, $mantrasQuery);
+if ($mantrasResult) {
+    while ($mantraRow = mysqli_fetch_assoc($mantrasResult)) {
+        $mantraItemsData[] = [
+            'index_id' => (int) $mantraRow['index_id'],
+            'title' => $mantraRow['title'],
+            'title_clean' => htmlspecialchars($mantraRow['title'], ENT_QUOTES, 'UTF-8'),
+        ];
+    }
+}
+
+$mantraKeywordsMap = [];
+foreach ($mantraTitleFilters as $mantraFilter) {
+    $mantraKeywordsMap[(int) $mantraFilter['index_id']] = $mantraFilter['title'];
 }
 ?>
 <style>
@@ -51,10 +91,6 @@ if ($result->num_rows > 0) {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 16px;
-}
-#filterOffcanvas{
-   width: 320px;
-   z-index: 9999999;
 }
 .header {
   text-align: center;
@@ -154,10 +190,8 @@ footer { text-align:center; color:#444; margin-top:25px; }
 
     .iconic-featured-card-image {
         width: 100%;
-        height: 290px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+        height: 415px;
+        object-fit: cover;
         display: block;
         flex-shrink: 0;
     }
@@ -176,6 +210,7 @@ footer { text-align:center; color:#444; margin-top:25px; }
 
     .product-item1 {
         border: 10px solid rgba(246, 222, 22, 0.7);
+        height: 100%;
         background-color: #fff;
         width: 100%;
         display: flex;
@@ -193,24 +228,14 @@ footer { text-align:center; color:#444; margin-top:25px; }
 
     .iconic-featured-card-title {
         text-align: center;
-        padding: 15px 10px;
-        min-height: 90px;
+        padding: 10px;
+        margin: 0;
+        color: #000;
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
         line-height: 1.35;
-    }
-
-    .iconic-featured-card-footer {
-        text-align: center;
-        padding: 10px;
-        margin-top: auto;
-    }
-
-    .iconic-featured-card-footer img {
-        display: block;
-        margin: 0 auto;
     }
 
 .mantra-item {
@@ -220,31 +245,31 @@ footer { text-align:center; color:#444; margin-top:25px; }
 .mantra-card {
     display: block;
     background: #fff;
-    border: 1px solid #e8dccb;
+    border: 7px solid rgba(246, 222, 22, 0.7);
     border-radius: 12px;
     padding: 18px 20px;
     text-align: center;
     text-decoration: none;
     transition: 0.25s ease;
-    min-height:110px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.08);
 }
 
 .mantra-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    border-color: #caa563; /* Soft golden */
+    border-color: rgba(246, 222, 22, 1);
     background: #fffaf1;
 }
 
 .mantra-title {
-    font-size: 20px;
+    font-size: 17px;
     color: #4b341a;
     font-weight: 600;
-    font-family: "Tiro Devanagari Hindi", serif;
+    font-family: "georgia";
 }
 
 </style>
+<?php include_once './include/mantras-filter-styles.php'; ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <section class="pt-2">
 
@@ -255,208 +280,27 @@ footer { text-align:center; color:#444; margin-top:25px; }
     <h2><div class="fs-1 font-caveat page-header-title fw-semibold m-2 pb-3  text-primary">Mantras &amp; Stotras</div></h2>
   </div> -->
 
-  <div class="row">
-  <div class="mb-3">
-  <button class="btn btn-blue"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#filterOffcanvas">
-   <i class="fa-solid fa-filter"></i> Filters
-</button>
-</div>
+  <div class="row g-3 mantras-page-row">
+    <?php include_once './include/mantras-filter-sidebar.php'; ?>
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="filterOffcanvas">
-
-  <div class="offcanvas-header">
-      <h5 class="offcanvas-title">
-          <i class="fa-solid fa-filter"></i> Filters
-      </h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-
-  <div class="offcanvas-body">
-
-      <!-- YOUR EXISTING SIDEBAR -->
-      <div class="side-bar">
-      <div class="section-box">
-
-<!-- Tabs -->
-<ul class="nav nav-tabs mb-3" id="leftTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="gods-tab" data-bs-toggle="tab" data-bs-target="#gods" type="button">
-      <i class="fa-solid fa-gopuram"></i> Gods
-    </button>
-  </li>
-
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="mantra-tab" data-bs-toggle="tab" data-bs-target="#allmantras" type="button">
-      <i class="fa-solid fa-book"></i> Mantras
-    </button>
-  </li>
-</ul>
-
-<!-- Tab Content -->
-<div class="tab-content">
-
-  <!-- GODS TAB -->
-  <div class="tab-pane fade show active" id="gods" role="tabpanel">
-    <h4 class="section-title"><i class="fa-solid fa-gopuram"></i> Gods</h4>
-    <div id="godList" class="scroll-box">
-      <?php if(!empty($godList)){ ?>
-        <label class="item-box">
-            <input type="checkbox" class="godCheck" value="all" data-title="all">
-            <span>All</span>
-          </label>
-        <?php foreach($godList as $g){ ?>
-          <label class="item-box">
-            <input type="checkbox" class="godCheck" value="<?php echo $g['index_id']; ?>" data-title="<?php echo htmlspecialchars($g['title']); ?>">
-            <span><?php echo $g['title']; ?></span>
-          </label>
-        <?php } ?>
-      <?php } else { ?>
-        <div class="muted">No gods found.</div>
-      <?php } ?>
-    </div>
-  </div>
-
-  <!-- ALL MANTRAS TAB -->
-  <div class="tab-pane fade" id="allmantras" role="tabpanel">
-    <h4 class="section-title"><i class="fa-solid fa-book"></i> All Mantras</h4>
-    <div id="allMantraList" class="scroll-box muted">
-      <?php
-
-                // Fetch subcategories based on the current category
-
-                $select_subcategory = "SELECT * FROM mantras_title ORDER BY title ASC";
-
-                $SQL_STATEMENT_subcategory = mysqli_query($DatabaseCo->dbLink, $select_subcategory);
-
-
-
-                // Check if any subcategories are returned
-
-                if (mysqli_num_rows($SQL_STATEMENT_subcategory) > 0) {
-
-                    while ($Row_subcategory = mysqli_fetch_assoc($SQL_STATEMENT_subcategory)) {
-
-                        $title2 = htmlspecialchars($Row_subcategory['title'], ENT_QUOTES, 'UTF-8'); // Secure output
-
-                        $god_id2 = $Row_subcategory['index_id'];
-
-                ?>
-
-                        <!-- Displaying each subcategory with checkbox -->
-
-                        <div class="accordion-body">
-
-                            <div class="form-check">
-
-                                <input class="form-check-input mantras-lst" type="radio" name="mantraTitl" value="<?php echo $god_id2; ?>" id="mantras<?php echo $god_id2; ?>">
-
-                                <label class="form-check-label" for="mantras<?php echo $god_id2; ?>"><?php echo $title2; ?></label>
-
-                            </div>
-
-                        </div>
-
-                <?php
-
-                    }
-
-                } else {
-
-                    echo "<p class='text-center'>No Mantras or Stotras found in this category.</p>";
-
-                }
-
-                ?>
-    </div>
-  </div>
-
-</div>
-
-</div>
-      </div>
-
-  </div>
-
-</div>
-
-    <!-- LEFT COLUMN: GODS -->
-    <div id="filterPanel" style="display:none;">
-   <!-- EXISTING SIDEBAR CONTENT -->
-   <div class="side-bar col-md-3">
- 
-</div>
-</div>
-    <!-- LEFT COLUMN WITH TABS -->
-
-     
-
-<?php 
-$all_gods = "
-            SELECT 
-                banner,
-                index_id,
-                categories_id,
-                title,
-                photos,
-                description,
-                order_by,
-                status
-            FROM mantras_subcategory
-            WHERE status = 'approved'
-            ORDER BY order_by ASC, title ASC
-        ";
-
-        $SQL_STATEMENT_GODS = mysqli_query($DatabaseCo->dbLink, $all_gods);
-?>
-
-    <!-- MIDDLE COLUMN: MANTRAS -->
-    <div class="main-sec col-md-12">
+    <div class="main-sec col-lg-9 col-md-8 mantras-content">
         <div class="fs-1 font-caveat page-header-title fw-semibold m-2 pb-3 text-dark">Mantras &amp; Stotras</div>
 
         <div id="mantraList" class="row iconic-featured-row">
-                <?php
-                if (mysqli_num_rows($SQL_STATEMENT_GODS) > 0) {
-
-                        while ($Row_gods = mysqli_fetch_assoc($SQL_STATEMENT_GODS)) {
-
-                            $title2 = htmlspecialchars($Row_gods['title'], ENT_QUOTES, 'UTF-8');
-                            $id = (int) $Row_gods['index_id'];
-                            $photoSrc = trim((string) ($Row_gods['photos'] ?? '')) !== ''
-                                ? 'app/uploads/gods/' . $Row_gods['photos']
-                                : (trim((string) ($Row_gods['banner'] ?? '')) !== ''
-                                    ? 'app/uploads/gods/banner/' . $Row_gods['banner']
-                                    : 'assets/images/default-image.png');
-
-                    ?>
-
+                <?php foreach ($godsPageData as $godCard) { ?>
                     <div class="col-lg-4 col-sm-6 iconic-featured-col">
                         <div class="product-item1">
-                            <a href="mantras-details.php?id=<?php echo $id; ?>">
-                                <div class="iconic-featured-card-image" style="background-image:url('<?php echo htmlspecialchars($photoSrc, ENT_QUOTES, 'UTF-8'); ?>')" role="img" aria-label="<?php echo $title2; ?>"></div>
+                            <a href="<?php echo htmlspecialchars($godCard['details_url'], ENT_QUOTES, 'UTF-8'); ?>">
+                                <img class="iconic-featured-card-image" src="<?php echo htmlspecialchars($godCard['photo_src'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo $godCard['title_clean']; ?>">
                                 <div class="iconic-featured-card-title">
                                     <span class="shiny" style="margin: 0">
-                                        <span style="margin: 0"><?php echo $title2; ?></span>
+                                        <span style="margin: 0"><?php echo $godCard['title_clean']; ?></span>
                                     </span>
-                                </div>
-                                <div class="iconic-featured-card-footer">
-                                    <img src="assets/images/backbutton.png" alt="">
                                 </div>
                             </a>
                         </div>
                     </div>
-
-                    <?php
-
-                        }
-
-                    } else {
-
-                        echo "<p class='text-center'>No Mantras or Stotras found in this category.</p>";
-
-                    }
-                ?>
+                <?php } ?>
         </div>
               
 
@@ -472,158 +316,11 @@ $all_gods = "
 <!-- jQuery -->
 
 <?php include_once './include/footer.php'; ?>
-
-<script>
-// ---------------------- STATIC DATA ---------------------- //
-
-
-
-// ---------------------- LOAD MANTRAS ---------------------- //
-// When selecting any God checkbox
-$(document).on("change", ".godCheck", function () {
-
-    let selectedGods = [];
-
-    $(".godCheck:checked").each(function () {
-        selectedGods.push($(this).val());
-    });
-
-    // If no gods selected → show message
-    if (selectedGods.length === 0) {
-        $("#mantraList").html('<div class="muted">Select a god to load subcategories.</div>');
-        return;
-    }
-
-    // AJAX to fetch subcategories
-    $.ajax({
-        url: "module/mantras_api.php",
-        type: "POST",
-        data: {
-            action: "get_sub_categories",
-            god_ids: selectedGods
-        },
-        dataType: "json",
-
-        success: function (response) {
-
-            if (!response.status || response.count === 0) {
-                $("#mantraList").html('<div class="muted">No Mantras available.</div>');
-                return;
-            }
-
-            let html = "";
-
-            response.data.forEach(function (item) {
-                const photoSrc = item.photos || item.banner || 'assets/images/default-image.png';
-                const title = item.title_clean || '';
-                html += `
-                    <div class="col-lg-4 col-sm-6 iconic-featured-col">
-                        <div class="product-item1">
-                            <a href="mantras-details.php?id=${item.index_id}">
-                                <div class="iconic-featured-card-image" style="background-image:url('${photoSrc}')" role="img" aria-label="${title}"></div>
-                                <div class="iconic-featured-card-title">
-                                    <span class="shiny" style="margin: 0">
-                                        <span style="margin: 0">${title}</span>
-                                    </span>
-                                </div>
-                                <div class="iconic-featured-card-footer">
-                                    <img src="assets/images/backbutton.png" alt="">
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                `;
-            });
-
-            $("#mantraList").html(html);
-        },
-
-        error: function () {
-            $("#mantraList").html('<div class="muted">Server error. Try again.</div>');
-        }
-    });
-});
-
-
-// ---------------------- LOAD MANTRAS ---------------------- //
-// When selecting any God checkbox
-let mantraRequest = null; // store the current AJAX request
-
-$(document).on("change", ".mantras-lst", function () {
-
-    // Abort previous request if still running
-    if (mantraRequest != null) {
-        mantraRequest.abort();
-    }
-
-    // Disable all checkboxes during loading
-    $(".mantraCheck").prop("disabled", true);
-
-    $("#mantraList").html('<div class="muted">Loading...</div>');
-
-    // Make new request
-    mantraRequest = $.ajax({
-        url: "module/mantras_api.php",
-        type: "POST",
-        data: {
-            action: "get_mantras_list_by_title",
-            title: $(this).val()
-        },
-        dataType: "json",
-
-        success: function (response) {
-
-            let html = "";
-
-            if (!response.status || response.count === 0) {
-                html = '<div class="muted">No Mantras available.</div>';
-                $("#mantraList").html(html);
-                return;
-            }
-
-            response.data.forEach(function (item) {
-                html += `
-                    <div class="mantra-item col-md-4">
-                        <a href="mantras_title_details.php?id=${item.index_id}" class="mantra-card">
-                            <div class="mantra-title">${item.title_clean}</div>
-                        </a>
-                    </div>
-                `;
-            });
-
-            $("#mantraList").html(html);
-
-            // Re-enable checkboxes after load
-            $(".mantraCheck").prop("disabled", false);
-        },
-
-        error: function (xhr) {
-            if (xhr.statusText === "abort") {
-                // request was cancelled, do nothing
-                return;
-            }
-
-            $("#mantraList").html('<div class="muted">Server error. Try again.</div>');
-        },
-
-        complete: function () {
-            // Ensure re-enable if request completes
-            $(".mantraCheck").prop("disabled", false);
-        }
-    });
-});
-
-
-
-
-</script>
-<script>
-$(document).on("change", ".godCheck, .mantras-lst", function () {
-   let canvas = bootstrap.Offcanvas.getInstance(
-      document.getElementById("filterOffcanvas")
-   );
-   if(canvas){
-      canvas.hide();
-   }
-});
-</script>
+<?php
+$mantrasFilterMode = 'listing';
+$mantrasFilterGodCategoryKeysMap = $godCategoryKeysMap;
+$mantrasFilterGodsPageData = $godsPageData;
+$mantrasFilterMantraItemsData = $mantraItemsData;
+$mantrasFilterMantraKeywordsMap = $mantraKeywordsMap;
+include_once './include/mantras-filter-script.php';
+?>

@@ -6,6 +6,7 @@ include('./include/header.php');
 include_once './app/class/XssClean.php';
 include_once './app/class/databaseConn.php';
 include_once './app/lib/requestHandler.php';
+include_once './app/lib/mantrasVrathamImages.php';
 
 $DatabaseCo = new DatabaseConn();
 $xssClean = new xssClean();
@@ -34,6 +35,13 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
     echo "<p>No Records.</p>";
     exit;
 }
+
+$breadcrumbItems = [
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Mantras & Stotras', 'url' => 'mantras-new.php'],
+    ['label' => $Row1->title, 'url' => getMantraDetailsUrl($Row1->title)],
+    ['label' => $Row->title],
+];
 ?>
 <style>
     /* Highlight animation */
@@ -161,6 +169,7 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
         display: none;
     }
 </style>
+<?php render_breadcrumbs($breadcrumbItems); ?>
 <div class="container-fluid m-0 p-0 text-center bg-gradient text-center">
     <!-- <h1 class="h2 page-header-title fw-semibold m-2 pb-3  text-primary"><?php echo $Row->title; ?></h1> -->
     <div class=" overflow-hidden position-relative">
@@ -173,33 +182,30 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
         </div>
     </div>
 </div>
-<br>
 <div class="container py-4" id="second-section">
     <div id="content-container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-12 col-12">
+            <div class="col-lg-10 col-12">
                 <div class="card border-0 p-4 text-center">
-                <h3 class="fw-bold text-primary font-caveat page-header-title  mb-3"><?= htmlspecialchars($Row->title, ENT_QUOTES, 'UTF-8') ?></h3>
-                    <?php 
-                    if (!empty($audio)) {
-                            echo '<div style="width: 300px; height: 50px;  display: inline-block; text-align: center; padding: 10px;">';
-                            echo '<audio controls style="width: 100%;">';
-                            echo '<source src="app/uploads/mantras_audio/' . htmlspecialchars($Row->audio, ENT_QUOTES, 'UTF-8') . '" type="audio/ogg">';
-                            echo '<source src="app/uploads/mantras_audio/' . htmlspecialchars($Row->audio, ENT_QUOTES, 'UTF-8') . '" type="audio/mpeg">';
-                            echo 'Your browser does not support the audio element.';
-                            echo '</audio>';
-                            echo '</div>';
-                        }?>
-                    <p class=" sth-text text-dark "><?= $Row->content?></p>
+                    <h3 class="fw-bold text-primary font-caveat page-header-title mb-3">
+                        <?php echo htmlspecialchars($Row->title, ENT_QUOTES, 'UTF-8'); ?>
+                    </h3>
+                    <?php if (!empty($Row->audio)) { ?>
+                        <div style="width: 300px; height: 50px; display: inline-block; text-align: center; padding: 10px;">
+                            <audio controls style="width: 100%;">
+                                <source src="app/uploads/mantras_audio/<?php echo htmlspecialchars($Row->audio, ENT_QUOTES, 'UTF-8'); ?>" type="audio/ogg">
+                                <source src="app/uploads/mantras_audio/<?php echo htmlspecialchars($Row->audio, ENT_QUOTES, 'UTF-8'); ?>" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    <?php } ?>
+                    <div class="sth-text text-dark"><?php echo $Row->content; ?></div>
                 </div>
                 <div class="justify-content-center d-flex">
-                <img src="./assets/images/imges1.png" alt="" class="img-fluid">
+                    <img src="./assets/images/imges1.png" alt="" class="img-fluid">
                 </div>
-            
             </div>
-          
         </div>
-
     </div>
 </div>
 
@@ -213,10 +219,10 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
 
         // Check if any rows are returned
         if (mysqli_num_rows($SQL_STATEMENT) > 0) {
-            while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
-                $photos = $Row['photos'];
-                $title = $Row['title'];
-                $index_id = $Row['index_id'];
+            while ($RelatedRow = mysqli_fetch_assoc($SQL_STATEMENT)) {
+                $photos = $RelatedRow['photos'];
+                $title = $RelatedRow['title'];
+                $index_id = $RelatedRow['index_id'];
         ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-sm h-100">
@@ -241,139 +247,5 @@ if (mysqli_num_rows($SQL_STATEMENT) > 0) {
         ?>
     </div>
 </div>
-
-
-</div>
-<script>
-    function showContent(indexId) {
-        // Hide all content sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.display = 'none';
-        });
-
-        // Show the selected content section
-        const content = document.getElementById(`content-${indexId}`);
-        if (content) {
-            content.style.display = 'block';
-        }
-    }
-
-    function filterContent() {
-        // Get all checkboxes
-        const checkboxes = document.querySelectorAll('.mantras');
-        let found = false;
-
-        // Hide all content sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.display = 'none';
-        });
-
-        // Show content for checked boxes
-        checkboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                const indexId = checkbox.value;
-                const content = document.getElementById(`content-${indexId}`);
-                if (content) {
-                    content.style.display = 'block';
-                    found = true;
-                }
-            }
-        });
-
-        // If no checkbox is checked, you can show a default message or do nothing
-        if (!found) {
-            console.log("No content to display.");
-        }
-    }
-</script>
-<script>
-    function showContent(index_id) {
-        console.log("Loading content for index_id: " + index_id); // Debugging output
-
-        // Hide all content sections
-        const allContents = document.querySelectorAll('.content-section');
-        allContents.forEach(content => content.style.display = 'none');
-
-        // Show the selected content section
-        const selectedContent = document.getElementById('content-' + index_id);
-        if (selectedContent) {
-            selectedContent.style.display = 'block';
-        } else {
-            console.error("Content for index_id " + index_id + " not found.");
-        }
-    }
-</script>
-<script>
-    // JavaScript to handle checkbox clicks
-    document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const indexId = this.getAttribute('data-index-id');
-
-            // Hide all content sections
-            document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
-
-            // Show selected content if checkbox is checked
-            if (this.checked) {
-                document.getElementById('content-' + indexId).style.display = 'block';
-
-                // Uncheck all other checkboxes
-                document.querySelectorAll('.filter-checkbox').forEach(cb => {
-                    if (cb !== this) cb.checked = false;
-                });
-            }
-        });
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Set default active content (id = 1)
-        const defaultContent = document.getElementById('content-1');
-        if (defaultContent) {
-            defaultContent.style.display = 'block';
-        }
-    });
-
-    function downloadAllContentAsPDF() {
-        const {
-            jsPDF
-        } = window.jspdf;
-        const doc = new jsPDF();
-
-        let yPosition = 10; // Initial vertical position in the PDF
-
-        // Fetch all content sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            const title = section.getAttribute('data-title') || 'Untitled';
-            let content = section.getAttribute('data-content') || 'No content available';
-
-            // Strip HTML tags from content using a temporary DOM element
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = content;
-            content = tempDiv.textContent || tempDiv.innerText || 'No content available';
-
-            // Add title to the PDF
-            doc.setFont('Helvetica', 'bold');
-            doc.text(title, 10, yPosition);
-            yPosition += 10;
-
-            // Add content to the PDF
-            doc.setFont('Helvetica', 'normal');
-            const contentLines = doc.splitTextToSize(content, 180); // Ensure text fits within page width
-            doc.text(contentLines, 10, yPosition);
-            yPosition += contentLines.length * 10;
-
-            // Add new page if content exceeds page limit
-            if (yPosition > 270) {
-                doc.addPage();
-                yPosition = 10; // Reset vertical position for the new page
-            }
-        });
-
-        // Save the PDF
-        doc.save('GodContent.pdf');
-    }
-</script>
-
 
 <?php include('./include/footer.php'); ?>
