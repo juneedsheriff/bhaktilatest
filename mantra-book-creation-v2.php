@@ -17,15 +17,45 @@ $csrf = $_SESSION['csrf_token'];
 $username = $_SESSION['username'] ?? null;
 $user_id = $_SESSION['user_id'] ?? null;
 
-// Fetch God Names from mantras_category table
+// Fetch god categories from mantras_category table
 $godList = [];
-$sql = "SELECT index_id, title FROM mantras_category ORDER BY title ASC";
+$categoryOrder = [
+    'god & goddess' => 1,
+    'gurus' => 2,
+    'navagraha' => 3,
+    'planates' => 4,
+    'planets' => 4,
+    'river goddess' => 5,
+    'river godess' => 5,
+];
+$categoryLabels = [
+    'god & goddess' => 'God & Goddess',
+    'gurus' => 'Gurus',
+    'navagraha' => 'Navagraha',
+    'planates' => 'Planates',
+    'planets' => 'Planates',
+    'river goddess' => 'River Goddess',
+    'river godess' => 'River Goddess',
+];
+
+$sql = "SELECT index_id, title FROM mantras_category WHERE index_id != '0' ORDER BY index_id ASC";
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $key = strtolower(trim($row['title']));
+        $row['display_title'] = $categoryLabels[$key] ?? $row['title'];
+        $row['sort_order'] = $categoryOrder[$key] ?? 99;
         $godList[] = $row;
     }
+
+    usort($godList, function ($a, $b) {
+        if ($a['sort_order'] !== $b['sort_order']) {
+            return $a['sort_order'] <=> $b['sort_order'];
+        }
+
+        return strcasecmp($a['display_title'], $b['display_title']);
+    });
 }
 ?>
 <style>
@@ -145,7 +175,77 @@ footer { text-align:center; color:#444; margin-top:25px; }
 #downloadPdf{
   width:170px;
 }
+
+.mantras-sidebar #mantraList,
+.mantras-sidebar #allMantraList {
+  max-height: 240px;
+}
+
+.book-filter-dropdown .dropdown-toggle {
+  border: 1px solid #dee2e6;
+  background: #fff;
+  color: #1f2c47;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.book-filter-dropdown .dropdown-toggle::after {
+  margin-left: 0;
+  flex-shrink: 0;
+}
+
+.book-filter-dropdown .dropdown-menu {
+  max-height: 280px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #e1e8ff;
+  padding: 8px 0;
+  margin-top: 6px;
+  box-shadow: 0 8px 24px rgba(35, 95, 200, 0.12);
+}
+
+.book-filter-dropdown .god-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2c47;
+  white-space: normal;
+}
+
+.book-filter-dropdown .god-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.book-filter-dropdown .god-dropdown-item:hover {
+  background: #f5f9ff;
+}
+
+.book-filter-dropdown .god-dropdown-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.book-filter-dropdown .god-dropdown-item span {
+  line-height: 1.4;
+}
 </style>
+<?php include_once './include/mantras-filter-styles.php'; ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <section class="section-mantra-download">
 
@@ -157,21 +257,18 @@ footer { text-align:center; color:#444; margin-top:25px; }
     <p class="muted">Select God → Select Mantras → View Details</p>
   </div>
 
-  <div class="row">
+  <div class="row g-3 mantras-page-row">
 
-    <!-- LEFT COLUMN: GODS -->
-    <!-- LEFT COLUMN WITH TABS -->
-<div class="side-bar col-md-3">
-  <div class="section-box">
+    <!-- LEFT SIDEBAR -->
+<div class="col-lg-3 col-md-4 mantras-filter-col mantras-sidebar side-bar">
+  <div class="mantras-filter-panel section-box">
 
-    <!-- Tabs -->
     <ul class="nav nav-tabs mb-3" id="leftTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="gods-tab" data-bs-toggle="tab" data-bs-target="#gods" type="button">
           <i class="fa-solid fa-gopuram"></i> Gods
         </button>
       </li>
-
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="mantra-tab" data-bs-toggle="tab" data-bs-target="#allmantras" type="button">
           <i class="fa-solid fa-book"></i> Mantras
@@ -179,80 +276,63 @@ footer { text-align:center; color:#444; margin-top:25px; }
       </li>
     </ul>
 
-    <!-- Tab Content -->
     <div class="tab-content">
 
-      <!-- GODS TAB -->
       <div class="tab-pane fade show active" id="gods" role="tabpanel">
         <h4 class="section-title"><i class="fa-solid fa-gopuram"></i> Gods</h4>
-        <div id="godList" class="scroll-box">
-          <?php if(!empty($godList)){ ?>
-            <label class="item-box">
-                <input type="checkbox" class="godCheck" value="all" data-title="All">
+        <div id="godList" class="book-filter-dropdown dropdown w-100">
+          <button class="dropdown-toggle w-100" type="button" id="godDropdownBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span id="godDropdownLabel">All</span>
+          </button>
+          <div class="dropdown-menu w-100" aria-labelledby="godDropdownBtn">
+            <?php if(!empty($godList)){ ?>
+              <label class="god-dropdown-item">
+                <input type="checkbox" class="godCheck" value="all" data-title="All" checked>
                 <span>All</span>
               </label>
-            <?php foreach($godList as $g){ ?>
-              <label class="item-box">
-                <input type="checkbox" class="godCheck" value="<?php echo $g['index_id']; ?>" data-title="<?php echo htmlspecialchars($g['title']); ?>">
-                <span><?php echo $g['title']; ?></span>
-              </label>
+              <?php foreach($godList as $index => $g){
+                  $displayTitle = htmlspecialchars($g['display_title'], ENT_QUOTES, 'UTF-8');
+              ?>
+                <label class="god-dropdown-item">
+                  <input type="checkbox" class="godCheck" value="<?php echo (int) $g['index_id']; ?>" data-title="<?php echo $displayTitle; ?>">
+                  <span><?php echo $displayTitle; ?></span>
+                </label>
+              <?php } ?>
+            <?php } else { ?>
+              <div class="god-dropdown-item muted mb-0">No gods found.</div>
             <?php } ?>
-          <?php } else { ?>
-            <div class="muted">No gods found.</div>
-          <?php } ?>
+          </div>
+        </div>
+
+        <div id="sidebarMantraListWrap" class="mt-3">
+          <h4 class="section-title"><i class="fa-solid fa-book-open"></i> Select Mantras</h4>
+          <div id="mantraList" class="scroll-box muted">
+            <div class="muted">Select god</div>
+          </div>
         </div>
       </div>
 
-      <!-- ALL MANTRAS TAB -->
       <div class="tab-pane fade" id="allmantras" role="tabpanel">
         <h4 class="section-title"><i class="fa-solid fa-book"></i> All Mantras</h4>
         <div id="allMantraList" class="scroll-box muted">
           <?php
-
-                    // Fetch subcategories based on the current category
-
                     $select_subcategory = "SELECT * FROM mantras_title ORDER BY title ASC";
-
                     $SQL_STATEMENT_subcategory = mysqli_query($DatabaseCo->dbLink, $select_subcategory);
 
-
-
-                    // Check if any subcategories are returned
-
                     if (mysqli_num_rows($SQL_STATEMENT_subcategory) > 0) {
-
                         while ($Row_subcategory = mysqli_fetch_assoc($SQL_STATEMENT_subcategory)) {
-
-                            $title2 = htmlspecialchars($Row_subcategory['title'], ENT_QUOTES, 'UTF-8'); // Secure output
-
+                            $title2 = htmlspecialchars($Row_subcategory['title'], ENT_QUOTES, 'UTF-8');
                             $god_id2 = $Row_subcategory['index_id'];
-
                     ?>
-
-                            <!-- Displaying each subcategory with checkbox -->
-
-                            <div class="accordion-body">
-
-                                <div class="form-check">
-
-                                    <input class="form-check-input mantras-lst" type="radio" name="mantraTitl" value="<?php echo $god_id2; ?>" id="mantras<?php echo $god_id2; ?>">
-
-                                    <label class="form-check-label" for="mantras<?php echo $god_id2; ?>"><?php echo $title2; ?></label>
-
-                                </div>
-
-                            </div>
-
+                            <label class="item-box">
+                                <input class="mantras-lst" type="radio" name="mantraTitl" value="<?php echo $god_id2; ?>" id="mantras<?php echo $god_id2; ?>">
+                                <span><?php echo $title2; ?></span>
+                            </label>
                     <?php
-
                         }
-
                     } else {
-
-                        echo "<p class='text-center'>No Mantras or Stotras found in this category.</p>";
-
+                        echo "<p class='text-center text-muted'>No Mantras or Stotras found in this category.</p>";
                     }
-
                     ?>
         </div>
       </div>
@@ -262,19 +342,8 @@ footer { text-align:center; color:#444; margin-top:25px; }
   </div>
 </div>
 
-
-    <!-- MIDDLE COLUMN: MANTRAS -->
-    <div class="main-sec col-md-9">
-      <div class="section-box section-box-god">
-        <h4 class="section-title"><i class="fa-solid fa-gopuram"></i> Gods</h4>
-        <div id="mantraList" class="scroll-box muted row">
-          <div class="col-md-12">Select god</div>
-        </div>
-      </div>
-              
-
-      <!-- RIGHT COLUMN: DETAILS -->
-      <div class="section">
+    <!-- MAIN CONTENT: DETAILS -->
+    <div class="main-sec col-lg-9 col-md-8 mantras-content">
         <div class="section-box">
           <h4 class="section-title"><i class="fa-solid fa-scroll"></i> Mantra Details </h4>
 
@@ -300,8 +369,6 @@ footer { text-align:center; color:#444; margin-top:25px; }
           </div>
           <div id="selectedMantraDetails" class="scroll-box muted pdf-page">Select mantra</div>
         </div>
-      </div>
-
      </div>
 
   </div>
@@ -314,29 +381,63 @@ footer { text-align:center; color:#444; margin-top:25px; }
 <?php include_once './include/footer.php'; ?>
 
 <script>
-// ---------------------- STATIC DATA ---------------------- //
-
-
-// ---------------------- LOAD MANTRAS ---------------------- //
-// When selecting any God checkbox
-$(document).on("change", ".godCheck", function () {
+// Tab switch: show mantra picker in sidebar only on Gods tab
+$("#gods-tab").on("shown.bs.tab", function () {
     $("#filtertype").val("gods");
-    let selectedGods = [];
+    $("#sidebarMantraListWrap").show();
+});
 
-    $(".godCheck:checked").each(function () {
-        selectedGods.push($(this).val());
-    });
+$("#mantra-tab").on("shown.bs.tab", function () {
+    $("#sidebarMantraListWrap").hide();
+});
 
-     $(".section-box-god").show();
-    $("#selectedMantraDetails").html("");
+function updateGodDropdownLabel() {
+    const $checked = $(".godCheck:checked");
+    const $label = $("#godDropdownLabel");
 
-    // If no gods selected → clear list
-    if (selectedGods.length === 0) {
-        $("#mantraList").html('<div class="muted">Select a god to load subcategories.</div>');
+    if (!$checked.length) {
+        $label.text("Select gods");
         return;
     }
 
-    // AJAX to fetch subcategories
+    if ($checked.filter('[value="all"]').length) {
+        $label.text("All");
+        return;
+    }
+
+    const names = $checked.map(function () {
+        return $(this).data("title");
+    }).get();
+
+    if (names.length <= 2) {
+        $label.text(names.join(", "));
+    } else {
+        $label.text(names.slice(0, 2).join(", ") + " +" + (names.length - 2));
+    }
+}
+
+function getSelectedGodIds() {
+    if ($('.godCheck[value="all"]').is(":checked")) {
+        return ["all"];
+    }
+
+    const selectedGods = [];
+    $(".godCheck:checked").not('[value="all"]').each(function () {
+        selectedGods.push($(this).val());
+    });
+
+    return selectedGods;
+}
+
+function loadMantrasForGods(selectedGods, selectFirstMantra) {
+    $("#sidebarMantraListWrap").show();
+    $("#selectedMantraDetails").html("");
+
+    if (!selectedGods.length) {
+        $("#mantraList").html('<div class="muted">Select a god to load mantras.</div>');
+        return;
+    }
+
     $.ajax({
         url: "module/mantras_api.php",
         type: "POST",
@@ -345,9 +446,7 @@ $(document).on("change", ".godCheck", function () {
             god_ids: selectedGods
         },
         dataType: "json",
-
         success: function (response) {
-
             if (!response.status || response.count === 0) {
                 $("#mantraList").html('<div class="muted">No Mantras available.</div>');
                 return;
@@ -355,28 +454,56 @@ $(document).on("change", ".godCheck", function () {
 
             let html = "";
             response.data.forEach(function (item) {
-
                 html += `
-                <label class="item-box col-md-4">
-                  <input type="checkbox" class="mantraCheck" value="${item.index_id}" data-god="${item.god_id}">
+                <label class="item-box">
+                  <input type="checkbox" class="mantraCheck" value="${item.index_id}" data-god="${item.categories_id}">
                   <span>${item.title_clean}</span>
                 </label>
-            
                 `;
             });
 
             $("#mantraList").html(html);
-        },
 
+            if (selectFirstMantra) {
+                const $firstMantra = $(".mantraCheck").first();
+                if ($firstMantra.length) {
+                    $firstMantra.prop("checked", true).trigger("change");
+                }
+            }
+        },
         error: function () {
             $("#mantraList").html('<div class="muted">Server error. Try again.</div>');
         }
     });
+}
+
+// When selecting any God checkbox
+$(document).on("change", ".godCheck", function () {
+    $("#filtertype").val("gods");
+    const $input = $(this);
+
+    if ($input.val() === "all" && $input.is(":checked")) {
+        $(".godCheck").not($input).prop("checked", false);
+    } else if ($input.val() !== "all" && $input.is(":checked")) {
+        $('.godCheck[value="all"]').prop("checked", false);
+    } else if ($input.val() !== "all" && !$input.is(":checked")) {
+        const $remaining = $(".godCheck:checked").not('[value="all"]');
+        if (!$remaining.length) {
+            $('.godCheck[value="all"]').prop("checked", true);
+        }
+    }
+
+    updateGodDropdownLabel();
+    loadMantrasForGods(getSelectedGodIds(), false);
 });
 
-// ---------------------- LOAD MANTRAS ---------------------- //
-// When selecting any God checkbox
-let mantraRequest = null; // store the current AJAX request
+$(function () {
+    updateGodDropdownLabel();
+    loadMantrasForGods(["all"], true);
+});
+
+// When selecting mantra title filter
+let mantraRequest = null;
 
 $(document).on("change", ".mantras-lst", function () {
     $("#filtertype").val("mantra");
@@ -393,7 +520,7 @@ $(document).on("change", ".mantras-lst", function () {
     // Disable all checkboxes during loading
     $(".mantraCheck").prop("disabled", true);
 
-    $(".section-box-god").hide();
+    $("#sidebarMantraListWrap").hide();
     var meaningOption = $('input[name="meaningOption"]:checked').val();
     var showMeaning = (meaningOption === "with");
     // Make new request
@@ -615,7 +742,7 @@ $(document).on("change", ".meaningOption", function () {
         }
         $("#selectedMantraDetails").html("<div class='muted'><i class='fa fa-spinner fa-spin'></i> Loading...</div>");
         $(".mantraCheck").prop("disabled", true);
-        $(".section-box-god").hide();
+        $("#sidebarMantraListWrap").hide();
         var meaningOption = $('input[name="meaningOption"]:checked').val();
         var showMeaning = (meaningOption === "with");
         mantraRequest = $.ajax({
