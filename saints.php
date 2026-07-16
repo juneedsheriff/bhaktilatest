@@ -94,7 +94,7 @@ error_reporting(0);
                         <span class="fs-4 text-muted">(<?php echo $saintsListCount; ?>)</span>
                     </div>
                 </div>
-                <div id="listings-container" class="listings grid-view" data-page-id="<?php echo htmlspecialchars((string) $id); ?>">
+                <div id="listings-container" class="listings grid-view listings-yellow-border" data-page-id="<?php echo htmlspecialchars((string) $id); ?>">
                     <?php
                     $select = "SELECT * FROM other_page WHERE page_id = '$id' $saintsApprovedSql ORDER BY order_by ASC";
                     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);

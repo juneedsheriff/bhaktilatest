@@ -6,6 +6,7 @@ include_once './app/lib/requestHandler.php';
 include_once './include/mystery_helpers.php';
 include_once './include/mystery_table_helpers.php';
 include_once './include/abroad_listing_helpers.php';
+include_once './include/temple_listing_helpers.php';
 
 $DatabaseCo = new DatabaseConn();
 $xssClean = new xssClean();
@@ -27,22 +28,32 @@ $limit = ($type === 'india') ? 50 : (($type === 'abroad' || $type === 'mantras')
 $start = $page * $limit;
 
 if ($type === 'india') {
-    $query = "SELECT * FROM temples WHERE status='approved' ORDER BY order_by ASC LIMIT $start,$limit";
+    $query = "SELECT * FROM temples WHERE status='approved' ORDER BY index_id ASC LIMIT $start,$limit";
     $result = mysqli_query($db, $query);
 
     $listingsHtml = '';
     while ($Row = mysqli_fetch_array($result)) {
-        $photos = htmlspecialchars($Row['photos']);
-        $title = htmlspecialchars($Row['title']);
         $index_id = (int) $Row['index_id'];
+        $thumbAttrs = temples_india_listing_thumbnail_attrs($Row);
+        $placeName = temples_india_place_label($Row);
+        $stateName = '';
+        if (!empty($Row['state'])) {
+            $stateEsc = mysqli_real_escape_string($db, $Row['state']);
+            $countryEsc = mysqli_real_escape_string($db, $Row['country'] ?? 'IN');
+            $sr = mysqli_query($db, "SELECT state_name FROM state WHERE (state_code='$stateEsc' OR state_id='$stateEsc') AND country_code='$countryEsc' LIMIT 1");
+            if ($sr && ($srow = mysqli_fetch_assoc($sr))) {
+                $stateName = trim((string) ($srow['state_name'] ?? ''));
+            }
+        }
+        $details = temples_india_listing_details_inner_html((string) $Row['title'], $placeName, $stateName !== '' ? $stateName : null);
 
         $listingsHtml .= "<div class='listing'>
                             <a href='temple-details.php?id={$index_id}' target='_blank'>
-                                <img src='app/uploads/temple/{$photos}' alt=''>
+                                <img {$thumbAttrs}>
                             </a>
                             <div class='listing-details'>
                                 <a href='temple-details.php?id={$index_id}' target='_blank'>
-                                    <div class='listing-title'>{$title}</div>
+                                    {$details}
                                 </a>
                             </div>
                           </div>";

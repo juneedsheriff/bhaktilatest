@@ -114,13 +114,17 @@ $mantras_chunks = !empty($mantras_footer_cats) ? array_chunk($mantras_footer_cat
 .footer-mantras-menu .mantras-menu-col {
     font-size: 0.95rem;
     line-height: 1.9;
-}
-.footer-mantras-menu .mantras-menu-col a {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: rgba(255,255,255,0.85);
     text-decoration: none;
-    display: block;
+    text-align: left;
 }
-.footer-mantras-menu .mantras-menu-col a:hover {
+.footer-mantras-menu .mantras-menu-col:hover {
     color: #fff;
     text-decoration: underline;
 }
@@ -132,18 +136,39 @@ $mantras_chunks = !empty($mantras_footer_cats) ? array_chunk($mantras_footer_cat
     <div class="footer-mantras-menu">
         <div class="container">
             <h2 class="mantras-menu-title">Mantras & Stotras</h2>
-            <div class="row g-4">
+            <div class="clear clear-fix pt-4" >
+            <div class="row g-4" >
                 <?php foreach ($mantras_chunks as $col_items): ?>
-                <div class="col-6 col-md-4 col-lg-2 mantras-menu-col">
-                    <?php foreach ($col_items as $cat): ?>
-                    <a href="mantras-details.php?id=<?php echo (int)$cat['index_id']; ?>"><?php echo htmlspecialchars($cat['title']); ?></a>
+               
+                    <?php foreach ($col_items as $cat):
+                        $mantraTitle = htmlspecialchars((string) $cat['title'], ENT_QUOTES, 'UTF-8');
+                    ?>
+                    <a href="mantras-details.php?id=<?php echo (int)$cat['index_id']; ?>" class="col-6 m-0 col-md-4 col-lg-2 mantras-menu-col text-left"><?php echo $mantraTitle; ?></a>
                     <?php endforeach; ?>
-                </div>
+               
                 <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
     <?php endif; ?>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function setMantraFooterTooltips() {
+            document.querySelectorAll('.footer-mantras-menu .mantras-menu-col').forEach(function (el) {
+                var text = el.textContent.trim();
+                if (el.scrollWidth > el.clientWidth) {
+                    el.setAttribute('title', text);
+                } else {
+                    el.removeAttribute('title');
+                }
+            });
+        }
+        setMantraFooterTooltips();
+        window.addEventListener('resize', setMantraFooterTooltips);
+    });
+    </script>
 
     <div class="container pt-4">
 

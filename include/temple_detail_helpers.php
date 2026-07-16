@@ -2,14 +2,52 @@
 
 require_once __DIR__ . '/abroad_listing_helpers.php';
 
-function temple_detail_photo_src($photos)
+function temple_detail_image_field_names()
 {
-    $photos = trim((string) $photos);
+    return ['image1', 'image2', 'image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9', 'image10'];
+}
+
+function temple_detail_normalize_image_src($img)
+{
+    $img = trim(str_replace('\\', '/', (string) $img));
+    if ($img === '') {
+        return '';
+    }
+    if (preg_match('#^(https?:)?//#i', $img)) {
+        return $img;
+    }
+
+    $img = ltrim($img, '/');
+    if (strpos($img, 'app/uploads/') === 0) {
+        return $img;
+    }
+    if (strpos($img, 'uploads/') === 0) {
+        return 'app/' . $img;
+    }
+
+    return 'app/uploads/temple/' . basename($img);
+}
+
+function temple_detail_photo_src($rowOrPhotos)
+{
+    if (is_object($rowOrPhotos) || is_array($rowOrPhotos)) {
+        $row = (array) $rowOrPhotos;
+        foreach (temple_detail_image_field_names() as $field) {
+            $img = trim((string) ($row[$field] ?? ''));
+            if ($img !== '') {
+                return temple_detail_normalize_image_src($img);
+            }
+        }
+        $photos = trim((string) ($row['photos'] ?? ''));
+    } else {
+        $photos = trim((string) $rowOrPhotos);
+    }
+
     if ($photos === '') {
         return abroad_listing_photo_fallback();
     }
 
-    return 'app/uploads/temple/' . $photos;
+    return temple_detail_normalize_image_src($photos);
 }
 
 function temple_detail_photo_attrs($photos)
@@ -122,12 +160,21 @@ function temple_detail_image_url($filename)
 function temple_detail_gallery_images($row)
 {
     $images = [];
-    $photos = trim((string) (is_object($row) ? ($row->photos ?? '') : ($row['photos'] ?? '')));
-    if ($photos !== '') {
+    $rowArr = is_object($row) ? (array) $row : $row;
+
+    foreach (temple_detail_image_field_names() as $field) {
+        $img = trim((string) ($rowArr[$field] ?? ''));
+        if ($img !== '' && !in_array($img, $images, true)) {
+            $images[] = $img;
+        }
+    }
+
+    $photos = trim((string) ($rowArr['photos'] ?? ''));
+    if ($photos !== '' && !in_array($photos, $images, true)) {
         $images[] = $photos;
     }
 
-    $gallery = trim((string) (is_object($row) ? ($row->gallery_image ?? '') : ($row['gallery_image'] ?? '')));
+    $gallery = trim((string) ($rowArr['gallery_image'] ?? ''));
     if ($gallery !== '') {
         foreach (explode(',', $gallery) as $image) {
             $image = trim($image);

@@ -4,6 +4,21 @@
     flex-wrap: wrap;
 }
 
+.temples-india-page .grid-view .listing-details,
+.temples-india-page .grid-view .listing-details > a {
+    text-align: center;
+}
+
+.temples-india-page .listing-title,
+.temples-india-page .listing-place {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 0;
+    line-height: 1.35;
+    word-break: break-word;
+    text-align: center;
+}
+
 @media (max-width: 1199.98px) {
     .temples-india-page .filters-col {
         position: absolute;
@@ -43,7 +58,8 @@
         height: 200px;
     }
 
-    .temples-india-page .listing-title {
+    .temples-india-page .listing-title,
+    .temples-india-page .listing-place {
         font-size: 15px;
         line-height: 1.35;
         word-break: break-word;

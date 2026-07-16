@@ -337,6 +337,270 @@ function city_import_temple_cities_from_file(mysqli $db, $filePath)
     ];
 }
 
+/**
+ * Resolve a temples.state value (state_code or state_id) to a state row.
+ *
+ * @return array{state_id:int,state_code:string,country_id:int,country_code:string}|null
+ */
+function city_import_resolve_state_for_temple(mysqli $db, $stateVal, $countryCode = 'IN')
+{
+    $stateVal = trim((string) $stateVal);
+    if ($stateVal === '') {
+        return null;
+    }
+
+    $countryEsc = mysqli_real_escape_string($db, $countryCode);
+    $stateEsc = mysqli_real_escape_string($db, $stateVal);
+    $sql = "SELECT state_id, state_code, country_id, country_code
+            FROM state
+            WHERE country_code = '$countryEsc'
+              AND (state_code = '$stateEsc' OR CAST(state_id AS CHAR) = '$stateEsc')
+            LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    if ($result && ($row = mysqli_fetch_assoc($result))) {
+        return [
+            'state_id' => (int) $row['state_id'],
+            'state_code' => (string) $row['state_code'],
+            'country_id' => (int) $row['country_id'],
+            'country_code' => (string) $row['country_code'],
+        ];
+    }
+
+    return null;
+}
+
+/**
+ * Insert or update a city row; returns city_id or 0 on failure.
+ *
+ * @param array{state_id:int,state_code:string,country_id:int,country_code:string} $state
+ */
+function city_import_upsert_city(mysqli $db, array $state, $cityName)
+{
+    $cityName = trim((string) $cityName);
+    if ($cityName === '') {
+        return 0;
+    }
+
+    $stateCode = (string) $state['state_code'];
+    $existingId = city_import_find_city_id($db, $stateCode, $cityName);
+    if ($existingId > 0) {
+        $stateId = (int) $state['state_id'];
+        $countryId = (int) $state['country_id'];
+        $countryCode = (string) $state['country_code'];
+        $cityEsc = mysqli_real_escape_string($db, $cityName);
+        mysqli_query(
+            $db,
+            "UPDATE `city`
+             SET `city_name` = '$cityEsc',
+                 `state_id` = $stateId,
+                 `country_id` = $countryId,
+                 `country_code` = '" . mysqli_real_escape_string($db, $countryCode) . "',
+                 `state_code` = '" . mysqli_real_escape_string($db, $stateCode) . "',
+                 `status` = 'APPROVED'
+             WHERE `city_id` = $existingId"
+        );
+
+        return $existingId;
+    }
+
+    $stateId = (int) $state['state_id'];
+    $countryId = (int) $state['country_id'];
+    $countryCode = mysqli_real_escape_string($db, (string) $state['country_code']);
+    $stateCodeEsc = mysqli_real_escape_string($db, $stateCode);
+    $cityEsc = mysqli_real_escape_string($db, $cityName);
+    $sql = "INSERT INTO `city` (`city_name`, `state_id`, `country_id`, `country_code`, `state_code`, `status`)
+            VALUES ('$cityEsc', $stateId, $countryId, '$countryCode', '$stateCodeEsc', 'APPROVED')";
+    if (!mysqli_query($db, $sql)) {
+        return 0;
+    }
+
+    return (int) mysqli_insert_id($db);
+}
+
+/**
+ * Link temples.city from city rows matching temple_place within a state.
+ */
+function city_import_link_temples_to_cities(mysqli $db, $countryCode = 'IN')
+{
+    $countryEsc = mysqli_real_escape_string($db, $countryCode);
+    $linked = 0;
+    $errors = 0;
+    $messages = [];
+
+    $sql = "SELECT DISTINCT TRIM(t.temple_place) AS city_name, t.state
+            FROM temples t
+            WHERE t.country = '$countryEsc'
+              AND TRIM(COALESCE(t.temple_place, '')) != ''
+              AND TRIM(COALESCE(t.state, '')) != ''";
+    $result = mysqli_query($db, $sql);
+    if (!$result) {
+        return ['linked' => 0, 'errors' => 1, 'messages' => [mysqli_error($db)]];
+    }
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $cityName = trim((string) ($row['city_name'] ?? ''));
+        $stateVal = trim((string) ($row['state'] ?? ''));
+        if ($cityName === '' || $stateVal === '') {
+            continue;
+        }
+
+        $state = city_import_resolve_state_for_temple($db, $stateVal, $countryCode);
+        if ($state === null) {
+            continue;
+        }
+
+        $cityId = city_import_find_city_id($db, $state['state_code'], $cityName);
+        if ($cityId <= 0) {
+            continue;
+        }
+
+        $stateCodeEsc = mysqli_real_escape_string($db, $state['state_code']);
+        $stateId = (int) $state['state_id'];
+        $stateValEsc = mysqli_real_escape_string($db, $stateVal);
+        $placeEsc = mysqli_real_escape_string($db, $cityName);
+        $cityId = (int) $cityId;
+
+        $linkSql = "UPDATE temples
+            SET city = '$cityId'
+            WHERE country = '$countryEsc'
+              AND TRIM(temple_place) = '$placeEsc'
+              AND (state = '$stateCodeEsc' OR state = '$stateId' OR state = '$stateValEsc')";
+
+        if (!mysqli_query($db, $linkSql)) {
+            $errors++;
+            if (count($messages) < 8) {
+                $messages[] = $cityName . ' / ' . $state['state_code'] . ': ' . mysqli_error($db);
+            }
+            continue;
+        }
+        $linked += mysqli_affected_rows($db);
+    }
+
+    return ['linked' => $linked, 'errors' => $errors, 'messages' => $messages];
+}
+
+/**
+ * Copy distinct temples.temple_place values into `city` (per state) and link temples.city.
+ */
+function city_import_sync_from_temples(mysqli $db, $countryCode = 'IN')
+{
+    $countryEsc = mysqli_real_escape_string($db, $countryCode);
+    $imported = 0;
+    $updated = 0;
+    $linked = 0;
+    $skipped = 0;
+    $errors = 0;
+    $messages = [];
+    $unmappedStates = [];
+
+    $sql = "SELECT DISTINCT TRIM(t.temple_place) AS city_name, t.state
+            FROM temples t
+            WHERE t.country = '$countryEsc'
+              AND TRIM(COALESCE(t.temple_place, '')) != ''
+              AND TRIM(COALESCE(t.state, '')) != ''
+            ORDER BY t.state ASC, city_name ASC";
+    $result = mysqli_query($db, $sql);
+    if (!$result) {
+        return [
+            'imported' => 0,
+            'updated' => 0,
+            'linked' => 0,
+            'skipped' => 0,
+            'errors' => 1,
+            'messages' => [mysqli_error($db)],
+            'places' => 0,
+        ];
+    }
+
+    $places = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $cityName = trim((string) ($row['city_name'] ?? ''));
+        $stateVal = trim((string) ($row['state'] ?? ''));
+        if ($cityName === '' || $stateVal === '') {
+            $skipped++;
+            continue;
+        }
+        $state = city_import_resolve_state_for_temple($db, $stateVal, $countryCode);
+        if ($state === null) {
+            $unmappedStates[$stateVal] = true;
+            $skipped++;
+            continue;
+        }
+        $key = $state['state_code'] . '|' . strtolower($cityName);
+        $places[$key] = [
+            'city_name' => $cityName,
+            'state' => $state,
+            'state_val' => $stateVal,
+        ];
+    }
+
+    $progress = 0;
+    foreach ($places as $data) {
+        $progress++;
+        if ($progress % 100 === 0 && PHP_SAPI === 'cli') {
+            echo "Processed {$progress}/" . count($places) . " places...\n";
+        }
+
+        $state = $data['state'];
+        $cityName = $data['city_name'];
+        $stateCode = $state['state_code'];
+        $stateVal = $data['state_val'];
+
+        $existingId = city_import_find_city_id($db, $stateCode, $cityName);
+        if ($existingId <= 0) {
+            $existingId = city_import_upsert_city($db, $state, $cityName);
+            if ($existingId <= 0) {
+                $errors++;
+                if (count($messages) < 8) {
+                    $messages[] = $cityName . ' / ' . $stateCode . ': unable to insert city';
+                }
+                continue;
+            }
+            $imported++;
+        } else {
+            $updated++;
+        }
+
+        $stateCodeEsc = mysqli_real_escape_string($db, $stateCode);
+        $stateId = (int) $state['state_id'];
+        $stateValEsc = mysqli_real_escape_string($db, $stateVal);
+        $placeEsc = mysqli_real_escape_string($db, $cityName);
+        $cityId = (int) $existingId;
+
+        $linkSql = "UPDATE temples
+            SET city = '$cityId'
+            WHERE country = '$countryEsc'
+              AND TRIM(temple_place) = '$placeEsc'
+              AND (state = '$stateCodeEsc' OR state = '$stateId' OR state = '$stateValEsc')";
+        if (!mysqli_query($db, $linkSql)) {
+            $errors++;
+            if (count($messages) < 8) {
+                $messages[] = $cityName . ' / ' . $stateCode . ': ' . mysqli_error($db);
+            }
+            continue;
+        }
+        $linked += mysqli_affected_rows($db);
+    }
+
+    if (!empty($unmappedStates)) {
+        $names = array_keys($unmappedStates);
+        sort($names);
+        $messages[] = 'Unmapped temple state values (' . count($names) . '): '
+            . implode(', ', array_slice($names, 0, 15))
+            . (count($names) > 15 ? '...' : '');
+    }
+
+    return [
+        'imported' => $imported,
+        'updated' => $updated,
+        'linked' => $linked,
+        'skipped' => $skipped,
+        'errors' => $errors,
+        'messages' => $messages,
+        'places' => count($places),
+    ];
+}
+
 function city_import_india_from_file(mysqli $db, $filePath, $removeOrphans = false)
 {
     $imported = 0;

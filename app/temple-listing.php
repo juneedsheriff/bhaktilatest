@@ -1,51 +1,63 @@
 <?php ob_start();
-$valid_temple_tabs = ['approved', 'pending', 'rejected'];
-$list_temple_status = (!empty($_REQUEST['temple_status']) && in_array((string) $_REQUEST['temple_status'], $valid_temple_tabs, true)) ? (string) $_REQUEST['temple_status'] : '';
-$india_temple_rejected_sql = "( LOWER(TRIM(COALESCE(`status`, ''))) IN ('rejected', 'reject', 'denied', 'disapproved') OR TRIM(COALESCE(`status`, '')) = '' )";
-$status_sql_fragment = '';
-if ($list_temple_status === 'approved') {
-    $status_sql_fragment = " AND LOWER(TRIM(COALESCE(`status`,''))) = 'approved' ";
-} elseif ($list_temple_status === 'pending') {
-    $status_sql_fragment = " AND LOWER(TRIM(COALESCE(`status`,''))) = 'unapproved' ";
-} elseif ($list_temple_status === 'rejected') {
-    $status_sql_fragment = ' AND ' . $india_temple_rejected_sql . ' ';
-}
+include_once './includes/temple_listing_query.php';
+
+$list_temple_status = (!empty($_REQUEST['temple_status']) && in_array((string) $_REQUEST['temple_status'], temple_listing_valid_tabs(), true))
+    ? (string) $_REQUEST['temple_status']
+    : '';
+
 include_once './includes/header.php';
 $db = $DatabaseCo->dbLink;
-$optWhere = "t.index_id!='0' " . str_replace('`status`', 't.`status`', $status_sql_fragment);
-$f_state = isset($_GET['f_state']) ? trim((string) $_GET['f_state']) : '';
-$f_place = isset($_GET['f_place']) ? trim((string) $_GET['f_place']) : '';
-$f_type = isset($_GET['f_type']) ? trim((string) $_GET['f_type']) : '';
-$f_god = isset($_GET['f_god']) ? (int) $_GET['f_god'] : 0;
-$f_tid = isset($_GET['f_tid']) ? (int) $_GET['f_tid'] : 0;
-$filter_sql = '';
-if ($f_state !== '' && strtoupper($f_state) !== 'ALL') {
-    $filter_sql .= " AND `state` = '" . $db->real_escape_string($f_state) . "' ";
-}
-if ($f_place !== '' && strtoupper($f_place) !== 'ALL') {
-    $filter_sql .= " AND `city` = '" . $db->real_escape_string($f_place) . "' ";
-}
-if ($f_type === '0' || $f_type === '1') {
-    $filter_sql .= " AND `my_stery` = '" . $db->real_escape_string($f_type) . "' ";
-}
-if ($f_god > 0) {
-    $filter_sql .= ' AND `god_id` = ' . $f_god . ' ';
-}
-if ($f_tid > 0) {
-    $filter_sql .= ' AND `index_id` = ' . $f_tid . ' ';
-}
+$optWhere = temple_listing_opt_where($list_temple_status);
+
+$filters = temple_listing_parse_filters($db, $_GET);
+$f_state = $filters['f_state'];
+$f_place = $filters['f_place'];
+$f_type = $filters['f_type'];
+$f_god = $filters['f_god'];
+$f_tid = $filters['f_tid'];
+$filter_sql = $filters['filter_sql'];
+$has_listing_filters = $filters['has_listing_filters'];
+
 $listing_filter_qs = [];
 if ($list_temple_status !== '') {
     $listing_filter_qs['temple_status'] = $list_temple_status;
 }
+$listing_clear_url = 'temple-listing.php' . ($list_temple_status !== '' ? '?temple_status=' . urlencode($list_temple_status) : '');
 $listing_place_label = 'City';
 $listing_type_label = 'Temple Type';
-$opt_types_mode = 'mystery';
-$opt_types = null;
+$opt_types_mode = 'list';
+$opt_types = array_map(static function ($type) {
+    return ['type_id' => $type, 'type_label' => $type];
+}, temple_table_type_options());
 $opt_states = mysqli_query($db, "SELECT DISTINCT t.state AS state_code, s.state_name FROM temples t LEFT JOIN state s ON s.state_code = t.state WHERE $optWhere AND TRIM(COALESCE(t.state,'')) != '' ORDER BY s.state_name");
-$opt_places = mysqli_query($db, "SELECT DISTINCT t.city AS place_value, c.city_name AS place_label FROM temples t INNER JOIN city c ON c.city_id = t.city WHERE $optWhere AND TRIM(COALESCE(c.city_name,'')) != '' ORDER BY c.city_name");
+$optPlacesWhere = $optWhere;
+if ($f_state !== '' && strtoupper($f_state) !== 'ALL') {
+    $optPlacesWhere .= " AND t.`state` = '" . $db->real_escape_string($f_state) . "' ";
+}
+$opt_places = mysqli_query($db, "SELECT DISTINCT t.city AS place_value, c.city_name AS place_label FROM temples t INNER JOIN city c ON c.city_id = t.city WHERE $optPlacesWhere AND TRIM(COALESCE(c.city_name,'')) != '' ORDER BY c.city_name");
 $opt_gods = mysqli_query($db, "SELECT DISTINCT t.god_id, g.god_name FROM temples t INNER JOIN god g ON g.index_id = t.god_id WHERE $optWhere AND t.god_id > 0 ORDER BY g.god_name");
-$opt_temples = mysqli_query($db, "SELECT t.index_id, t.title FROM temples t WHERE $optWhere ORDER BY t.title");
+$opt_temples = false;
+$optTempleWhere = $optWhere;
+if ($f_state !== '' && strtoupper($f_state) !== 'ALL') {
+    $optTempleWhere .= " AND t.`state` = '" . $db->real_escape_string($f_state) . "' ";
+}
+if ($f_place !== '' && strtoupper($f_place) !== 'ALL') {
+    $optTempleWhere .= " AND t.`city` = '" . $db->real_escape_string($f_place) . "' ";
+}
+if ($f_type !== '' && strtoupper($f_type) !== 'ALL') {
+    $optTempleWhere .= " AND t.`table_type` = '" . $db->real_escape_string($f_type) . "' ";
+}
+if ($f_god > 0) {
+    $optTempleWhere .= ' AND t.`god_id` = ' . $f_god . ' ';
+}
+$optTempleSql = "SELECT t.index_id, t.title FROM temples t WHERE $optTempleWhere ORDER BY t.title LIMIT 5000";
+if ($f_tid > 0) {
+    $optTempleSql = "(SELECT t.index_id, t.title FROM temples t WHERE $optTempleWhere)
+        UNION
+        (SELECT t.index_id, t.title FROM temples t WHERE $optWhere AND t.index_id = " . $f_tid . ")
+        ORDER BY title LIMIT 5001";
+}
+$opt_temples = mysqli_query($db, $optTempleSql);
 if (!empty($_REQUEST['del_t'])) {
     $del_id = $_REQUEST['del_t'];
 
@@ -70,7 +82,7 @@ if (!empty($_REQUEST['del_t'])) {
             if (($fk === 'f_god' || $fk === 'f_tid') && (int) $v <= 0) {
                 continue;
             }
-            if ($fk === 'f_type' && $v !== '0' && $v !== '1' && strtoupper((string) $v) === 'ALL') {
+            if ($fk === 'f_type' && strtoupper((string) $v) === 'ALL') {
                 continue;
             }
             $qs[$fk] = $v;
@@ -127,139 +139,19 @@ if (!empty($_REQUEST['del_t'])) {
         <div class="card">
             <div class="card-body">
                 <?php include __DIR__ . '/includes/listing_temple_filters_ui.php'; ?>
-                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="temple-listing-table" class="table table-striped table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             <th class="w-5">Sno</th>
                             <th class="w-15">Temple Photo</th>
-
                             <th class="w-25">Name</th>
                             <th class="w-20">God</th>
-                            <!-- <th class="w-10">Date</th> -->
-                        
+                            <th class="w-15">Temple Type</th>
                             <th class="w-5">Status</th>
-                          
                             <th class="w-5">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        $select = "SELECT t.*, g.god_name AS listing_god_name FROM `temples` t
-                            LEFT JOIN `god` g ON g.index_id = t.god_id
-                            WHERE t.index_id!='0' " . str_replace('`status`', 't.`status`', $status_sql_fragment)
-                            . str_replace(['`state`', '`city`', '`my_stery`', '`god_id`', '`index_id`'], ['t.`state`', 't.`city`', 't.`my_stery`', 't.`god_id`', 't.`index_id`'], $filter_sql)
-                            . " ORDER BY t.index_id DESC";
-                        $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
-                        $listing_query_error = '';
-                        if (!$SQL_STATEMENT) {
-                            $listing_query_error = mysqli_error($DatabaseCo->dbLink);
-                            $num_rows = 0;
-                        } else {
-                            $num_rows = mysqli_num_rows($SQL_STATEMENT);
-                        }
-                        if ($listing_query_error !== '') { ?>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="alert alert-danger mb-0">Unable to load temples. <?php echo htmlspecialchars($listing_query_error, ENT_QUOTES, 'UTF-8'); ?></div>
-                                </td>
-                            </tr>
-                        <?php } elseif ($num_rows != 0) {
-                            $i = 1;
-                            while ($Row = mysqli_fetch_object($SQL_STATEMENT)) {
-                                $rowStatus = strtolower(trim((string) ($Row->status ?? '')));
-                                $is_rejected_row = ($rowStatus === 'rejected' || $rowStatus === 'reject' || $rowStatus === 'denied' || $rowStatus === 'disapproved' || $rowStatus === '');
-                                // Fetch all data from courses table based on category_id
-                                $godName = trim((string) ($Row->listing_god_name ?? ''));
-                                if ($godName === '') {
-                                    $godId = (int) ($Row->god_id ?? 0);
-                                    if ($godId > 0) {
-                                        $sql3 = mysqli_query($DatabaseCo->dbLink, 'SELECT god_name FROM god WHERE index_id=' . $godId . ' LIMIT 1');
-                                        if ($sql3 && ($res3 = mysqli_fetch_object($sql3)) && !empty($res3->god_name)) {
-                                            $godName = $res3->god_name;
-                                        }
-                                    }
-                                }
-                        ?>
-                                <tr>
-                                    <td><?php echo $i;
-                                        $i++; ?></td>
-                                    <td>
-                                        <?php if ($Row->photos != '') { ?>
-                                            <a href="./uploads/temple/<?php echo $Row->photos; ?>" target="_blank"><img src="./uploads/temple/<?php echo $Row->photos; ?>" class=" header-profile-user" width="60" alt="" data-demo-src="./uploads/temple/<?php echo $Row->photos; ?>"></a>
-                                        <?php } ?>
-                                    </td>
-
-                                    <td><?php echo $Row->title; ?></td>
-                                    <td><?php echo htmlspecialchars($godName, ENT_QUOTES, 'UTF-8'); ?></td>
-                               
-                                    <td>
-                                    <?php if ($rowStatus === 'approved') { ?>
-    <div class="icon-container">
-        <i class="fa fa-thumbs-up text-success" style="font-size: 20px;" title="Approved"></i>
-    </div>
-<?php } elseif ($is_rejected_row) { ?>
-    <div class="icon-container">
-        <i class="fa fa-ban text-danger" style="font-size: 20px;" title="Rejected"></i>
-    </div>
-<?php } else { ?>
-    <div class="icon-container">
-        <i class="fa fa-clock text-warning" style="font-size: 20px;" title="Approval pending"></i>
-    </div>
-<?php } ?>
-
-
-
-
-                                    </td>
-                              
-                                    <!-- <td><?php echo $Row->content; ?></td> -->
-                                    <td>
-                                    <?php 
-if ($user_role === 'Admin'): ?>
-    <!-- Admin has access to Edit and Delete options -->
-    <a class="btn btn-sm p-2 btn-primary text-white edit-board alert-box-trigger waves-effect waves-light kill-drop" 
-       href="add-temple.php?id=<?php echo $Row->index_id; ?>">
-        <i class="fas fa-pencil-alt"></i>
-    </a> &nbsp; &nbsp;
-    
-    <a class="btn btn-sm p-2 btn-danger delete-board alert-box-trigger waves-effect waves-light kill-drop text-white"
-       data-modal="delete-board-alert"
-       data-toggle="modal"
-       data-target="#delete-board-alert"
-       href="#0"
-       data-id="<?php echo $Row->index_id; ?>"
-       id="delete-board<?php echo $Row->index_id; ?>">
-        <i class="fa fa-trash text-white"></i>
-    </a>
-<?php 
-elseif ($user_role === 'Staff'):
-    if ($rowStatus === 'unapproved'): ?>
-        <!-- Staff can edit if status is unapproved -->
-        <a class="btn btn-sm p-2 btn-primary text-white edit-board alert-box-trigger waves-effect waves-light kill-drop" 
-           href="add-temple.php?id=<?php echo $Row->index_id; ?>">
-            <i class="fas fa-pencil-alt"></i>
-        </a>
-    <?php 
-    elseif ($rowStatus === 'approved'): ?>
-        <!-- Staff has no options for approved status -->
-        <!-- No buttons displayed -->
-    <?php 
-    endif; 
-endif; 
-?>
-
-                                    </td>
-                                </tr>
-                            <?php }
-                        } else { ?>
-                            <tr>
-                                <td colspan="6">
-                                    <div align="center"><strong>No Records!</strong></div>
-                                </td>
-                            </tr>
-                        <?php } ?>
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -393,10 +285,67 @@ include_once './includes/footer.php';
     });
 </script>
 <script>
-    document.querySelectorAll('.delete-board').forEach(button => {
-        button.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            document.getElementById('delid').value = id;
+    document.addEventListener('click', function(event) {
+        const button = event.target.closest('.delete-board');
+        if (!button) {
+            return;
+        }
+        const id = button.getAttribute('data-id');
+        document.getElementById('delid').value = id;
+    });
+</script>
+<script>
+    $(function() {
+        var ajaxData = {
+            f_state: <?php echo json_encode($f_state); ?>,
+            f_place: <?php echo json_encode($f_place); ?>,
+            f_type: <?php echo json_encode($f_type); ?>,
+            f_god: <?php echo (int) $f_god; ?>,
+            f_tid: <?php echo (int) $f_tid; ?>,
+            temple_status: <?php echo json_encode($list_temple_status); ?>
+        };
+
+        $('#temple-listing-table').DataTable({
+            processing: true,
+            serverSide: true,
+            deferRender: true,
+            pageLength: 25,
+            lengthChange: false,
+            order: [[0, 'desc']],
+            ajax: {
+                url: 'temple-listing-data.php',
+                type: 'GET',
+                data: function(d) {
+                    d.f_state = ajaxData.f_state;
+                    d.f_place = ajaxData.f_place;
+                    d.f_type = ajaxData.f_type;
+                    d.f_god = ajaxData.f_god;
+                    d.f_tid = ajaxData.f_tid;
+                    d.temple_status = ajaxData.temple_status;
+                }
+            },
+            columnDefs: [
+                { orderable: false, searchable: false, targets: [1, 5, 6] }
+            ]
+        });
+    });
+</script>
+<script>
+    $(function() {
+        var filterStatus = <?php echo json_encode($list_temple_status); ?>;
+
+        function loadListingCities(stateCode, selectedPlace) {
+            $.get('temple-listing-filter-cities.php', {
+                state_code: stateCode || 'ALL',
+                temple_status: filterStatus,
+                selected: selectedPlace || 'ALL'
+            }).done(function(html) {
+                $('#f_place').html(html);
+            });
+        }
+
+        $('#f_state').on('change', function() {
+            loadListingCities($(this).val(), 'ALL');
         });
     });
 </script>

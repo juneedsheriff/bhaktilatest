@@ -74,7 +74,12 @@ if ($result && $result->num_rows > 0) {
   font-family: 'Poppins', sans-serif;
   color: #1f2c47;
   margin: 0;
-  padding: 50px 0px;
+  padding: 50px 0;
+}
+
+.section-mantra-download:hover {
+  background: linear-gradient(141.76deg, #F5D9D5 0.59%, #F5EAB4 39.43%, #1f8a4c 100%) !important;
+  color: #1f2c47;
 }
 
 .container-main {
@@ -102,9 +107,15 @@ if ($result && $result->num_rows > 0) {
   transition:transform .18s ease, box-shadow .18s ease;
 }
 
-.section-box:hover {
+.section-mantra-download .main-sec > .section-box:hover {
   transform: translateY(-3px);
   box-shadow:0 8px 28px rgba(35,95,200,0.10);
+}
+
+.section-mantra-download .mantras-filter-panel.section-box,
+.section-mantra-download .mantras-filter-panel.section-box:hover {
+  transform: none;
+  box-shadow: 0 4px 15px rgba(35, 95, 200, 0.08);
 }
 
 .section-title { 
@@ -804,45 +815,77 @@ $(document).on("change", ".meaningOption", function () {
     }
 });
 const bookTitleEl = document.getElementById('bookTitle');
+
+function escapeHtml(text) {
+    return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 function downloadPDF() {
     const bookTitle = bookTitleEl.value.trim() || 'My Mantra Book';
-    const detailsEl = document.getElementById("selectedMantraDetails");
-    const htmlContent = detailsEl ? detailsEl.innerHTML : '';
+    const detailsEl = document.getElementById('selectedMantraDetails');
 
-    if (!htmlContent || htmlContent.indexOf('mantra-detail-box') === -1 || htmlContent.includes('Select mantra') || htmlContent.includes('Loading...')) {
+    if (!detailsEl || !detailsEl.querySelector('.mantra-detail-box')) {
         alert('Please select mantras first before downloading.');
         return;
     }
 
-    const form = new FormData();
-    form.append("html", htmlContent);
-    form.append("title", bookTitle);
+    if (typeof html2pdf === 'undefined') {
+        alert('PDF library not loaded. Please refresh the page and try again.');
+        return;
+    }
 
-    fetch("module/download-pdf.php", {
-        method: "POST",
-        body: form
-    })
-    .then(function(response) {
-        if (!response.ok) throw new Error('Server error');
-        var ct = response.headers.get('Content-Type') || '';
-        if (ct.indexOf('application/json') !== -1) {
-            return response.json().then(function(j) { throw new Error(j.message || 'PDF generation failed'); });
-        }
-        return response.blob();
-    })
-    .then(function(blob) {
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = bookTitle.replace(/\s+/g, '_') + ".pdf";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    })
-    .catch(function(err) {
-        alert('Download failed: ' + (err.message || 'Please try again.'));
+    const clone = detailsEl.cloneNode(true);
+    clone.classList.remove('scroll-box', 'muted', 'pdf-page');
+    clone.style.maxHeight = 'none';
+    clone.style.overflow = 'visible';
+    clone.querySelectorAll('audio, video, script, iframe').forEach(function(el) {
+        el.remove();
     });
+
+    const wrapper = document.createElement('div');
+    wrapper.style.padding = '20px';
+    wrapper.style.background = '#fffdf7';
+    wrapper.style.fontFamily = 'Helvetica, Arial, sans-serif';
+    wrapper.innerHTML =
+        '<div style="text-align:center;font-size:22px;color:#b06a00;font-weight:bold;margin-bottom:8px;">Bhaktikalpa</div>' +
+        '<div style="text-align:center;font-size:28px;color:#b06a00;font-weight:700;margin-bottom:16px;">' + escapeHtml(bookTitle) + '</div>' +
+        '<div style="width:70%;height:2px;background:#d6a647;margin:0 auto 20px;opacity:0.8;"></div>';
+    wrapper.appendChild(clone);
+
+    const btn = document.getElementById('downloadPdf');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+    }
+
+    html2pdf()
+        .set({
+            margin: [12, 10, 12, 10],
+            filename: bookTitle.replace(/\s+/g, '_') + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, backgroundColor: '#fffdf7' },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['css', 'legacy'] }
+        })
+        .from(wrapper)
+        .save()
+        .then(function() {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
+            }
+        })
+        .catch(function(err) {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
+            }
+            alert('PDF generation failed: ' + (err && err.message ? err.message : 'Please try again.'));
+        });
 }
 
 </script>

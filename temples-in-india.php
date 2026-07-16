@@ -2,6 +2,7 @@
 
 include('./include/header.php');
 include_once './include/breadcrumb_helpers.php';
+include_once './include/temple_listing_helpers.php';
 
 error_reporting(0);
 
@@ -129,29 +130,9 @@ render_breadcrumbs([
 
                             <!-- Start Select2 -->
 
-                            <select class="form-select" aria-label="City" name="city" id="city">
+                            <select class="form-select" aria-label="City or Town" name="city" id="city">
 
                                 <option value="" selected>Select City</option>
-
-                            </select>
-
-                            <!-- /.End Select2 -->
-
-                        </div>
-
-                        <div class="mb-4 border-bottom pb-4">
-
-                            <div class="mb-3">
-
-                                <h4 class="fs-5 fw-semibold mb-1">Town</h4>
-
-                            </div>
-
-                            <!-- Start Select2 -->
-
-                            <select class="form-select" aria-label="Town" name="town" id="town">
-
-                                <option value="" selected>Select Town</option>
 
                             </select>
 
@@ -325,7 +306,7 @@ render_breadcrumbs([
 
                     
 
-                    $select = "SELECT * FROM temples WHERE status='approved' AND country='IN' ORDER BY order_by ASC LIMIT 0," . (int) $india_per_page;
+                    $select = "SELECT * FROM temples WHERE status='approved' AND country='IN' ORDER BY index_id ASC LIMIT 0," . (int) $india_per_page;
 
                     $SQL_STATEMENT = mysqli_query($DatabaseCo->dbLink, $select);
 
@@ -335,27 +316,31 @@ render_breadcrumbs([
 
                         while ($Row = mysqli_fetch_assoc($SQL_STATEMENT)) {
 
-                            $photos = $Row['photos'];
+                            $placeName = trim((string) ($Row['temple_place'] ?? ''));
+                            if ($placeName === '' && !empty($Row['city'])) {
+                                $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['city']) . "' LIMIT 1");
+                                if ($ccc && ($cff = mysqli_fetch_array($ccc))) {
+                                    $placeName = trim((string) ($cff['city_name'] ?? ''));
+                                }
+                            }
 
-                            $ccc = $DatabaseCo->dbLink->query("SELECT city_name FROM `city` WHERE city_id='" . $Row['city'] . "'");
-
-                            $cff = mysqli_fetch_array($ccc);
-
-                            $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE state_code='" . $Row['state'] . "' AND country_code='" . $Row['country'] . "'");
-
-                            $fff = mysqli_fetch_array($sss);
+                            $state_name = '';
+                            if (!empty($Row['state']) && !empty($Row['country'])) {
+                                $sss = $DatabaseCo->dbLink->query("SELECT state_name FROM `state` WHERE (state_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['state']) . "' OR state_id='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['state']) . "') AND country_code='" . mysqli_real_escape_string($DatabaseCo->dbLink, $Row['country']) . "' LIMIT 1");
+                                if ($sss && ($fff = mysqli_fetch_array($sss))) {
+                                    $state_name = trim((string) ($fff['state_name'] ?? ''));
+                                }
+                            }
 
                     ?>
 
                             <div class="listing">
                                 <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">
-                                    <img src="app/uploads/temple/<?php echo $photos; ?>" alt="<?php echo htmlspecialchars($Row['title'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <img <?php echo temples_india_listing_thumbnail_attrs($Row); ?>>
                                 </a>
                                 <div class="listing-details">
                                     <a href="temple-details.php?id=<?php echo $Row['index_id']; ?>">
-                                        <div class="listing-title"><?php echo $Row['title'];
-                                            echo !empty($cff['city_name']) ? ', ' . $cff['city_name'] : '';
-                                            echo !empty($fff['state_name']) ? ', ' . $fff['state_name'] : ''; ?></div>
+                                        <?php echo temples_india_listing_details_inner_html((string) $Row['title'], $placeName, $state_name !== '' ? $state_name : null); ?>
                                     </a>
                                 </div>
                             </div>
@@ -540,25 +525,35 @@ $(document).on('click', '.show_more', function () {
 
 });
 
+    var locationFilterXhr = null;
+    var cityLoadXhr = null;
+
     function loadCitiesForState(stateCode) {
+        if (cityLoadXhr) {
+            cityLoadXhr.abort();
+        }
         if (!stateCode || stateCode === '') {
-            $('#city').html("<option value=''>Select City</option>");
-            $('#town').html("<option value=''>Select Town</option>");
+            $('#city').html("<option value=''>Select City / Town</option>");
             fetchListingsByCountryStateCity();
             return;
         }
-        $.ajax({
+        cityLoadXhr = $.ajax({
             url: './app/get_cities.php',
             type: 'POST',
-            data: { state_code: stateCode },
+            data: {
+                state_code: stateCode,
+                for_temples: 1,
+                country: 'IN'
+            },
             success: function(response) {
                 $('#city').html(response);
-                $('#town').html("<option value=''>Select Town</option>");
                 fetchListingsByCountryStateCity();
             },
-            error: function() {
-                $('#city').html("<option value=''>Select City</option>");
-                $('#town').html("<option value=''>Select Town</option>");
+            error: function(_xhr, status) {
+                if (status === 'abort') {
+                    return;
+                }
+                $('#city').html("<option value=''>Select City / Town</option>");
                 fetchListingsByCountryStateCity();
             }
         });
@@ -577,34 +572,21 @@ $(document).on('click', '.show_more', function () {
     })();
 
     $('#city').off('change').on('change', function() {
+        var cityVal = ($(this).val() || '').toString().trim();
         var city_name = $(this).find('option:selected').text();
-        if (!city_name || city_name === '' || city_name === '-Select City-') {
-            $('#town').html("<option value=''>Select Town</option>");
+        if (!cityVal || city_name === 'Select City' || city_name === '-Select City-' || city_name === 'Select City / Town') {
             fetchListingsByCountryStateCity();
             return;
         }
-        $.ajax({
-            url: './app/get_towns.php',
-            type: 'POST',
-            data: { city_name: city_name },
-            success: function(response) {
-                $('#town').html(response);
-            }
-        });
         fetchListingsByCountryStateCity();
     });
-
-    $('#town').change(function() {
-        fetchListingsByCountryStateCity();
-    })
     
 
     function hasActiveFilters() {
         var state = ($('#state').val() || '').toString().trim();
         var city = ($('#city').val() || '').toString().trim();
-        var town = ($('#town').val() || '').toString().trim();
         var hasCheckbox = document.querySelector('.temple-check-input:checked, .god-check-input:checked');
-        return !!(state || city || town || hasCheckbox);
+        return !!(state || city || hasCheckbox);
     }
 
     function updateLoadMoreVisibility() {
@@ -637,8 +619,7 @@ $(document).on('click', '.show_more', function () {
 
         var city  = ($('#city').val() || '').toString().trim();
 
-        var town  = ($('#town').val() || '').toString().trim();
-        var hasLocationFilter = !!(state || city || town);
+        var hasLocationFilter = !!(state || city);
 
         $('.form-check-input, .temple-check-input').each(function() {
 
@@ -648,7 +629,11 @@ $(document).on('click', '.show_more', function () {
 
 
 
-        $.ajax({
+        if (locationFilterXhr) {
+            locationFilterXhr.abort();
+        }
+
+        locationFilterXhr = $.ajax({
 
             url: 'fetch_listings_2.php',
 
@@ -662,9 +647,7 @@ $(document).on('click', '.show_more', function () {
 
                 state: state,
 
-                city: city,
-                
-                town: town
+                city: city
 
             },
 
@@ -742,8 +725,7 @@ $(document).on('click', '.show_more', function () {
         }
 
         $("#state").prop("selectedIndex", 0).val('');
-        $('#city').html("<option value=''>Select City</option>");
-        $('#town').html("<option value=''>Select Town</option>");
+        $('#city').html("<option value=''>Select City / Town</option>");
 
         var params = new URLSearchParams();
         params.append('country', 'IN');

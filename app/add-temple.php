@@ -1,5 +1,6 @@
 <?php ob_start();
 include_once './includes/header.php';
+include_once './includes/temple_listing_query.php';
 include_once './class/fileUploader.php';
 error_reporting(5);
 function compressAndUpload($file, $folder, $quality = 75)
@@ -39,6 +40,8 @@ if (isset($_REQUEST['submit'])) {
   $address = $xssClean->clean_input($_REQUEST['address']);
   $god_id = $xssClean->clean_input($_REQUEST['god_id']);
   $my_stery = $xssClean->clean_input($_REQUEST['my_stery']);
+  $table_type_raw = $xssClean->clean_input($_REQUEST['table_type'] ?? '');
+  $table_type = in_array($table_type_raw, temple_table_type_options(), true) ? $table_type_raw : '';
   $order_by = $xssClean->clean_input($_REQUEST['order_by']);
   $time = $xssClean->clean_input($_REQUEST['time']);
   $speciality = $xssClean->clean_input($_REQUEST['speciality']);
@@ -55,9 +58,9 @@ if ($user_role === 'Staff') {
 
   if ($_REQUEST['id'] > 0) {
     $d_id = $_REQUEST['id'];
-    $DatabaseCo->dbLink->query("UPDATE `temples` SET `title`='$title',`speciality_title`='$speciality_title',`sthalam`='$sthalam',`puranam`='$puranam',`varnam`='$varnam',`highlights`='$highlights',`sevas`='$sevas',`country`='$country',`state`='$state',`city`='$city',`address`='$address',`log_date`='$log_date',`god_id`='$god_id',`my_stery`='$my_stery',`speciality`='$speciality',`time`='$time',`status`='$status_1' WHERE `index_id`='$d_id'") or die(mysqli_error($DatabaseCo->dbLink));
+    $DatabaseCo->dbLink->query("UPDATE `temples` SET `title`='$title',`speciality_title`='$speciality_title',`sthalam`='$sthalam',`puranam`='$puranam',`varnam`='$varnam',`highlights`='$highlights',`sevas`='$sevas',`country`='$country',`state`='$state',`city`='$city',`address`='$address',`log_date`='$log_date',`god_id`='$god_id',`my_stery`='$my_stery',`table_type`='$table_type',`speciality`='$speciality',`time`='$time',`status`='$status_1' WHERE `index_id`='$d_id'") or die(mysqli_error($DatabaseCo->dbLink));
   } else {
-    $DatabaseCo->dbLink->query("INSERT INTO `temples`( `title`,`speciality_title`,`sthalam`, `puranam`,`varnam`,`highlights`,`sevas`,`country`,`state`,`city`,`address`,`log_date`,`god_id`,`my_stery`,`speciality`,`time`,`status`) VALUES ( '$title','$speciality_title','$sthalam', '$puranam','$varnam','$highlights','$sevas','$country','$state','$city','$address','$log_date','$god_id','$my_stery','$speciality','$time','$status_1')") or die(mysqli_error($DatabaseCo->dbLink));
+    $DatabaseCo->dbLink->query("INSERT INTO `temples`( `title`,`speciality_title`,`sthalam`, `puranam`,`varnam`,`highlights`,`sevas`,`country`,`state`,`city`,`address`,`log_date`,`god_id`,`my_stery`,`table_type`,`speciality`,`time`,`status`) VALUES ( '$title','$speciality_title','$sthalam', '$puranam','$varnam','$highlights','$sevas','$country','$state','$city','$address','$log_date','$god_id','$my_stery','$table_type','$speciality','$time','$status_1')") or die(mysqli_error($DatabaseCo->dbLink));
     $d_id = mysqli_insert_id($DatabaseCo->dbLink);
   }
 
@@ -531,6 +534,19 @@ if ($imageIndex !== null && $nameIndex !== null) {
                       <!-- end /. form group -->
                     </div>
                     <?php endif; ?>
+                    <div class="col-sm-4 mb-3">
+                      <label class="fw-medium">Temple Type</label>
+                      <select class="form-select" name="table_type" id="table_type">
+                        <option value="">-- Select Temple Type --</option>
+                        <?php
+                        $current_table_type = isset($Row->table_type) ? $Row->table_type : '';
+                        foreach (temple_table_type_options() as $tt) {
+                          $sel = ($current_table_type === $tt) ? ' selected' : '';
+                          echo '<option value="' . htmlspecialchars($tt, ENT_QUOTES, 'UTF-8') . '"' . $sel . '>' . htmlspecialchars($tt, ENT_QUOTES, 'UTF-8') . '</option>';
+                        }
+                        ?>
+                      </select>
+                    </div>
                     <div class="col-sm-4 mb-3 ">
                       <!-- <label>Mystery Temples</label> -->
                       <div class="form-check">

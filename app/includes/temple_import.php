@@ -7,9 +7,18 @@ require_once __DIR__ . '/abroad_import.php';
 
 function temple_import_lookup_state_code(mysqli $db, $stateName, $countryCode = 'IN')
 {
-    $stateName = trim((string) $stateName);
+    if (!function_exists('city_import_normalize_state_name')) {
+        require_once __DIR__ . '/city_import.php';
+    }
+
+    $stateName = city_import_normalize_state_name(trim((string) $stateName));
     if ($stateName === '') {
         return '';
+    }
+
+    $stateRow = city_import_lookup_state_by_name($db, $stateName);
+    if ($stateRow !== null) {
+        return (string) $stateRow['state_code'];
     }
 
     $escaped = abroad_import_escape($db, $stateName);
@@ -112,6 +121,44 @@ function temple_import_collect_images(array $row)
     return $images;
 }
 
+function temple_import_image_fields()
+{
+    return ['image1', 'image2', 'image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9', 'image10'];
+}
+
+function temple_import_image_map_from_images(array $images)
+{
+    $map = [];
+    $fields = temple_import_image_fields();
+    foreach ($fields as $idx => $field) {
+        $map[$field] = $images[$idx] ?? '';
+    }
+
+    return $map;
+}
+
+function temple_import_image_map_from_legacy_row_exact(array $row)
+{
+    $columnMap = [
+        'image1' => 10,
+        'image2' => 11,
+        'image3' => 12,
+        'image4' => 13,
+        'image5' => 14,
+        'image6' => 21,
+        'image7' => 22,
+        'image8' => 23,
+        'image9' => 24,
+        'image10' => 25,
+    ];
+    $map = [];
+    foreach ($columnMap as $field => $idx) {
+        $map[$field] = abroad_import_clean_value($row[$idx] ?? '');
+    }
+
+    return $map;
+}
+
 function temple_import_pick_banner_and_photo(array $images)
 {
     $banner = '';
@@ -192,6 +239,7 @@ function temple_import_row_from_legacy(mysqli $db, array $row, $logDate)
     $townId = temple_import_lookup_town_id($db, $placeName, $cityName);
 
     $images = temple_import_collect_images($row);
+    $imageMap = temple_import_image_map_from_legacy_row_exact($row);
     [$banner, $photos] = temple_import_pick_banner_and_photo($images);
     $gallery = implode(',', $images);
 
@@ -212,7 +260,7 @@ function temple_import_row_from_legacy(mysqli $db, array $row, $logDate)
         $effectiveLogDate = $rowLogDate;
     }
 
-    return [
+    return array_merge([
         'title' => $title,
         'temple_place' => $placeName,
         'sthalam' => $sthalam,
@@ -242,7 +290,7 @@ function temple_import_row_from_legacy(mysqli $db, array $row, $logDate)
         'status' => temple_import_normalize_status($row[19] ?? ''),
         'log_date' => $effectiveLogDate,
         'legacy_index_id' => $legacyId !== '' ? (int) $legacyId : 0,
-    ];
+    ], $imageMap);
 }
 
 function temple_import_row_from_sample(mysqli $db, array $row, $logDate)
@@ -283,6 +331,7 @@ function temple_import_row_from_sample(mysqli $db, array $row, $logDate)
         }
     }
 
+    $imageMap = temple_import_image_map_from_images($images);
     [$banner, $photos] = temple_import_pick_banner_and_photo($images);
     if ($banner === '' && $bannerImg !== '') {
         $banner = $bannerImg;
@@ -291,7 +340,7 @@ function temple_import_row_from_sample(mysqli $db, array $row, $logDate)
         $photos = $thumb;
     }
 
-    return [
+    return array_merge([
         'title' => $title,
         'temple_place' => abroad_import_clean_value($row[4] ?? ''),
         'sthalam' => abroad_import_clean_value($row[5] ?? ''),
@@ -320,7 +369,7 @@ function temple_import_row_from_sample(mysqli $db, array $row, $logDate)
         'status' => 'unapproved',
         'log_date' => $logDate,
         'legacy_index_id' => 0,
-    ];
+    ], $imageMap);
 }
 
 /**
@@ -410,17 +459,45 @@ function temple_import_find_existing_id(mysqli $db, array $data, $matchByTitle =
 
 function temple_import_row_fields()
 {
-    return [
+    return array_merge([
         'banner', 'my_stery', 'god_id', 'title', 'temple_place', 'log_date', 'sthalam', 'puranam',
         'photos', 'varnam', 'highlights', 'sevas', 'open_time', 'close_time', 'gallery_image',
         'video_url', 'video_thumbnail', 'country', 'state', 'city', 'town', 'address',
         'order_by', 'speciality', 'time', 'speciality_title', 'status',
-    ];
+    ], temple_import_image_fields());
+}
+
+function temple_import_existing_columns(mysqli $db)
+{
+    static $cache = null;
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    $cache = [];
+    $result = mysqli_query($db, 'SHOW COLUMNS FROM temples');
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $field = (string) ($row['Field'] ?? '');
+            if ($field !== '') {
+                $cache[$field] = true;
+            }
+        }
+    }
+
+    return $cache;
 }
 
 function temple_import_save(mysqli $db, array $data, $useLegacyIdOnInsert = false)
 {
     $fields = temple_import_row_fields();
+    $existingColumns = temple_import_existing_columns($db);
+    $fields = array_values(array_filter($fields, function ($field) use ($existingColumns) {
+        return isset($existingColumns[$field]);
+    }));
+    if (empty($fields)) {
+        return false;
+    }
     $legacyId = (int) ($data['legacy_index_id'] ?? 0);
 
     $existingId = temple_import_find_existing_id($db, $data, !$useLegacyIdOnInsert);

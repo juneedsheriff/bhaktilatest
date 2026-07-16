@@ -661,7 +661,7 @@ $liveStreams = temple_detail_live_streams($DatabaseCo->dbLink, $id);
 
 
 
-        <img <?php echo temple_detail_photo_attrs($Row->photos ?? ''); ?>>
+        <img <?php echo temple_detail_photo_attrs($Row); ?>>
 
 
 
@@ -814,7 +814,7 @@ $liveStreams = temple_detail_live_streams($DatabaseCo->dbLink, $id);
                     <?php if ($specialityTitle !== '' || $specialityText !== '' || $godName !== '') : ?>
                         <div class="card shadow mb-5 bg-body rounded text-dark p-4 mb-4 sth-text">
                             <?php if ($specialityTitle !== '') : ?>
-                                <h2 class="text-dark text-center"><?php echo htmlspecialchars($specialityTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
+                                
                             <?php endif; ?>
                             <?php if ($godName !== '') : ?>
                              <?php endif; ?>
@@ -2389,14 +2389,13 @@ function getTemplePrintContent($Row) {
 
     // Prepare gallery
     $galleryHTML = "";
-    if (!empty($Row->gallery_image)) {
-        $imgs = array_filter(explode(",", $Row->gallery_image));
-        $galleryHTML .= "<h2 class='sec-head font-caveat' style='border-bottom:3px solid #ff8776; width:fit-content;'>Gallery</h2>
-            <div>";
-        foreach ($imgs as $img) {
-            $path = "app/uploads/Temple_gallery/" . trim($img);
-            if (file_exists($path)) {
-                $galleryHTML .= "<img src='$path' style='width:300px; margin:10px; border-radius:8px; height:220px;'/>";
+    $printGalleryImages = temple_detail_gallery_images($Row);
+    if (!empty($printGalleryImages)) {
+        $galleryHTML .= "<h2 class='sec-head font-caveat' style='border-bottom:3px solid #ff8776; width:fit-content;'>Gallery</h2><div>";
+        foreach ($printGalleryImages as $img) {
+            $path = temple_detail_image_url($img);
+            if ($path !== '') {
+                $galleryHTML .= "<img src='" . htmlspecialchars($path, ENT_QUOTES, 'UTF-8') . "' style='width:300px; margin:10px; border-radius:8px; height:220px;'/>";
             }
         }
         $galleryHTML .= "</div>";
